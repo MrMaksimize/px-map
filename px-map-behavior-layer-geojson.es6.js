@@ -123,8 +123,10 @@
 
     createInst(options) {
       const styleAttributeProperties = this.getInstOptions().featureStyle;
+      console.log(options);
 
-      const geojsonLayer = L.geoJson(options.data, {
+      const geojsonlayer = {};
+      /*const geojsonLayer = L.geoJson(options.data, {
         pointToLayer: (feature, latlng) => {
           const featureProperties = feature.properties.style || {};
           const attributeProperties = options.featureStyle;
@@ -143,7 +145,7 @@
 
           return this._getStyle(featureProperties, styleAttributeProperties);
         }
-      });
+      });*/
 
       return geojsonLayer;
     },

@@ -238,7 +238,7 @@
    *
    * @class PxMap.InfoPopup
    */
-  class InfoPopup extends L.Popup {
+  class InfoPopup extends mapboxgl.Popup {
     constructor(settings={}) {
       super();
       this._createPopup(settings);
@@ -263,7 +263,7 @@
         }
       }
 
-      L.Popup.prototype.onAdd.call(this, map);
+      mapboxgl.Popup.prototype.onAdd.call(this, map);
 
       if (map.__addShadyScope) {
         // Restore monkey patched function
@@ -356,7 +356,7 @@
    *
    * @class PxMap.DataPopup
    */
-  class DataPopup extends L.Popup {
+  class DataPopup extends mapboxgl.Popup {
     constructor(settings={}) {
       super();
       this._createPopup(settings);
@@ -386,7 +386,7 @@
         }
       }
 
-      L.Popup.prototype.onAdd.call(this, map);
+      mapboxgl.Popup.prototype.onAdd.call(this, map);
 
       if (map.__addShadyScope) {
         // Restore monkey patched function

@@ -432,7 +432,7 @@
    *
    * @class PxMap.ScaleControl
    */
-  class ScaleControl extends L.Control.Scale {
+  class ScaleControl extends mapboxgl.ScaleControl {
     initialize(options) {
       super.initialize(options);
     }
@@ -535,9 +535,10 @@
    *
    * @class PxMap.ZoomControl
    */
-  class ZoomControl extends L.Control.Zoom {
+  //class ZoomControl extends L.Control.Zoom {
+  class ZoomControl {
     _zoomIn(e) {
-      super._zoomIn(e);
+      //super._zoomIn(e);
 
       if (this._map && this._map.fire) {
         this._map.fire('controlclick', {
@@ -548,7 +549,7 @@
     }
 
     _zoomOut(e) {
-      super._zoomOut(e);
+      //super._zoomOut(e);
 
       if (this._map && this._map.fire) {
         this._map.fire('controlclick', {
@@ -568,7 +569,7 @@
    *
    * @class PxMap.LocateControl
    */
-  class LocateControl extends L.Control {
+  class LocateControl extends mapboxgl.GeolocateControl {
     initialize(options={}) {
       const defaultOptions = {
         position: 'bottomright',

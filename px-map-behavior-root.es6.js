@@ -468,10 +468,16 @@
     },
 
     createInst(options) {
+      mapboxgl.accessToken = 'pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ';
       const mapEl = Polymer.dom(this.root).querySelector('#map');
-      const mapInst = L.map(mapEl, options);
+      //const mapInst = L.map(mapEl, options);
+      options.container = mapEl;
+      options.style = 'mapbox://styles/mapbox/light-v9';
+      console.log(options);
+      const mapInst = new mapboxgl.Map(options);
+      console.log(mapInst)
 
-      mapInst.attributionControl.setPrefix(options.attributionPrefix);
+      //mapInst.attributionControl.setPrefix(options.attributionPrefix);
 
       if (this.isShadyScoped()) {
         mapInst.__addShadyScope = this.scopeSubtree.bind(this);
@@ -511,19 +517,20 @@
       const options = {};
 
       // Static options
-      options.zoomControl = false;
+      //options.zoomControl = false;
 
       // Dynamic options
-      options.crs = this.crs || L.CRS.EPSG3857;
-      options.center = [this.lat, this.lng];
+      //options.crs = this.crs || L.CRS.EPSG3857;
+      options.center = [this.lng, this.lat];
+      options.style = this.style || 'mapbox://styles/mapbox/light-v9';
       options.zoom = this.zoom;
       options.minZoom = this.minZoom || 0;
       options.maxZoom = this.maxZoom || 18;
-      options.maxBounds = this.maxBounds || undefined;
+      //options.maxBounds = this.maxBounds || undefined;
 
-      options.dragging = !this.disableDragging;
-      options.scrollWheelZoom = !this.disableScrollZoom;
-      options.touchZoom = !this.disableTouchZoom;
+      options.dragPan = !this.disableDragging;
+      options.scrollZoom = !this.disableScrollZoom;
+      options.touchZoomRotate = !this.disableTouchZoom;
       options.attributionControl = !this.disableAttribution;
       options.attributionPrefix = this.attributionPrefix;
 
