@@ -272,6 +272,29 @@
       },
 
       /**
+       * Style
+       *
+       * @type {String}
+       */
+      style: {
+        type: String,
+        value: 'mapbox://styles/mapbox/streets-v9',
+        notify: true
+        // observer
+      },
+
+      /**
+       * Mapbox Gl Token
+       *
+       * @type {String}
+       */
+      mglToken: {
+        type: String,
+        value: ''
+      },
+
+
+      /**
        * The latitude of the active map center. Can be used to set or update
        * the center of the map, or read from after the user moves the map to
        * get updated coordinates.
@@ -469,10 +492,8 @@
 
     createInst(options) {
       mapboxgl.accessToken = 'pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ';
-      const mapEl = Polymer.dom(this.root).querySelector('#map');
-      //const mapInst = L.map(mapEl, options);
-      options.container = mapEl;
-      options.style = 'mapbox://styles/mapbox/light-v9';
+      // Set the container to an element.
+      options.container = Polymer.dom(this.root).querySelector(options.container);
       console.log(options);
       const mapInst = new mapboxgl.Map(options);
       console.log(mapInst)
@@ -518,11 +539,12 @@
 
       // Static options
       //options.zoomControl = false;
+      options.container = '#map';
 
       // Dynamic options
       //options.crs = this.crs || L.CRS.EPSG3857;
       options.center = [this.lng, this.lat];
-      options.style = this.style || 'mapbox://styles/mapbox/light-v9';
+      options.style = this.style;
       options.zoom = this.zoom;
       options.minZoom = this.minZoom || 0;
       options.maxZoom = this.maxZoom || 18;
@@ -532,7 +554,7 @@
       options.scrollZoom = !this.disableScrollZoom;
       options.touchZoomRotate = !this.disableTouchZoom;
       options.attributionControl = !this.disableAttribution;
-      options.attributionPrefix = this.attributionPrefix;
+      //options.attributionPrefix = this.attributionPrefix;
 
       return options;
     },
