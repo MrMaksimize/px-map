@@ -649,7 +649,6 @@
     },
 
     _handleMapLoaded() {
-      console.log('map is ready');
       if (this.canAddInst()) {
         this.fire('px-map-element-loaded');
       }

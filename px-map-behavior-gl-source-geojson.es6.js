@@ -85,7 +85,6 @@
     },
 
     createInst(options) {
-      //const styleAttributeProperties = this.getInstOptions().featureStyle;
       console.log(options);
 
       const geoJsonSourceInst = {
