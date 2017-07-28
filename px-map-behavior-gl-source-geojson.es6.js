@@ -80,7 +80,8 @@
       //const styleAttributeProperties = this.getInstOptions().featureStyle;
       console.log(options);
 
-      const geojsonlayer = {};
+      const geojsonLayer = options.data;
+
       /*const geojsonLayer = L.geoJson(options.data, {
         pointToLayer: (feature, latlng) => {
           const featureProperties = feature.properties.style || {};
@@ -285,9 +286,9 @@
      * @event px-map-layer-geojson-feature-popup-closed
      */
   };
-  /* Bind GeoJSONLayer behavior */
+  /* Bind GeoJSONSource behavior */
   /** @polymerBehavior */
-  PxMapBehavior.GlGeoJSONLayer = [
+  PxMapBehavior.GlGeoJSONSource = [
     PxMapBehavior.GlSource,
     PxMapBehavior.GlGeoJSONSourceImpl
   ];
