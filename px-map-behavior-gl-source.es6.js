@@ -19,6 +19,7 @@
 
     attached() {
       this.notifyInstReady(this.canAddInst());
+      this.listen(this, 'px-map-element-loaded', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -32,9 +33,11 @@
     // instance to its parent
 
     shouldAddInst(parent) {
+      console.log(parent);
       PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent) {
+        console.log('shouldaddinst true');
         this.addInst(parent);
       };
     },
@@ -51,7 +54,11 @@
 
     addInst(parent) {
       console.log(this.elementInst);
-      parent.addSource(this.elementInst);
+      console.log(parent);
+      // TODO - these attributes should be on source.
+      const sourceInfo = { 'data': this.elementInst.data, 'type': this.elementInst.type}
+      // TODO - timing issue here with style loading.
+      parent.addSource(this.elementInst.id, sourceInfo);
     },
 
     removeInst(parent) {

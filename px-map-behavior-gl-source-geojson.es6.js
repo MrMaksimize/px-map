@@ -33,6 +33,10 @@
       data: {
         type: Object,
         observer: 'shouldUpdateInst'
+      },
+      id: {
+        type: String,
+        observer: 'shouldUpdateInst'
       }
     },
 
@@ -56,6 +60,8 @@
 
     // extends the layer `addInst` method to harvest and fire events
     addInst(parent) {
+      console.log('gl-gj-addInst');
+      PxMapBehavior.GlSourceImpl.addInst.call(this, parent);
       // Bind custom events. Events will be unbound automatically.
       /*const addedFn = this._handleFeatureAdded.bind(this);
       const removedFn = this._handleFeatureRemoved.bind(this);
@@ -80,77 +86,12 @@
       //const styleAttributeProperties = this.getInstOptions().featureStyle;
       console.log(options);
 
-      const geojsonLayer = options.data;
-
-      /*const geojsonLayer = L.geoJson(options.data, {
-        pointToLayer: (feature, latlng) => {
-          const featureProperties = feature.properties.style || {};
-          const attributeProperties = options.featureStyle;
-          const style = this._getStyle(feature, featureProperties, attributeProperties);
-
-          return new L.CircleMarker(latlng, style);
-        },
-
-        onEachFeature: (feature, layer) => {
-          if (!this.showFeatureProperties) return;
-          this._bindPopup(feature, layer);
-        },
-
-        style: (feature) => {
-          const featureProperties = feature.properties.style || {};
-
-          return this._getStyle(featureProperties, styleAttributeProperties);
-        }
-      });*/
-
-      return geojsonLayer;
-    },
-
-    _getStyle(featureProperties, attributeProperties) {
-      return {
-        radius: featureProperties.radius           || attributeProperties.radius      || 5,
-        color: featureProperties.color             || attributeProperties.color       || '#3E87E8', //primary-blue,
-        fillColor: featureProperties.fillColor     || attributeProperties.fillColor   || '#88BDE6', //$dv-light-blue
-        weight: featureProperties.weight           || attributeProperties.weight      || 2,
-        opacity: featureProperties.opacity         || attributeProperties.opacity     || 1,
-        fillOpacity: featureProperties.fillOpacity || attributeProperties.fillOpacity || 0.4
+      const geoJsonSource = {
+        data: options.data,
+        id: options.id,
+        type: options.type
       };
-    },
-
-    _bindFeaturePopups() {
-      if (!this.elementInst) return;
-      this.elementInst.eachLayer((layer) => this._bindPopup(layer.feature, layer));
-    },
-
-    _bindPopup(feature, layer) {
-      // Filter keys to remove info that should not be displayed in a popup.
-      // If no keys remain, do not bind a popup.
-      const popupDataKeys = Object.keys(feature.properties).filter(key => feature.properties.hasOwnProperty(key) && feature.properties[key] !== 'unset' && key !== 'style');
-      if (!popupDataKeys.length) return;
-
-      const popupData = popupDataKeys.reduce((accum, key) => {
-        accum[key] = feature.properties[key];
-        return accum;
-      }, {});
-
-      const popup = new PxMap.DataPopup({
-        title: 'Feature Properties',
-        data: popupData,
-        autoPanPadding: [1,1]
-      });
-
-      layer.bindPopup(popup);
-    },
-
-    _unbindFeaturePopups() {
-      if (!this.elementInst) return;
-      this.elementInst.eachLayer((layer) => this._unbindPopup(layer));
-    },
-
-    _unbindPopup(layer) {
-      if (typeof layer.getPopup() !== 'undefined') {
-        layer.unbindPopup();
-      }
+      return geoJsonSource;
     },
 
     /*
@@ -159,6 +100,7 @@
      * able to do a deep equality check).
      */
     updateInst(lastOptions, nextOptions) {
+      console.log('gl-gj-source-update-instance');
       if (!Object.keys(nextOptions.data).length) {
         this.elementInst.clearLayers();
       }
@@ -185,10 +127,9 @@
     getInstOptions() {
       return {
         data: this.data || {},
+        id: this.id || '',
         dataHash: JSON.stringify(this.data || {}),
-        featureStyle: this.featureStyle || {},
-        featureStyleHash: JSON.stringify(this.featureStyle || {}),
-        showFeatureProperties: this.showFeatureProperties
+        type: 'geojson'
       };
     },
 
