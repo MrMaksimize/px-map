@@ -520,10 +520,12 @@
       const mapMoveFn = this._handleMapMove.bind(this);
       const zoomStartFn = this._handleZoomStart.bind(this);
       const zoomEndFn = this._handleZoomEnd.bind(this);
+      const mapLoadedFn = this._handleMapLoaded.bind(this);
       this.bindEvents({
         'moveend' : mapMoveFn,
         'zoomstart' : zoomStartFn,
-        'zoomend' : zoomEndFn
+        'zoomend' : zoomEndFn,
+        'load': mapLoadedFn
       });
     },
 
@@ -644,6 +646,13 @@
       console.log(`PX-MAP CONFIGURATION ERROR:
         You entered an invalid \`lat\` or \`lng\` attribute for ${this.is}. You must pass a valid number.`);
       return false;
+    },
+
+    _handleMapLoaded() {
+      console.log('map is ready');
+      if (this.canAddInst()) {
+        this.fire('px-map-element-loaded');
+      }
     },
 
     /**
