@@ -15,7 +15,8 @@
 <!-- Imports for this component -->
 <link rel="import" href="../px-map.html" />
 <link rel="import" href="../px-map-tile-layer.html" />
-<link rel="import" href="../px-map-layer-geojson.html" />
+<!--<link rel="import" href="../px-map-layer-geojson.html" />-->
+<link rel="import" href="../px-map-gl-source-geojson.html" />
 
 <!-- Demo DOM module -->
 <dom-module id="px-map-layer-geojson-demo">
@@ -50,11 +51,9 @@
                 mgl-token="pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ";
                 lng="-117.1611">
                 <!--<px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>-->
-          <!--<px-map-layer-geojson
-              data="{{props.data.value}}"
-              feature-style="{{props.featureStyle.value}}"
-              show-feature-properties="{{props.showFeatureProperties.value}}">
-          </px-map-layer-geojson>-->
+            <px-map-gl-source-geojson
+              data="{{props.data.value}}">
+          </px-map-layer-geojson>
         </px-map>
       </div>
     </px-demo-component>

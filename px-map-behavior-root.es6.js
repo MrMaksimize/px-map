@@ -491,7 +491,6 @@
     },
 
     createInst(options) {
-      //mapboxgl.accessToken = 'pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ';
       mapboxgl.accessToken = this.mglToken;
       // Set the container to an element.
       options.container = Polymer.dom(this.root).querySelector(options.container);
