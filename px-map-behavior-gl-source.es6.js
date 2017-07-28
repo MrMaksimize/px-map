@@ -33,7 +33,7 @@
     // instance to its parent
 
     shouldAddInst(parent) {
-      console.log(parent);
+      console.log('shouldAddInst on source');
       PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent) {
@@ -53,10 +53,11 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      console.log(this.elementInst);
-      console.log(parent);
-      // TODO - these attributes should be on source.
-      const sourceInfo = { 'data': this.elementInst.data, 'type': this.elementInst.type}
+      console.log('addInst on source');
+      const sourceInfo = {'type': this.elementInst.type}
+      if (this.elementInst.data)
+        sourceInfo.data = this.elementInst.data;
+
       // TODO - timing issue here with style loading.
       parent.addSource(this.elementInst.id, sourceInfo);
     },

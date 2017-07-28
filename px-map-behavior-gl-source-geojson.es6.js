@@ -62,6 +62,8 @@
     addInst(parent) {
       console.log('gl-gj-addInst');
       PxMapBehavior.GlSourceImpl.addInst.call(this, parent);
+
+
       // Bind custom events. Events will be unbound automatically.
       /*const addedFn = this._handleFeatureAdded.bind(this);
       const removedFn = this._handleFeatureRemoved.bind(this);
@@ -86,12 +88,12 @@
       //const styleAttributeProperties = this.getInstOptions().featureStyle;
       console.log(options);
 
-      const geoJsonSource = {
+      const geoJsonSourceInst = {
         data: options.data,
         id: options.id,
         type: options.type
       };
-      return geoJsonSource;
+      return geoJsonSourceInst;
     },
 
     /*
