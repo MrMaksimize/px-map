@@ -145,7 +145,7 @@
 
       // TODO
       // since map is evented, TBD if this is needed
-      this.async(() => { childEl.shouldAddInst(this.elementInst); });
+      //this.async(() => { childEl.shouldAddInst(this.elementInst); });
     },
 
     // Handles detaching children throughout this element's lifecycle

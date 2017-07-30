@@ -13,15 +13,14 @@
    *
    * @polymerBehavior PxMapBehavior.Layer
    */
-  PxMapBehavior.GlSourceImpl = {
+  PxMapBehavior.GlLayerImpl = {
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
     attached() {
       this.notifyInstReady(this.canAddInst());
-      //this.listen(this, 'px-map-element-loaded', 'shouldAddInst');
-      // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-element-loaded', 'shouldAddInst');
+      // TODO -- this might need rethinking to be source specific.
+      this.listen(this, 'px-map-element-loaded', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -34,13 +33,11 @@
     // Extends the `Element` behavior lifecycle methods to include adding the
     // instance to its parent
 
-    shouldAddInst(evt) {
-      const parent = evt.detail;
-      console.log('shouldAddInst on source');
-      console.log(parent);
+    shouldAddInst(parent) {
+      console.log('shouldAddInst on layer');
       PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent) {
+      if (this.elementInst && parent.loaded()) {
         console.log('shouldaddinst true');
         this.addInst(parent);
       };
@@ -57,14 +54,8 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      console.log('addInst on source');
-      console.log(parent);
-      const sourceInfo = {'type': this.elementInst.type}
-      if (this.elementInst.data)
-        sourceInfo.data = this.elementInst.data;
-
-      // TODO - timing issue here with style loading.
-      parent.elementInst.addSource(this.elementInst.id, sourceInfo);
+      console.log('addInst on layer');
+      //parent.addSource(this.elementInst.id, sourceInfo);
     },
 
     removeInst(parent) {
@@ -94,9 +85,9 @@
   };
   /* Bind Layer behavior */
   /** @polymerBehavior */
-  PxMapBehavior.GlSource = [
+  PxMapBehavior.GlLayer = [
     PxMapBehavior.Element,
-    PxMapBehavior.GlSourceImpl
+    PxMapBehavior.GlLayerImpl
   ];
 
   // if bring parentlayerimpl stuff back, pull from layer.

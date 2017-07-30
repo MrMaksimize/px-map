@@ -56,7 +56,10 @@
               id="gjsource"
               data="{{props.data.value}}">
             </px-map-gl-source-geojson>
-          </px-map-layer-geojson>
+            <px-map-gl-layer-symbol
+              id="gj-symbol-layer-one"
+              source="gjsource">
+            </px-map-gl-layer-symbol>
         </px-map>
       </div>
     </px-demo-component>
@@ -169,7 +172,7 @@
         },
 
         parentComponent: {
-          value: ['<div style="height:400px;width:600px;display:flex"><px-map flex-to-size disable-touch-zoom><px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer> ', '</px-map></div>']
+          value: ['<div style="height:400px;width:600px;display:flex"><px-map flex-to-size disable-touch-zoom>', '</px-map></div>']
         }
       }
     });

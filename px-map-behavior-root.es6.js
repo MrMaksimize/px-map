@@ -648,7 +648,14 @@
 
     _handleMapLoaded() {
       if (this.canAddInst()) {
-        this.fire('px-map-element-loaded');
+        console.log('px-map-element-loaded fire');
+        this.fire('px-map-element-loaded', this);
+        // http://sdgo.io/2vczACj
+        // Opt 1 - notify children here
+        /*const children = this.getEffectiveChildren();
+        for (let child of children) {
+            child.fire('px-map-element-loaded', this);
+        }*/
       }
     },
 
@@ -767,7 +774,7 @@
   /** @polymerBehavior */
   PxMapBehavior.LeafletRoot = [
     PxMapBehavior.Element,
-    PxMapBehavior.ParentLayer,
+    //PxMapBehavior.ParentLayer,
     PxMapBehavior.LeafletRootImpl,
     PxMapBehavior.TrackMarkersImpl
   ];
