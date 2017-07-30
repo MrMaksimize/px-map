@@ -101,6 +101,7 @@
      * able to do a deep equality check).
      */
     updateInst(lastOptions, nextOptions) {
+      // TODO - this needs rework, but leaving it till I have active layers.
       console.log('gl-gj-source-update-instance');
       if (!Object.keys(nextOptions.data).length) {
         this.elementInst.clearLayers();

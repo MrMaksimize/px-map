@@ -14,9 +14,10 @@
 
 <!-- Imports for this component -->
 <link rel="import" href="../px-map.html" />
-<link rel="import" href="../px-map-tile-layer.html" />
+<!--<link rel="import" href="../px-map-tile-layer.html" />-->
 <!--<link rel="import" href="../px-map-layer-geojson.html" />-->
 <link rel="import" href="../px-map-gl-source-geojson.html" />
+<link rel="import" href="../px-map-gl-layer-symbol.html" />
 
 <!-- Demo DOM module -->
 <dom-module id="px-map-layer-geojson-demo">
@@ -54,6 +55,7 @@
             <px-map-gl-source-geojson
               id="gjsource"
               data="{{props.data.value}}">
+            </px-map-gl-source-geojson>
           </px-map-layer-geojson>
         </px-map>
       </div>
