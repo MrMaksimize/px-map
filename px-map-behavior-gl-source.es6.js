@@ -36,7 +36,7 @@
       console.log('shouldAddInst on source');
       PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent) {
+      if (this.elementInst && parent.loaded()) {
         console.log('shouldaddinst true');
         this.addInst(parent);
       };

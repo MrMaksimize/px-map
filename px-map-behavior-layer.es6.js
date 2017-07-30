@@ -143,6 +143,8 @@
       if (this._attachedChildren.has(childEl) || !childEl.shouldAddInst || !childEl.canAddInst || !childEl.canAddInst()) return;
       this._attachedChildren.set(childEl, true);
 
+      // TODO
+      // since map is evented, TBD if this is needed
       this.async(() => { childEl.shouldAddInst(this.elementInst); });
     },
 

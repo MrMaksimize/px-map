@@ -494,9 +494,7 @@
       mapboxgl.accessToken = this.mglToken;
       // Set the container to an element.
       options.container = Polymer.dom(this.root).querySelector(options.container);
-      console.log(options);
       const mapInst = new mapboxgl.Map(options);
-      console.log(mapInst)
 
       //mapInst.attributionControl.setPrefix(options.attributionPrefix);
 
