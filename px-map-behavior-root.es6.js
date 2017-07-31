@@ -278,7 +278,7 @@
        */
       style: {
         type: String,
-        value: 'mapbox://styles/mapbox/streets-v9',
+        value: 'mapbox://styles/mapbox/dark-v9',
         notify: true
         // observer
       },

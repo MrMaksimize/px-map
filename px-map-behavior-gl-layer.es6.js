@@ -17,10 +17,37 @@
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
+    // Properties defined here are shared across all layer types
+    properties: {
+      id: {
+        type: String
+      },
+      source: {
+        type: String
+      },
+      hidden: {
+        type: Boolean,
+        value: false
+      },
+      minZoom: {
+        type: Number,
+        value: 0,
+        observer: 'shouldUpdateInst'
+      },
+      maxZoom: {
+        type: Number,
+        value: 22,
+        observer: 'shouldUpdateInst'
+      },
+      filter: {
+        type: Array,
+        observer: 'shouldUpdateInst'
+      }
+    },
     attached() {
       this.notifyInstReady(this.canAddInst());
-      // TODO -- this might need rethinking to be source specific.
-      this.listen(this, 'px-map-element-loaded', 'shouldAddInst');
+      // http://sdgo.io/2vczACj
+      this.listen(this.parentNode, 'px-map-element-loaded', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -33,12 +60,13 @@
     // Extends the `Element` behavior lifecycle methods to include adding the
     // instance to its parent
 
-    shouldAddInst(parent) {
+    shouldAddInst(evt) {
+      const parent = evt.detail;
       console.log('shouldAddInst on layer');
       PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent.loaded()) {
-        console.log('shouldaddinst true');
+      if (this.elementInst && parent) {
+        console.log('shouldaddinst layer true');
         this.addInst(parent);
       };
     },
@@ -55,7 +83,8 @@
 
     addInst(parent) {
       console.log('addInst on layer');
-      //parent.addSource(this.elementInst.id, sourceInfo);
+      console.log(this.elementInst);
+      parent.elementInst.addLayer(this.elementInst);
     },
 
     removeInst(parent) {
@@ -90,5 +119,4 @@
     PxMapBehavior.GlLayerImpl
   ];
 
-  // if bring parentlayerimpl stuff back, pull from layer.
 })();

@@ -30,35 +30,11 @@
        *
        * @type {Object}
        */
-      id: {
-        type: String,
-        observer: 'shouldUpdateInst'
-      },
-      source: {
-        type: String
-      },
-      hidden: {
-        type: Boolean,
-        observer: 'shouldUpdateInst'
-      },
-      minZoom: {
-        type: Number,
-        value: 0,
-        observer: 'shouldUpdateInst'
-      },
-      maxZoom: {
-        type: Number,
-        value: 22,
-        observer: 'shouldUpdateInst'
-      },
-      filter: {
-        type: Array,
-        observer: 'shouldUpdateInst'
-      },
-      // Layout Properties.
+      // Properties defined here are only for this layer type.
+      // Layout
       iconImage: {
         type: String,
-        value: 'music-15',
+        value: 'rocket-15',
         observer: 'shouldUpdateInst'
       },
       iconAllowOverlap: {
@@ -87,9 +63,9 @@
     },
 
     // extends the layer `addInst` method to harvest and fire events
-    addInst(parent) {
-      console.log('gl-gj-addInst');
-      PxMapBehavior.GlSourceImpl.addInst.call(this, parent);
+    //addInst(parent) {
+    //  console.log('gl-gj-addInst');
+    //  PxMapBehavior.GlSourceImpl.addInst.call(this, parent);
 
 
       // Bind custom events. Events will be unbound automatically.
@@ -110,17 +86,31 @@
 
       // Now call layer's add
       //PxMapBehavior.LayerImpl.addInst.call(this, parent);
-    },
+    //},
 
     createInst(options) {
       console.log(options);
 
-      const geoJsonSourceInst = {
-        data: options.data,
+      /*const symbolLayerInst = {
         id: options.id,
-        type: options.type
-      };
-      return geoJsonSourceInst;
+        source: options.source,
+        maxzoom: 22,
+        minzoom: 0,
+        type: 'circle',
+        layout: {
+            visibility: 'visible'
+        },
+        paint: {
+            "circle-radius": 6,
+            "circle-color": "#B42222"
+        },
+        //layout: {
+        //    "icon-image": options.iconImage,
+        //}
+      };*/
+      //window.symbolLayerInst = symbolLayerInst;
+      const symbolLayerInst = options;
+      return symbolLayerInst;
     },
 
     /*
@@ -155,12 +145,32 @@
     },
 
     getInstOptions() {
-      return {
-        data: this.data || {},
+      /*return {
         id: this.id || '',
-        dataHash: JSON.stringify(this.data || {}),
-        type: 'geojson'
+        source: this.source,
+        hidden: this.hidden || false,
+        minZoom: this.minZoom || 0,
+        maxZoom: this.maxZoom || 0,
+        filter: this.filter,
+        iconImage: this.iconImage,
+        iconAllowOverlap: this.iconAllowOverlap
+      };*/
+
+      var options = {
+        id: this.id,
+        type: 'symbol',
+        source: this.source,
+        minzoom: this.minZoom,
+        maxzoom: this.maxZoom
       };
+      options.layout = {
+        "visibility": this.hidden === true ? 'none' : 'visible',
+        "icon-image": this.iconImage,
+        "icon-allow-overlap": this.iconAllowOverlap
+      };
+
+      return options;
+
     },
 
     _handleFeatureAdded(evt) {

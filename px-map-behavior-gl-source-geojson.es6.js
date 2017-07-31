@@ -36,7 +36,6 @@
       },
       id: {
         type: String,
-        observer: 'shouldUpdateInst'
       }
     },
 
