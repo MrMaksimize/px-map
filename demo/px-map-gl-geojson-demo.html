@@ -1,5 +1,6 @@
 <!-- Common imports -->
 <link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../iron-ajax/iron-ajax.html" />
 
 <!-- Common demo imports -->
 <link rel="import" href="../../px-demo/px-demo-header.html" />
@@ -13,17 +14,19 @@
 
 <!-- Imports for this component -->
 <link rel="import" href="../px-map.html" />
-<!--<link rel="import" href="../px-map-tile-layer.html" />-->
+<link rel="import" href="../px-map-gl-source-geojson.html" />
+<link rel="import" href="../px-map-gl-layer-symbol.html" />
 
 <!-- Demo DOM module -->
-<dom-module id="px-map-demo">
+<dom-module id="px-map-gl-geojson-demo">
   <template>
   <style include="px-demo-styles" is="custom-style"></style>
 
   <!-- Header -->
   <px-demo-header
-      module-name="px-map"
-      description="The px-map component is a framework for creating maps in your application.">
+      module-name="px-map-gl-geojson"
+      parent-name="px-map"
+      description="The px-map-gl-geojson subcomponent draws GeoJSON data as vectors on the map.">
   </px-demo-header>
 
   <!-- Interactive -->
@@ -34,19 +37,28 @@
     <!-- Props -->
     <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
 
+    <!-- Load GeoJSON from file -->
+    <iron-ajax url="px-map-gl-geojson-data.json" last-response="{{props.data.value}}" auto></iron-ajax>
+
     <!-- Component ---------------------------------------------------------->
     <px-demo-component>
-      <div style="height:400px;width:600px;display:flex">
-        <px-map
-          zoom="{{props.zoom.value}}"
-          lat="{{props.lat.value}}"
-          lng="{{props.lng.value}}"
-          flex-to-size="{{props.flexToSize.value}}"
-          disable-scroll-zoom="{{props.disableScrollZoom.value}}"
-          disable-touch-zoom="{{props.disableScrollZoom.value}}"
-          disable-dragging="{{props.disableDragging.value}}"
-          attribution-prefix='<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'>
-          <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
+      <div style="height:600px;width:800px;display:flex">
+        <px-map zoom="12"
+                flex-to-size
+                disable-touch-zoom
+                lat="32.7157"
+                mgl-token="pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ";
+                lng="-117.1611">
+                <!--<px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>-->
+            <px-map-gl-source-geojson
+              id="gjsource"
+              data="{{props.data.value}}">
+            </px-map-gl-source-geojson>
+            <px-map-gl-layer-symbol
+              id="gj-symbol-layer-one"
+              icon-image="music-15"
+              source="gjsource">
+            </px-map-gl-layer-symbol>
         </px-map>
       </div>
     </px-demo-component>
@@ -54,14 +66,14 @@
 
     <px-demo-component-snippet
         element-properties="{{props}}"
-        element-name="px-map"
-        links-includes='["px-map/px-map-tile-layer.html"]'>
+        element-name="px-map-gl-geojson"
+        links-includes='["px-map/px-map.html","px-map/px-map-tile-layer.html","px-map/px-map-gl-geojson.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
   <!-- API Viewer -->
   <px-demo-api-viewer
-    source="px-map"
+    source="px-map-gl-geojson"
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
 
@@ -72,7 +84,7 @@
 
   <script>
     Polymer({
-      is: 'px-map-demo',
+      is: 'px-map-gl-geojson-demo',
 
       properties: {
 
@@ -101,8 +113,8 @@
           type: Array,
           value: function(){
             return [
-              { configName: "Default",
-                configReset: true },
+              { configName: "Basic",
+                configReset: true }
               ]
           }
         },
@@ -112,7 +124,6 @@
           value: function() {
             return [
               "notifyInstReady",
-              "notifyInstReady",
               "canAddInst",
               "shouldAddInst",
               "addInst",
@@ -121,6 +132,7 @@
               "shouldUpdateInst",
               "updateInst",
               "createInst",
+              "getStyle",
               "getInstOptions",
               "bindEvents",
               "unbindAllEvents",
@@ -140,61 +152,27 @@
        * @type {Object}
        */
       demoProps: {
-        zoom: {
-          type: Number,
-          defaultValue: 8,
-          inputType: 'text'
+        data: {
+          type: Object,
+          defaultValue: {},
+          inputType: 'code:JSON'
         },
 
-        lat: {
-          inputLabel: 'Latitude',
-          type: Number,
-          defaultValue: 37.7749,
-          inputType: 'text'
+        featureStyle:{
+          type: String,
+          defaultValue: {"color": "#3E87E8"},
+          inputType: 'code:JSON'
         },
 
-        lng: {
-          inputLabel: 'Longitude',
-          type: Number,
-          defaultValue: -122.4312,
-          inputType: 'text'
-        },
-
-        flexToSize: {
+        showFeatureProperties: {
           type: Boolean,
-          defaultValue: true,
-          inputType: 'toggle',
-          inputDisabled: true
-        },
-
-        disableScrollZoom: {
-          type: Boolean,
-          defaultValue: true,
-          inputType: 'toggle'
-        },
-
-        disableTouchZoom: {
-          type: Boolean,
-          defaultValue: true,
-          inputType: 'toggle'
-        },
-
-        disableDragging: {
-          type: Boolean,
-          defaultValue: false,
+          value: true,
           inputType: 'toggle'
         },
 
         parentComponent: {
-          type: Array,
-          defaultValue: ['<div style="height:400px;width:600px;display:flex">','</div>']
-        },
-
-        lightDomContent: {
-          type: String,
-          defaultValue: '<px-map-tile-layer url=\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\">'
+          value: ['<div style="height:400px;width:600px;display:flex"><px-map flex-to-size disable-touch-zoom>', '</px-map></div>']
         }
-
       }
     });
   </script>
