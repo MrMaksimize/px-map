@@ -69,6 +69,7 @@
     // to the instance
 
     shouldUpdateInst() {
+      //console.log(this);
       if (!this.elementInst && this.__elAttached && this.canAddInst()) {
         this.notifyInstReady(this.canAddInst());
       }

@@ -43,7 +43,7 @@
     <!-- Component ---------------------------------------------------------->
     <px-demo-component>
       <div style="height:600px;width:800px;display:flex">
-        <px-map zoom="12"
+          <px-map zoom="{{ props.zoom.value}}"
                 flex-to-size
                 disable-touch-zoom
                 lat="32.7157"
@@ -152,6 +152,7 @@
         }
       },
 
+
       /**
        * A reference for `this.props`. Read the documentation there.
        *
@@ -164,16 +165,49 @@
           defaultValue: {},
           inputType: 'code:JSON'
         },
-
-        featureStyle:{
-          type: String,
-          defaultValue: {"color": "#3E87E8"},
-          inputType: 'code:JSON'
+        lat: {
+          inputLabel: 'Latitude',
+          type: Number,
+          defaultValue: '32.7157',
+          inputType: 'text'
         },
 
-        showFeatureProperties: {
+        lng: {
+          inputLabel: 'Longitude',
+          type: Number,
+          defaultValue: '-117.1611',
+          inputType: 'text'
+        },
+
+        zoom: {
+          type: Number,
+          defaultValue: 8,
+          inputType: 'text'
+        },
+
+
+        flexToSize: {
           type: Boolean,
-          value: true,
+          defaultValue: true,
+          inputType: 'toggle',
+          inputDisabled: true
+        },
+
+        disableScrollZoom: {
+          type: Boolean,
+          defaultValue: true,
+          inputType: 'toggle'
+        },
+
+        disableTouchZoom: {
+          type: Boolean,
+          defaultValue: true,
+          inputType: 'toggle'
+        },
+
+        disableDragging: {
+          type: Boolean,
+          defaultValue: false,
           inputType: 'toggle'
         },
 
