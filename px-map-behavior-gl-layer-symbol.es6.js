@@ -34,12 +34,17 @@
       // Layout
       iconImage: {
         type: String,
-        value: 'rocket-15',
+        value: 'music-15',
         observer: 'shouldUpdateInst'
       },
       iconAllowOverlap: {
         type: Boolean,
         value: false,
+        observer: 'shouldUpdateInst'
+      },
+      iconSize: {
+        type: Number,
+        value: 1,
         observer: 'shouldUpdateInst'
       }
     },
@@ -89,26 +94,6 @@
     //},
 
     createInst(options) {
-      console.log(options);
-
-      /*const symbolLayerInst = {
-        id: options.id,
-        source: options.source,
-        maxzoom: 22,
-        minzoom: 0,
-        type: 'circle',
-        layout: {
-            visibility: 'visible'
-        },
-        paint: {
-            "circle-radius": 6,
-            "circle-color": "#B42222"
-        },
-        //layout: {
-        //    "icon-image": options.iconImage,
-        //}
-      };*/
-      //window.symbolLayerInst = symbolLayerInst;
       const symbolLayerInst = options;
       return symbolLayerInst;
     },
@@ -166,7 +151,8 @@
       options.layout = {
         "visibility": this.hidden === true ? 'none' : 'visible',
         "icon-image": this.iconImage,
-        "icon-allow-overlap": this.iconAllowOverlap
+        "icon-allow-overlap": this.iconAllowOverlap,
+        "icon-size": this.iconSize
       };
 
       return options;

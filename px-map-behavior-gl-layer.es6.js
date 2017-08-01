@@ -42,6 +42,15 @@
       filter: {
         type: Array,
         observer: 'shouldUpdateInst'
+      },
+      activeFeature: {
+        type: Object,
+        notify: true,
+        readOnly: true,
+        reflectToAttribute: true,
+        value: function() {
+            return {}
+        }
       }
     },
     attached() {
@@ -85,12 +94,53 @@
       console.log('addInst on layer');
       console.log(this.elementInst);
       parent.elementInst.addLayer(this.elementInst);
+
+      // Bind Events.
+      parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
+      parent.elementInst.on('mouseenter', this.id, this._broadcastActiveFeature.bind(this));
+      parent.elementInst.on('mouseenter', this.id, this._switchPointer.bind(this));
+
+      parent.elementInst.on('mouseleave', this.id, this._broadcastEvent.bind(this));
+      parent.elementInst.on('mouseleave', this.id, this._broadcastActiveFeature.bind(this));
+      parent.elementInst.on('mouseleave', this.id, this._switchPointer.bind(this));
     },
 
     removeInst(parent) {
       parent.removeSource(this.elementInst);
       this.elementInst.remove();
     },
+
+    _broadcastActiveFeature(e) {
+      if (e.type === 'mouseenter') {
+        // TODO - needs to be more specific
+        this._setActiveFeature(e.features[0]);
+      }
+      else {
+        this._setActiveFeature({});
+      }
+    },
+
+
+    _broadcastEvent(e) {
+      // TODO make this a param?
+      const detail = {
+        // TODO - tbd if I need full node here.
+        emitter: this, // TBD - may not be neededed because.feature has layer.
+        event: e
+      };
+      console.log(detail);
+      this.fire('px-map-gl-layer-' + e.type, detail);
+    },
+
+    _switchPointer(e) {
+      if (e.type === 'mouseenter') {
+        e.target.getCanvas().style.cursor = 'pointer';
+      }
+      else {
+        e.target.getCanvas().style.cursor = '';
+      }
+    },
+
 
     /**
      * Some element instances may require a minimum number of defined options
