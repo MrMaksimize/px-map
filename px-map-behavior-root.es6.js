@@ -92,6 +92,35 @@
       },
 
       /**
+       * The zoom level of the active map. Can be used to set or update
+       * the zoom level of the map, or read from after the user changes the
+       * map zoom level to an updated value.
+       *
+       * @type {Number}
+       */
+      bearing: {
+        type: Number,
+        value: 0,
+        notify: true,
+        observer: 'shouldUpdateInst'
+      },
+
+      /**
+       * The zoom level of the active map. Can be used to set or update
+       * the zoom level of the map, or read from after the user changes the
+       * map zoom level to an updated value.
+       *
+       * @type {Number}
+       */
+      pitch: {
+        type: Number,
+        value: 0,
+        notify: true,
+        observer: 'shouldUpdateInst'
+      },
+
+
+      /**
        * The maximum zoom level for the active map (the furthest the user can
        * zoom in). Setting it at the map level will take precedence over the
        * max zoom of all other layers, including tile layers. If you need to
@@ -301,6 +330,8 @@
       options.center = [this.lng, this.lat];
       options.style = this.style;
       options.zoom = this.zoom;
+      options.bearing = this.bearing;
+      options.pitch = this.pitch;
       options.minZoom = this.minZoom || 0;
       options.maxZoom = this.maxZoom || 18;
       //options.maxBounds = this.maxBounds || undefined;
@@ -315,10 +346,17 @@
     },
 
     updateInst(lastOptions, nextOptions) {
+      console.log('Update Inst');
+      console.log('lastOptions');
+      console.log(lastOptions);
+      console.log('nextOptions');
+      console.log(nextOptions);
       if ((this.latLngIsValid(nextOptions.center[0], nextOptions.center[1])) &&
           (lastOptions.center[0] !== nextOptions.center[0] ||
           lastOptions.center[1] !== nextOptions.center[1] ||
-          lastOptions.zoom !== nextOptions.zoom)) {
+          lastOptions.zoom !== nextOptions.zoom ||
+          lastOptions.bearing !== nextOptions.bearing ||
+          lastOptions.pitch !== nextOptions.pitch)) {
         this._updateMapView();
       }
 
@@ -366,12 +404,29 @@
       if (!this.elementInst) return;
 
       this.debounce('update-map-view', function() {
-        const {lat, lng} = this.elementInst.getCenter();
+        const {lng, lat} = this.elementInst.getCenter();
         const zoom = this.elementInst.getZoom();
+        const bearing = this.elementInst.getBearing();
+        const pitch = this.elementInst.getPitch();
 
-        if (this.lat !== lat || this.lng !== lng || this.zoom !== zoom) {
-          this.elementInst.setCenter([this.lng,this.lat]);
-          this.elementInst.setZoom(this.zoom);
+        if (this.lat !== lat ||
+            this.lng !== lng ||
+            this.zoom !== zoom ||
+            this.bearing !== bearing ||
+            this.pitch !== pitch) {
+          console.log(this.lng);
+          console.log(this.lat);
+          console.log(this.zoom);
+          console.log(this.bearing);
+          console.log(this.pitch);
+          this.elementInst.flyTo({
+            center: [this.lng, this.lat],
+            zoom: this.zoom,
+            pitch: this.pitch,
+            bearing: this.bearing,
+            speed: 1.2,
+            curve: 1.42,
+          });
         }
       });
     },

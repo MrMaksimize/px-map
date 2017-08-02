@@ -44,11 +44,13 @@
     <px-demo-component>
       <div style="height:600px;width:800px;display:flex">
           <px-map zoom="{{ props.zoom.value}}"
+                bearing="{{ props.bearing.value }}"
+                pitch="{{ props.pitch.value }}"
                 flex-to-size
                 disable-touch-zoom
-                lat="32.7157"
-                mgl-token="pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ";
-                lng="-117.1611">
+                mgl-token="{{ props.mglToken.value }}"
+                lat="{{ props.lat.value }}"
+                lng="{{ props.lng.value }}">
                 <!--<px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>-->
             <px-map-gl-source-geojson
               id="gjsource"
@@ -169,24 +171,40 @@
           inputLabel: 'Latitude',
           type: Number,
           defaultValue: '32.7157',
-          inputType: 'text'
+          inputType: 'number'
         },
-
         lng: {
           inputLabel: 'Longitude',
           type: Number,
           defaultValue: '-117.1611',
-          inputType: 'text'
+          inputType: 'number'
         },
-
         zoom: {
           type: Number,
           defaultValue: 8,
+          inputType: 'number'
+        },
+        bearing: {
+          type: Number,
+          defaultValue: 0,
+          inputType: 'number'
+        },
+        pitch: {
+          type: Number,
+          defaultValue: 0,
+          inputType: 'number'
+        },
+        mglToken: {
+          type: String,
+          defaultValue: "pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ",
           inputType: 'text'
         },
-
-
-        flexToSize: {
+        interactive: {
+          type: Boolean,
+          defaultValue: true,
+          inputType: 'toggle'
+        },
+        /*flexToSize: {
           type: Boolean,
           defaultValue: true,
           inputType: 'toggle',
@@ -209,7 +227,7 @@
           type: Boolean,
           defaultValue: false,
           inputType: 'toggle'
-        },
+        },*/
 
         parentComponent: {
           value: ['<div style="height:400px;width:600px;display:flex"><px-map flex-to-size disable-touch-zoom>', '</px-map></div>']
