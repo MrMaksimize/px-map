@@ -33,13 +33,17 @@
        */
       style: {
         type: String,
-        value: 'mapbox://styles/mapbox/dark-v9',
-        notify: true
+        value: 'mapbox://styles/mapbox/light-v9',
+        notify: true,
+        observer: 'shouldUpdateInst'
         // observer
       },
 
       /**
-       * Mapbox Gl Token
+       * Set the mapbox-gl token.
+       *
+       * This property is not dynamic and can only be set once when the map is
+       * first initialized.
        *
        * @type {String}
        */
@@ -60,6 +64,7 @@
         type: Number,
         value: 37.7672375,
         notify: true,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -74,6 +79,7 @@
         type: Number,
         value: -121.9584131,
         notify: true,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -88,6 +94,7 @@
         type: Number,
         value: 10,
         notify: true,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -102,6 +109,7 @@
         type: Number,
         value: 0,
         notify: true,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -116,6 +124,7 @@
         type: Number,
         value: 0,
         notify: true,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -211,35 +220,6 @@
         observer: 'shouldUpdateInst'
       },
 
-      /**
-       * Set to disable the attribution control, which can be used to show the
-       * source of tile layers or other data overlays.
-       *
-       * This property is not dynamic and can only be set once when the map is
-       * first initialized.
-       *
-       * @type {Boolean}
-       */
-      disableAttribution: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Stringified HTML that will be used as the first item in your attribution
-       * list. Pass an <a> tag with a link to more information about your
-       * attribution source. Example: '<a href="https://example.com">Example</a>'
-       *
-       * Defaults to a link to the Leaflet.js library. If an empty string is
-       * passed ("") the prefix will be hidden.
-       *
-       * @type {String}
-       */
-      attributionPrefix: {
-        type: String,
-        value: '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>',
-        observer: 'shouldUpdateInst'
-      },
 
       /**
        * Uses flexbox to set the size of the map. Set the parent container
@@ -285,7 +265,6 @@
       options.container = Polymer.dom(this.root).querySelector(options.container);
       const mapInst = new mapboxgl.Map(options);
 
-      //mapInst.attributionControl.setPrefix(options.attributionPrefix);
 
       if (this.isShadyScoped()) {
         mapInst.__addShadyScope = this.scopeSubtree.bind(this);
@@ -345,8 +324,6 @@
       options.dragPan = !this.disableDragging;
       options.scrollZoom = !this.disableScrollZoom;
       options.touchZoomRotate = !this.disableTouchZoom;
-      options.attributionControl = !this.disableAttribution;
-      //options.attributionPrefix = this.attributionPrefix;
 
       return options;
     },
@@ -417,10 +394,6 @@
       }
       if (lastOptions.touchZoom && !nextOptions.touchZoom) {
         this.elementInst.touchZoomRotate.disable();
-      }
-
-      if (lastOptions.attributionPrefix !== nextOptions.attributionPrefix) {
-        this.elementInst.attributionControl.setPrefix(nextOptions.attributionPrefix);
       }
     },
 

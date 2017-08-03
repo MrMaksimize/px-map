@@ -198,11 +198,13 @@
           defaultValue: "pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ",
           inputType: 'text'
         },
+
         disableInteractive: {
           type: Boolean,
-          defaultValue: true,
+          defaultValue: false,
           inputType: 'toggle'
         },
+
         flexToSize: {
           type: Boolean,
           defaultValue: true,
@@ -210,26 +212,8 @@
           inputDisabled: true
         },
 
-        disableScrollZoom: {
-          type: Boolean,
-          defaultValue: true,
-          inputType: 'toggle'
-        },
-
-        disableTouchZoom: {
-          type: Boolean,
-          defaultValue: true,
-          inputType: 'toggle'
-        },
-
-        disableDragging: {
-          type: Boolean,
-          defaultValue: false,
-          inputType: 'toggle'
-        },
-
         parentComponent: {
-          value: ['<div style="height:400px;width:600px;display:flex"><px-map flex-to-size disable-touch-zoom>', '</px-map></div>']
+            value: ['<div style="height:600px;width:850px;display:flex"><px-map class="style-scope px-map-gl-geojson-demo x-scope px-map-0" lng="-117.1611" lat="32.7157" flex-to-size="" pitch="0" bearing="0" zoom="8">','</px-map></div>']
         }
       }
     });
