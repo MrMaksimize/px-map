@@ -168,6 +168,11 @@
         observer: 'shouldUpdateInst'
       },
 
+      disableInteractive: {
+        type: Boolean,
+        value: false,
+        observer: 'shouldUpdateInst'
+      },
       /**
        * Set to disable dragging of the map with the mouse or by touch. Use to
        * restrict changing the map's visible area (e.g. for a static map) or
@@ -336,6 +341,7 @@
       options.maxZoom = this.maxZoom || 18;
       //options.maxBounds = this.maxBounds || undefined;
 
+      options.interactive = !this.disableInteractive;
       options.dragPan = !this.disableDragging;
       options.scrollZoom = !this.disableScrollZoom;
       options.touchZoomRotate = !this.disableTouchZoom;
@@ -370,25 +376,47 @@
         this.setMaxBounds(nextOptions.maxBounds);
       }
 
+      if (!lastOptions.interactive && nextOptions.interactive) {
+        this.elementInst.boxZoom.enable();
+        this.elementInst.dragPan.enable();
+        this.elementInst.dragRotate.enable();
+        this.elementInst.scrollZoom.enable();
+        this.elementInst.keyboard.enable();
+        this.elementInst.doubleClickZoom.enable();
+        this.elementInst.touchZoomRotate.enable();
+      }
+
+      if (lastOptions.interactive && !nextOptions.interactive) {
+        this.elementInst.boxZoom.disable();
+        this.elementInst.dragPan.disable();
+        this.elementInst.dragRotate.disable();
+        this.elementInst.scrollZoom.disable();
+        this.elementInst.keyboard.disable();
+        this.elementInst.doubleClickZoom.disable();
+        this.elementInst.touchZoomRotate.disable();
+      }
+
       if (!lastOptions.dragging && nextOptions.dragging) {
-        this.elementInst.dragging.enable();
+        this.elementInst.dragPan.enable();
+        this.elementInst.dragRotate.enable();
       }
       if (lastOptions.dragging && !nextOptions.dragging) {
-        this.elementInst.dragging.disable();
+        this.elementInst.dragPan.disable();
+        this.elementInst.dragRotate.disable();
       }
 
       if (!lastOptions.scrollWheelZoom && nextOptions.scrollWheelZoom) {
-        this.elementInst.scrollWheelZoom.enable();
+        this.elementInst.scrollZoom.enable();
       }
       if (lastOptions.scrollWheelZoom && !nextOptions.scrollWheelZoom) {
-        this.elementInst.scrollWheelZoom.disable();
+        this.elementInst.scrollZoom.disable();
       }
 
       if (!lastOptions.touchZoom && nextOptions.touchZoom) {
-        this.elementInst.touchZoom.enable();
+        this.elementInst.touchZoomRotate.enable();
       }
       if (lastOptions.touchZoom && !nextOptions.touchZoom) {
-        this.elementInst.touchZoom.disable();
+        this.elementInst.touchZoomRotate.disable();
       }
 
       if (lastOptions.attributionPrefix !== nextOptions.attributionPrefix) {
