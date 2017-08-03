@@ -6,7 +6,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 
 <!-- Load required PxMapGlBehaviors -->
-<link rel="import" href="px-map-gl-behavior-gl-source-geojson.html">
+<link rel="import" href="px-map-gl-behavior-source-geojson.html">
 
 <!--
 This subcomponent draws GeoJSON features as vectors on the map. Use it to draw
@@ -43,7 +43,7 @@ about each feature.
 @demo index.html
 -->
 
-<dom-module id="px-map-gl-gl-source-geojson">
+<dom-module id="px-map-gl-source-geojson">
   <style>
     :host { display: none }
   </style>
@@ -51,7 +51,7 @@ about each feature.
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-gl-source-geojson',
-    behaviors: [PxMapGlBehavior.GlGeoJSONSource]
+    is: 'px-map-gl-source-geojson',
+    behaviors: [PxMapGlBehavior.GeoJSONSource]
   });
 </script>

@@ -584,7 +584,7 @@
   };
   /* Bind Popup behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.LeafletRoot = [
+  PxMapGlBehavior.MglRoot = [
     PxMapGlBehavior.Element,
     PxMapGlBehavior.MglRootImpl
   ];

@@ -12,18 +12,18 @@
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
 
 <!-- Imports for this component -->
-<link rel="import" href="../px-map.html" />
-<!--<link rel="import" href="../px-map-tile-layer.html" />-->
+<link rel="import" href="../px-map-gl.html" />
+<!--<link rel="import" href="../px-map-gl-tile-layer.html" />-->
 
 <!-- Demo DOM module -->
-<dom-module id="px-map-demo">
+<dom-module id="px-map-gl-demo">
   <template>
   <style include="px-demo-styles" is="custom-style"></style>
 
   <!-- Header -->
   <px-demo-header
-      module-name="px-map"
-      description="The px-map component is a framework for creating maps in your application.">
+      module-name="px-map-gl"
+      description="The px-map-gl component is a framework for creating maps in your application.">
   </px-demo-header>
 
   <!-- Interactive -->
@@ -37,7 +37,7 @@
     <!-- Component ---------------------------------------------------------->
     <px-demo-component>
       <div style="height:400px;width:600px;display:flex">
-        <px-map
+        <px-map-gl
           zoom="{{props.zoom.value}}"
           lat="{{props.lat.value}}"
           lng="{{props.lng.value}}"
@@ -46,22 +46,22 @@
           disable-touch-zoom="{{props.disableScrollZoom.value}}"
           disable-dragging="{{props.disableDragging.value}}"
           attribution-prefix='<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'>
-          <px-map-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-tile-layer>
-        </px-map>
+          <px-map-gl-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-gl-tile-layer>
+        </px-map-gl>
       </div>
     </px-demo-component>
     <!-- END Component ------------------------------------------------------>
 
     <px-demo-component-snippet
         element-properties="{{props}}"
-        element-name="px-map"
-        links-includes='["px-map/px-map-tile-layer.html"]'>
+        element-name="px-map-gl"
+        links-includes='["px-map-gl/px-map-gl-tile-layer.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
   <!-- API Viewer -->
   <px-demo-api-viewer
-    source="px-map"
+    source="px-map-gl"
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
 
@@ -72,7 +72,7 @@
 
   <script>
     Polymer({
-      is: 'px-map-demo',
+      is: 'px-map-gl-demo',
 
       properties: {
 
@@ -192,7 +192,7 @@
 
         lightDomContent: {
           type: String,
-          defaultValue: '<px-map-tile-layer url=\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\">'
+          defaultValue: '<px-map-gl-tile-layer url=\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\">'
         }
 
       }

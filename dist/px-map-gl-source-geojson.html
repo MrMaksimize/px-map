@@ -5,8 +5,8 @@
 -->
 <link rel="import" href="../../polymer/polymer.html"/>
 
-<!-- Load required PxMapBehaviors -->
-<link rel="import" href="px-map-behavior-gl-source-geojson.html">
+<!-- Load required PxMapGlBehaviors -->
+<link rel="import" href="px-map-gl-behavior-source-geojson.html">
 
 <!--
 This subcomponent draws GeoJSON features as vectors on the map. Use it to draw
@@ -18,10 +18,10 @@ will cause the layer to fail and not draw.
 
 ### Usage
 
-    <px-map>
-      <px-map-layer-geojson data='{"type": "FeatureCollection", "features": [{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [0.11278152465820314,52.23526420307733]}}]}'>
-    </px-map-layer-geojson>
-    </px-map>
+    <px-map-gl>
+      <px-map-gl-layer-geojson data='{"type": "FeatureCollection", "features": [{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [0.11278152465820314,52.23526420307733]}}]}'>
+    </px-map-gl-layer-geojson>
+    </px-map-gl>
 
 #### Styling features
 
@@ -37,7 +37,7 @@ Enable the `showFeatureProperties` attribute to show a popup with feature proper
 when the user taps on a feature. This is a useful way to show relevant information
 about each feature.
 
-@element px-map-layer-geojson
+@element px-map-gl-layer-geojson
 @blurb Draws GeoJSON features as vectors on a map
 @homepage index.html
 @demo index.html
@@ -52,6 +52,6 @@ about each feature.
 <script>
   Polymer({
     is: 'px-map-gl-source-geojson',
-    behaviors: [PxMapBehavior.GlGeoJSONSource]
+    behaviors: [PxMapGlBehavior.GeoJSONSource]
   });
 </script>

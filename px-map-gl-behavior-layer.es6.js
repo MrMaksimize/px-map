@@ -13,7 +13,7 @@
    *
    * @polymerBehavior PxMapGlBehavior.Layer
    */
-  PxMapGlBehavior.GlLayerImpl = {
+  PxMapGlBehavior.LayerImpl = {
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
@@ -164,9 +164,9 @@
   };
   /* Bind Layer behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.GlLayer = [
+  PxMapGlBehavior.Layer = [
     PxMapGlBehavior.Element,
-    PxMapGlBehavior.GlLayerImpl
+    PxMapGlBehavior.LayerImpl
   ];
 
 })();

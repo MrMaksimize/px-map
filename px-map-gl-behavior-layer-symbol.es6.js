@@ -12,7 +12,7 @@
    *
    * @polymerBehavior PxMapGlBehavior.GeoJSONLayer
    */
-  PxMapGlBehavior.GlSymbolLayerImpl = {
+  PxMapGlBehavior.SymbolLayerImpl = {
     properties: {
       /**
        * An object formatted as a GeoJSON FeatureCollection with one or many Features.
@@ -255,8 +255,8 @@
   };
   /* Bind GeoJSONSource behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.GlSymbolLayer = [
-    PxMapGlBehavior.GlLayer,
-    PxMapGlBehavior.GlSymbolLayerImpl
+  PxMapGlBehavior.SymbolLayer = [
+    PxMapGlBehavior.Layer,
+    PxMapGlBehavior.SymbolLayerImpl
   ];
 })();

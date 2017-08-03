@@ -13,7 +13,7 @@
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
 
 <!-- Imports for this component -->
-<link rel="import" href="../px-map.html" />
+<link rel="import" href="../px-map-gl.html" />
 <link rel="import" href="../px-map-gl-source-geojson.html" />
 <link rel="import" href="../px-map-gl-layer-symbol.html" />
 
@@ -25,7 +25,7 @@
   <!-- Header -->
   <px-demo-header
       module-name="px-map-gl-geojson"
-      parent-name="px-map"
+      parent-name="px-map-gl"
       description="The px-map-gl-geojson subcomponent draws GeoJSON data as vectors on the map.">
   </px-demo-header>
 
@@ -43,7 +43,7 @@
     <!-- Component ---------------------------------------------------------->
     <px-demo-component>
       <div style="height:600px;width:850px;display:flex">
-          <px-map zoom="{{ props.zoom.value}}"
+          <px-map-gl zoom="{{ props.zoom.value}}"
                 bearing="{{ props.bearing.value }}"
                 pitch="{{ props.pitch.value }}"
                 flex-to-size="{{props.flexToSize.value}}"
@@ -63,7 +63,7 @@
               source="gjsource">
             </px-map-gl-layer-symbol>
 
-        </px-map>
+        </px-map-gl>
       </div>
     </px-demo-component>
     <!-- END Component ------------------------------------------------------>
@@ -71,7 +71,7 @@
     <px-demo-component-snippet
         element-properties="{{props}}"
         element-name="px-map-gl-geojson"
-        links-includes='["px-map/px-map.html","px-map/px-map-tile-layer.html","px-map/px-map-gl-geojson.html"]'>
+        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-tile-layer.html","px-map-gl/px-map-gl-geojson.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
@@ -213,7 +213,7 @@
         },
 
         parentComponent: {
-            value: ['<div style="height:600px;width:850px;display:flex"><px-map class="style-scope px-map-gl-geojson-demo x-scope px-map-0" lng="-117.1611" lat="32.7157" flex-to-size="" pitch="0" bearing="0" zoom="8">','</px-map></div>']
+            value: ['<div style="height:600px;width:850px;display:flex"><px-map-gl class="style-scope px-map-gl-geojson-demo x-scope px-map-gl-0" lng="-117.1611" lat="32.7157" flex-to-size="" pitch="0" bearing="0" zoom="8">','</px-map-gl></div>']
         }
       }
     });

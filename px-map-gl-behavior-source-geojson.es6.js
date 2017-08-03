@@ -12,7 +12,7 @@
    *
    * @polymerBehavior PxMapGlBehavior.GeoJSONLayer
    */
-  PxMapGlBehavior.GlGeoJSONSourceImpl = {
+  PxMapGlBehavior.GeoJSONSourceImpl = {
     properties: {
       /**
        * An object formatted as a GeoJSON FeatureCollection with one or many Features.
@@ -60,7 +60,7 @@
     // extends the layer `addInst` method to harvest and fire events
     addInst(parent) {
       console.log('gl-gj-addInst');
-      PxMapGlBehavior.GlSourceImpl.addInst.call(this, parent);
+      PxMapGlBehavior.SourceImpl.addInst.call(this, parent);
 
 
       // Bind custom events. Events will be unbound automatically.
@@ -84,7 +84,6 @@
     },
 
     createInst(options) {
-      console.log(options);
 
       const geoJsonSourceInst = {
         data: options.data,
@@ -230,8 +229,8 @@
   };
   /* Bind GeoJSONSource behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.GlGeoJSONSource = [
-    PxMapGlBehavior.GlSource,
-    PxMapGlBehavior.GlGeoJSONSourceImpl
+  PxMapGlBehavior.GeoJSONSource = [
+    PxMapGlBehavior.Source,
+    PxMapGlBehavior.GeoJSONSourceImpl
   ];
 })();

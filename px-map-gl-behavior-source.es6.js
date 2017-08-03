@@ -13,7 +13,7 @@
    *
    * @polymerBehavior PxMapGlBehavior.Layer
    */
-  PxMapGlBehavior.GlSourceImpl = {
+  PxMapGlBehavior.SourceImpl = {
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
@@ -94,9 +94,9 @@
   };
   /* Bind Layer behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.GlSource = [
+  PxMapGlBehavior.Source = [
     PxMapGlBehavior.Element,
-    PxMapGlBehavior.GlSourceImpl
+    PxMapGlBehavior.SourceImpl
   ];
 
   // if bring parentlayerimpl stuff back, pull from layer.
