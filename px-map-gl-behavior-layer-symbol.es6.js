@@ -6,13 +6,13 @@
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapBehavior = (window.PxMapBehavior || {});
+  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
    *
-   * @polymerBehavior PxMapBehavior.GeoJSONLayer
+   * @polymerBehavior PxMapGlBehavior.GeoJSONLayer
    */
-  PxMapBehavior.GlSymbolLayerImpl = {
+  PxMapGlBehavior.GlSymbolLayerImpl = {
     properties: {
       /**
        * An object formatted as a GeoJSON FeatureCollection with one or many Features.
@@ -70,7 +70,7 @@
     // extends the layer `addInst` method to harvest and fire events
     //addInst(parent) {
     //  console.log('gl-gj-addInst');
-    //  PxMapBehavior.GlSourceImpl.addInst.call(this, parent);
+    //  PxMapGlBehavior.GlSourceImpl.addInst.call(this, parent);
 
 
       // Bind custom events. Events will be unbound automatically.
@@ -90,7 +90,7 @@
       }*/
 
       // Now call layer's add
-      //PxMapBehavior.LayerImpl.addInst.call(this, parent);
+      //PxMapGlBehavior.LayerImpl.addInst.call(this, parent);
     //},
 
     createInst(options) {
@@ -171,7 +171,7 @@
       if (evt.layer && evt.layer.feature) {
         detail.feature = evt.layer.feature;
       }
-      this.fire('px-map-layer-geojson-feature-added', detail);
+      this.fire('px-map-gl-layer-geojson-feature-added', detail);
     },
     /**
      * Fired when a feature is attached the map. Note that every feature is
@@ -180,7 +180,7 @@
      *   * {Object} detail - Contains the event details
      *   * {Object|undefined} detail.feature - Object containing the feature's GeoJSON source
      *
-     * @event px-map-layer-geojson-feature-added
+     * @event px-map-gl-layer-geojson-feature-added
      */
 
     _handleFeatureRemoved(evt) {
@@ -193,7 +193,7 @@
       if (evt.layer && evt.layer.feature) {
         detail.feature = evt.layer.feature;
       }
-      this.fire('px-map-layer-geojson-feature-removed', detail);
+      this.fire('px-map-gl-layer-geojson-feature-removed', detail);
     },
     /**
      * Fired when a feature is removed from the map. Note that every feature is
@@ -202,7 +202,7 @@
      *   * {Object} detail - Contains the event details
      *   * {Object|undefined} detail.feature - Object containing the feature's GeoJSON source
      *
-     * @event px-map-layer-geojson-feature-added
+     * @event px-map-gl-layer-geojson-feature-added
      */
 
     _handleFeatureTapped(evt) {
@@ -210,7 +210,7 @@
       if (evt.target && evt.target.feature) {
         detail.feature = evt.target.feature;
       }
-      this.fire('px-map-layer-geojson-feature-tapped', detail);
+      this.fire('px-map-gl-layer-geojson-feature-tapped', detail);
     },
     /**
      * Fired when a feature is tapped by the user.
@@ -218,7 +218,7 @@
      *   * {Object} detail - Contains the event details
      *   * {Object|undefined} detail.feature - Object containing the feature's GeoJSON source
      *
-     * @event px-map-layer-geojson-feature-tapped
+     * @event px-map-gl-layer-geojson-feature-tapped
      */
 
     _handleFeaturePopupOpened(evt) {
@@ -226,7 +226,7 @@
       if (evt.target && evt.target.feature) {
         detail.feature = evt.target.feature;
       }
-      this.fire('px-map-layer-geojson-feature-popup-opened', detail);
+      this.fire('px-map-gl-layer-geojson-feature-popup-opened', detail);
     },
     /**
      * Fired when a feature's popup is opened by the user.
@@ -234,7 +234,7 @@
      *   * {Object} detail - Contains the event details
      *   * {Object|undefined} detail.feature - Object containing the feature's GeoJSON source
      *
-     * @event px-map-layer-geojson-feature-popup-opened
+     * @event px-map-gl-layer-geojson-feature-popup-opened
      */
 
     _handleFeaturePopupClosed(evt) {
@@ -242,7 +242,7 @@
       if (evt.target && evt.target.feature) {
         detail.feature = evt.target.feature;
       }
-      this.fire('px-map-layer-geojson-feature-popup-closed', detail);
+      this.fire('px-map-gl-layer-geojson-feature-popup-closed', detail);
     }
     /**
      * Fired when a feature's popup is closed by the user.
@@ -250,13 +250,13 @@
      *   * {Object} detail - Contains the event details
      *   * {Object|undefined} detail.feature - Object containing the feature's GeoJSON source
      *
-     * @event px-map-layer-geojson-feature-popup-closed
+     * @event px-map-gl-layer-geojson-feature-popup-closed
      */
   };
   /* Bind GeoJSONSource behavior */
   /** @polymerBehavior */
-  PxMapBehavior.GlSymbolLayer = [
-    PxMapBehavior.GlLayer,
-    PxMapBehavior.GlSymbolLayerImpl
+  PxMapGlBehavior.GlSymbolLayer = [
+    PxMapGlBehavior.GlLayer,
+    PxMapGlBehavior.GlSymbolLayerImpl
   ];
 })();

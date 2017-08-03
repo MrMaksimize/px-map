@@ -6,14 +6,14 @@
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapBehavior = (window.PxMapBehavior || {});
+  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
    *
    *
-   * @polymerBehavior PxMapBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.Layer
    */
-  PxMapBehavior.GlLayerImpl = {
+  PxMapGlBehavior.GlLayerImpl = {
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
@@ -56,7 +56,7 @@
     attached() {
       this.notifyInstReady(this.canAddInst());
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-element-loaded', 'shouldAddInst');
+      this.listen(this.parentNode, 'px-map-gl-element-loaded', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -72,7 +72,7 @@
     shouldAddInst(evt) {
       const parent = evt.detail;
       console.log('shouldAddInst on layer');
-      PxMapBehavior.ElementImpl.shouldAddInst.call(this, parent);
+      PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent) {
         console.log('shouldaddinst layer true');
@@ -81,7 +81,7 @@
     },
 
     shouldRemoveInst(parent) {
-      PxMapBehavior.ElementImpl.shouldRemoveInst.call(this, parent);
+      PxMapGlBehavior.ElementImpl.shouldRemoveInst.call(this, parent);
 
       if (this.elementInst) {
         this.removeInst(parent ? parent : undefined);
@@ -129,7 +129,7 @@
         event: e
       };
       console.log(detail);
-      this.fire('px-map-gl-layer-' + e.type, detail);
+      this.fire('px-map-gl-gl-layer-' + e.type, detail);
     },
 
     _switchPointer(e) {
@@ -164,9 +164,9 @@
   };
   /* Bind Layer behavior */
   /** @polymerBehavior */
-  PxMapBehavior.GlLayer = [
-    PxMapBehavior.Element,
-    PxMapBehavior.GlLayerImpl
+  PxMapGlBehavior.GlLayer = [
+    PxMapGlBehavior.Element,
+    PxMapGlBehavior.GlLayerImpl
   ];
 
 })();

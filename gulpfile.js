@@ -93,7 +93,7 @@ gulp.task('dist:js', ['dist:clean'], function () {
   const bundler = through();
 
   bundler
-    .pipe(source('px-map-bundle.js'))
+    .pipe(source('px-map-gl-bundle.js'))
     .pipe(buffer())
     .pipe($.sourcemaps.init())
     .pipe($.sourcemaps.write())
@@ -122,7 +122,7 @@ gulp.task('dist:js', ['dist:clean'], function () {
 gulp.task('dist:html', ['dist:clean'], function () {
   return gulp.src(['./px-*.html'])
     // Replace script links to `.es6.js` files with a link to an importer
-    .pipe(replace(/(\<script.*src\=[\'|\"])(px-.*\.es6.js)([\'|\"].*\/script\>)/g, '<link rel="import" href="px-map-bundle-loader.html" />'))
+    .pipe(replace(/(\<script.*src\=[\'|\"])(px-.*\.es6.js)([\'|\"].*\/script\>)/g, '<link rel="import" href="px-map-gl-bundle-loader.html" />'))
     // Replace all script and link tag relative paths that begin with `../`
     // with `../../` (e.g. <script src="../polymer/polymer.htl")
     .pipe(replace(/(\<[\s]?(?:link|script).*(?:src|href)\=(?:\"|\'))(\.\.\/)/g, "$1../../"))
@@ -132,7 +132,7 @@ gulp.task('dist:html', ['dist:clean'], function () {
 });
 
 gulp.task('dist:makeloader', ['dist:html'], function(cb){
-  fs.writeFile('dist/px-map-bundle-loader.html', '<script src="px-map-bundle.js"></script>', {encoding:'utf8',flag:'wx'}, cb);
+  fs.writeFile('dist/px-map-gl-bundle-loader.html', '<script src="px-map-gl-bundle.js"></script>', {encoding:'utf8',flag:'wx'}, cb);
 });
 
 gulp.task('dist', ['dist:js', 'dist:html', 'dist:makeloader']);

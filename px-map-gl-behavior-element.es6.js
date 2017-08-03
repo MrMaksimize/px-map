@@ -6,13 +6,13 @@
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapBehavior = (window.PxMapBehavior || {});
+  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
    *
-   * @polymerBehavior PxMapBehavior.Element
+   * @polymerBehavior PxMapGlBehavior.Element
    */
-  PxMapBehavior.ElementImpl = {
+  PxMapGlBehavior.ElementImpl = {
     beforeRegister() {
       /**
        * A reference to this element's instance. The instance can be configured and
@@ -43,7 +43,7 @@
      */
     notifyInstReady(isReady=true) {
       if (!isReady) return false;
-      this.fire('px-map-element-ready-to-add');
+      this.fire('px-map-gl-gl-element-ready-to-add');
       return true;
     },
 
@@ -52,7 +52,7 @@
       if (!this.elementInst) {
         const options = this.__initialOptions = this.getInstOptions();
         this.elementInst = this.createInst(options);
-        this.fire('px-map-element-instance-created');
+        this.fire('px-map-gl-gl-element-instance-created');
       }
 
       this.__instEvents = (this.__instEvents || []);
@@ -160,7 +160,7 @@
      * If this component is being drawn in Shady DOM, returns true. Used to
      * ensure the shady DOM scope classes are applied when we make DOM
      * transactions that can't be reviewed by the scopeSubtree observer
-     * in the root `px-map` component that is the parent of all elements.
+     * in the root `px-map-gl-gl` component that is the parent of all elements.
      *
      * @return {Boolean}
      */
@@ -171,14 +171,14 @@
     /**
      * Returns the stringified shady DOM scope classes. Useful for ensuring they're
      * applied during DOM transactions that can't be reviewed by the scopeSubtree
-     * observer in the root `px-map` component that is the parent of all elements.
+     * observer in the root `px-map-gl-gl` component that is the parent of all elements.
      *
      * @return {String} A list of CSS classes separated by spaces
      */
     getShadyScope() {
-      return 'style-scope px-map';
+      return 'style-scope px-map-gl-gl';
     }
   };
   /* Bind Element behavior */
-  PxMapBehavior.Element = [PxMapBehavior.ElementImpl];
+  PxMapGlBehavior.Element = [PxMapGlBehavior.ElementImpl];
 })();

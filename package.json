@@ -1,13 +1,13 @@
 {
-    "name": "px-map",
-    "author": "General Electric",
+    "name": "px-map-gl",
+    "author": "Maksim Pecherskiy",
     "description": "A lightweight framework for building interactive maps with web components",
     "version": "2.0.0",
     "private": false,
     "extName": null,
     "repository": {
         "type": "git",
-        "url": "https://github.com/PredixDev/px-map.git"
+        "url": "https://github.com/MrMaksimize/px-map-gl.git"
     },
     "homepage": "http://predix.io/",
     "devDependencies": {

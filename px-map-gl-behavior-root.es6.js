@@ -6,13 +6,13 @@
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapBehavior = (window.PxMapBehavior || {});
+  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
    *
-   * @polymerBehavior PxMapBehavior.LeafletRoot
+   * @polymerBehavior PxMapGlBehavior.LeafletRoot
    */
-  PxMapBehavior.MglRootImpl= {
+  PxMapGlBehavior.MglRootImpl= {
     properties: {
       /**
        * The coordinate reference system to use when projecting geographic points
@@ -236,14 +236,14 @@
     },
 
     attached() {
-      this.listen(this, 'px-map-element-ready-to-add', 'shouldAddInst');
+      this.listen(this, 'px-map-gl-element-ready-to-add', 'shouldAddInst');
       if (this.canAddInst()) {
-        this.fire('px-map-element-ready-to-add');
+        this.fire('px-map-gl-element-ready-to-add');
       }
     },
 
     detached() {
-      this.unlisten(this, 'px-map-element-ready-to-add', 'shouldAddInst');
+      this.unlisten(this, 'px-map-gl-element-ready-to-add', 'shouldAddInst');
       this.shouldRemoveInst();
       this.removeInst();
     },
@@ -251,7 +251,7 @@
     shouldAddInst(evt) {
       if (Polymer.dom(evt).rootTarget !== this) return;
 
-      PxMapBehavior.ElementImpl.shouldAddInst.call(this);
+      PxMapGlBehavior.ElementImpl.shouldAddInst.call(this);
       this.addInst();
     },
 
@@ -453,20 +453,20 @@
     latLngIsValid(lat, lng) {
       var isValid = (typeof lat !== 'undefined' && this._canBeNum(lat)) && (typeof lng !== 'undefined' && this._canBeNum(lng));
       if (isValid) return true;
-      console.log(`PX-MAP CONFIGURATION ERROR:
+      console.log(`px-map-gl CONFIGURATION ERROR:
         You entered an invalid \`lat\` or \`lng\` attribute for ${this.is}. You must pass a valid number.`);
       return false;
     },
 
     _handleMapLoaded() {
       if (this.canAddInst()) {
-        console.log('px-map-element-loaded fire');
-        this.fire('px-map-element-loaded', this);
+        console.log('px-map-gl-element-loaded fire');
+        this.fire('px-map-gl-element-loaded', this);
         // http://sdgo.io/2vczACj
         // Opt 1 - notify children here
         /*const children = this.getEffectiveChildren();
         for (let child of children) {
-            child.fire('px-map-element-loaded', this);
+            child.fire('px-map-gl-element-loaded', this);
         }*/
       }
     },
@@ -497,7 +497,7 @@
           this.set('zoom', zoom);
         }
 
-        this.fire('px-map-moved', {
+        this.fire('px-map-gl-moved', {
           lat: latLng.lat,
           lng: latLng.lng,
           zoom: zoom,
@@ -515,7 +515,7 @@
      *   * {Number} detail.zoom - Zoom level of the map after moving
      *   * {L.LatLngBouds} detail.bounds - Custom Leaflet object describing the visible bounds of the map as a rectangle
      *
-     * @event px-map-moved
+     * @event px-map-gl-moved
      */
 
      /**
@@ -547,7 +547,7 @@
      * (e.g. in a marker group). Only call it when necessary.
      *
      * To get continuous updates on which markers are visible, attach a
-     * `px-map-moved` event listener to this element and call this method
+     * `px-map-gl-moved` event listener to this element and call this method
      * after each moved event.
      *
      * @return {Array}
@@ -584,8 +584,8 @@
   };
   /* Bind Popup behavior */
   /** @polymerBehavior */
-  PxMapBehavior.LeafletRoot = [
-    PxMapBehavior.Element,
-    PxMapBehavior.MglRootImpl
+  PxMapGlBehavior.LeafletRoot = [
+    PxMapGlBehavior.Element,
+    PxMapGlBehavior.MglRootImpl
   ];
 })();
