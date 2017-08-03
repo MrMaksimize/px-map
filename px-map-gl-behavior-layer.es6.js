@@ -56,7 +56,8 @@
     attached() {
       this.notifyInstReady(this.canAddInst());
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-gl-element-loaded', 'shouldAddInst');
+      this.listen(this.parentNode, 'px-map-gl-root-load', 'shouldAddInst');
+      this.listen(this.parentNode, 'px-map-gl-root-styledata', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -74,7 +75,7 @@
       console.log('shouldAddInst on layer');
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent) {
+      if (this.elementInst && parent && parent.elementInst.getLayer(this.id) == undefined) {
         console.log('shouldaddinst layer true');
         this.addInst(parent);
       };
@@ -96,6 +97,7 @@
       parent.elementInst.addLayer(this.elementInst);
 
       // Bind Events.
+      // TODO - use the normal binding pattern to bind events.
       parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._broadcastActiveFeature.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._switchPointer.bind(this));

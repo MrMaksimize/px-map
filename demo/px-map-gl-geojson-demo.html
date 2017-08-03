@@ -47,7 +47,8 @@
                 bearing="{{ props.bearing.value }}"
                 pitch="{{ props.pitch.value }}"
                 flex-to-size="{{props.flexToSize.value}}"
-                disable-interactive="{{props.disableInteractive.value}}"
+                disable-interaction="{{props.disableInteraction.value}}"
+                style="{{ props.style.value }}"
                 mgl-token="{{ props.mglToken.value }}"
                 lat="{{ props.lat.value }}"
                 lng="{{ props.lng.value }}">
@@ -70,8 +71,8 @@
 
     <px-demo-component-snippet
         element-properties="{{props}}"
-        element-name="px-map-gl-geojson"
-        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-tile-layer.html","px-map-gl/px-map-gl-geojson.html"]'>
+        element-name="px-map-gl"
+        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html","px-map-gl/px-map-gl-layer-symbol.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
@@ -166,6 +167,24 @@
           defaultValue: {},
           inputType: 'code:JSON'
         },
+        style: {
+          inputLabel: 'Map Style',
+          type: String,
+          defaultValue: "mapbox://styles/mapbox/dark-v9",
+          inputType: 'dropdown',
+          inputChoices: [
+              'mapbox://styles/mapbox/light-v9',
+              'mapbox://styles/mapbox/dark-v9',
+              'mapbox://styles/mapbox/streets-v9',
+              'mapbox://styles/mapbox/outdoors-v9',
+              'mapbox://styles/mapbox/satellite-v9',
+              'mapbox://styles/mapbox/satellite-streets-v9',
+              'mapbox://styles/mapbox/basic-v9',
+              'mapbox://styles/mapbox/bright-v9',
+              'mapbox://styles/mapbox/empty-v9'
+          ]
+        },
+
         lat: {
           inputLabel: 'Latitude',
           type: Number,
@@ -180,7 +199,7 @@
         },
         zoom: {
           type: Number,
-          defaultValue: 8,
+          defaultValue: 12,
           inputType: 'number'
         },
         bearing: {
@@ -199,7 +218,7 @@
           inputType: 'text'
         },
 
-        disableInteractive: {
+        disableInteraction: {
           type: Boolean,
           defaultValue: false,
           inputType: 'toggle'

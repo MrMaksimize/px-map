@@ -21,7 +21,8 @@
       this.notifyInstReady(this.canAddInst());
       //this.listen(this, 'px-map-gl-element-loaded', 'shouldAddInst');
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-gl-element-loaded', 'shouldAddInst');
+      this.listen(this.parentNode, 'px-map-gl-root-load', 'shouldAddInst');
+      this.listen(this.parentNode, 'px-map-gl-root-styledata', 'shouldAddInst');
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -37,10 +38,9 @@
     shouldAddInst(evt) {
       const parent = evt.detail;
       console.log('shouldAddInst on source');
-      console.log(parent);
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent) {
+      if (this.elementInst && parent && parent.elementInst.getSource(this.id) == undefined) {
         console.log('shouldaddinst true');
         this.addInst(parent);
       };

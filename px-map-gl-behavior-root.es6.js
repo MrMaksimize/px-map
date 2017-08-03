@@ -33,10 +33,9 @@
        */
       style: {
         type: String,
-        value: 'mapbox://styles/mapbox/light-v9',
+        value: 'mapbox://styles/mapbox/dark-v9',
         notify: true,
         observer: 'shouldUpdateInst'
-        // observer
       },
 
       /**
@@ -177,7 +176,7 @@
         observer: 'shouldUpdateInst'
       },
 
-      disableInteractive: {
+      disableInteraction: {
         type: Boolean,
         value: false,
         observer: 'shouldUpdateInst'
@@ -291,7 +290,8 @@
         'moveend' : mapMoveFn,
         'zoomstart' : zoomStartFn,
         'zoomend' : zoomEndFn,
-        'load': mapLoadedFn
+        'load': mapLoadedFn,
+        'styledata': mapLoadedFn
       });
     },
 
@@ -320,7 +320,7 @@
       options.maxZoom = this.maxZoom || 18;
       //options.maxBounds = this.maxBounds || undefined;
 
-      options.interactive = !this.disableInteractive;
+      options.interactive = !this.disableInteraction;
       options.dragPan = !this.disableDragging;
       options.scrollZoom = !this.disableScrollZoom;
       options.touchZoomRotate = !this.disableTouchZoom;
@@ -343,11 +343,19 @@
         this._updateMapView();
       }
 
+
+      if (nextOptions.style != '' && lastOptions.style !== nextOptions.style) {
+        //const layer = this.elementInst.getLayer('gj-symbol-layer-one');
+        //console.log(layer);
+        this.elementInst.setStyle(nextOptions.style);
+        //this.elementInst.addLayer(layer);
+      }
+
       if (lastOptions.maxZoom !== nextOptions.maxZoom && !isNaN(nextOptions.maxZoom)) {
-        this.setMaxZoom(nextOptions.maxZoom);
+        this.elementInst.setMaxZoom(nextOptions.maxZoom);
       }
       if (lastOptions.minZoom !== nextOptions.minZoom && !isNaN(nextOptions.minZoom)) {
-        this.setMinZoom(nextOptions.minZoom);
+        this.elementInst.setMinZoom(nextOptions.minZoom);
       }
       if (lastOptions.maxBounds !== nextOptions.maxBounds && !isNaN(nextOptions.maxBounds)) {
         this.setMaxBounds(nextOptions.maxBounds);
@@ -458,10 +466,13 @@
       return false;
     },
 
-    _handleMapLoaded() {
+    _handleMapLoaded(e) {
       if (this.canAddInst()) {
-        console.log('px-map-gl-element-loaded fire');
-        this.fire('px-map-gl-element-loaded', this);
+        this.debounce('fire-load-events', function() {
+            const ev_name = 'px-map-gl-root-' + e.type;
+            console.log('fire ' + ev_name);
+            this.fire(ev_name, this);
+        }, 1000);
         // http://sdgo.io/2vczACj
         // Opt 1 - notify children here
         /*const children = this.getEffectiveChildren();
