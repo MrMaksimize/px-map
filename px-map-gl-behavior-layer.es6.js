@@ -25,6 +25,9 @@
       source: {
         type: String
       },
+      sourceLayer: {
+        type: String
+      },
       hidden: {
         type: Boolean,
         value: false
@@ -167,6 +170,27 @@
      */
     canAddInst() {
       return true;
+    },
+
+    getInstOptions() {
+      const options = {
+        id: this.id,
+        source: this.source,
+        minzoom: this.minZoom,
+        maxzoom: this.maxZoom,
+        layout: {
+          visibility: this.hidden === true ? 'none' : 'visible'
+        },
+        paint: {}
+      };
+
+      if (this.sourceLayer)
+        options['source-layer'] = this.sourceLayer
+
+      if (this.filter)
+        options['filter'] = this.filter
+
+      return options;
     }
   };
   /* Bind Layer behavior */

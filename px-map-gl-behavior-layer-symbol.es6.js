@@ -130,17 +130,6 @@
     },
 
     getInstOptions() {
-      /*return {
-        id: this.id || '',
-        source: this.source,
-        hidden: this.hidden || false,
-        minZoom: this.minZoom || 0,
-        maxZoom: this.maxZoom || 0,
-        filter: this.filter,
-        iconImage: this.iconImage,
-        iconAllowOverlap: this.iconAllowOverlap
-      };*/
-
       var options = {
         id: this.id,
         type: 'symbol',
