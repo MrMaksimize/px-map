@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "A lightweight framework for building interactive maps with web components",
   "main": [
-    "px-map.html"
+    "px-map-gl.html"
   ],
   "ignore": [
     "*.enc",
@@ -17,7 +17,7 @@
     "OSS_Notice.pdf",
     "scripts",
     ".github",
-    "px-map.png",
+    "px-map-gl.png",
     "LICENSE.md",
     "CONTRIBUTING.md",
     "HISTORY.md",

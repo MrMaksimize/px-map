@@ -1,0 +1,212 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "66ffa5d4-3627-46c8-bd72-0dc03f7b1a4a",
+        "campus_name": "000001 - City Administration Building CAMPUS",
+        "building_name": "000001 - City Administration Building",
+        "building_number": "000001",
+        "address_1": "202 C Street",
+        "address_2": 0.0,
+        "zip": 0.0,
+        "community_area": "Centre City",
+        "council_district": 3.0,
+        "latitude": 32.716842,
+        "longitude": -117.162794
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.162794,
+          32.716842
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "f252b3b9-ee1e-4612-aa97-774f36c5c56e",
+        "campus_name": "000002 - San Diego Concourse (L) CAMPUS",
+        "building_name": "000002 - San Diego Concourse (L)",
+        "building_number": "000002",
+        "address_1": "202 C Street",
+        "address_2": 0.0,
+        "zip": 0.0,
+        "community_area": "Centre City",
+        "council_district": 3.0,
+        "latitude": 32.717339,
+        "longitude": -117.163683
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.163683,
+          32.717339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "f2e205c4-dd0d-4049-b495-e19e8c898d76",
+        "campus_name": "000003 - Civic Theatre and Exterior Restrooms (L) CAMPUS",
+        "building_name": "000003 - Civic Theatre and Exterior Restrooms (L)",
+        "building_number": "000003",
+        "address_1": "211 B Street",
+        "address_2": 0.0,
+        "zip": 0.0,
+        "community_area": "Centre City",
+        "council_district": 3.0,
+        "latitude": 32.717681,
+        "longitude": -117.162272
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.162272,
+          32.717681
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "49de3f59-251e-4361-9e0d-0885694d6684",
+        "campus_name": "000004 - Concourse Parkade (L) CAMPUS",
+        "building_name": "000004 - Concourse Parkade (L)",
+        "building_number": "000004",
+        "address_1": "150 C Street",
+        "address_2": 0.0,
+        "zip": 0.0,
+        "community_area": "Centre City",
+        "council_district": 3.0,
+        "latitude": 32.718338,
+        "longitude": -117.163067
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.163067,
+          32.718338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "3ec86bf3-ce69-4018-a27b-e8514b4e4298",
+        "campus_name": "000015 - Concessions, Balboa Park (L) CAMPUS",
+        "building_name": "000015 - Concessions, Balboa Park (L)",
+        "building_number": "000015",
+        "address_1": "1770 Village Pl",
+        "address_2": 0.0,
+        "zip": 92101.0,
+        "community_area": "Balboa Park",
+        "council_district": 3.0,
+        "latitude": 32.732986,
+        "longitude": -117.148186
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.148186,
+          32.732986
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "3c2d39cc-24ec-44a4-9acf-ca1b70422a11",
+        "campus_name": "000017 - Clubhouse and Shuffleboard, Golden Hill CAMPUS",
+        "building_name": "000017 - Clubhouse and Shuffleboard, Golden Hill",
+        "building_number": "000017",
+        "address_1": "2600 Golf Course Dr.",
+        "address_2": 0.0,
+        "zip": 92102.0,
+        "community_area": "Balboa Park",
+        "council_district": 3.0,
+        "latitude": 32.719728,
+        "longitude": -117.137274
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.137274,
+          32.719728
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "a0d17912-61b7-4b26-933c-c16a4d54159a",
+        "campus_name": "000022 - Fire Station 36 CAMPUS",
+        "building_name": "000022 - Fire Station 36",
+        "building_number": "000022",
+        "address_1": "5855 Chateau Drive",
+        "address_2": 0.0,
+        "zip": 92109.0,
+        "community_area": "Clairemont Mesa",
+        "council_district": 6.0,
+        "latitude": 32.822181,
+        "longitude": -117.174611
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.174611,
+          32.822181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "7130a830-610a-4537-9680-455da8a48f1f",
+        "campus_name": "000030 - Facilities  Maintenance, Central CAMPUS",
+        "building_name": "000030 - Facilities Maintenance, Central",
+        "building_number": "000030",
+        "address_1": "1970 B Street",
+        "address_2": 0.0,
+        "zip": 92102.0,
+        "community_area": "Greater Golden Hill",
+        "council_district": 3.0,
+        "latitude": 32.718033,
+        "longitude": -117.14613
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.14613,
+          32.718033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "campus_guid": "b9edf8e0-c3da-44d5-9796-fe67dcfdc07f",
+        "campus_name": "000031 - Police, Non-Emergency Support, Central Yard CAMPUS",
+        "building_name": "000031 - Police, Non-Emergency Support, Central Yard",
+        "building_number": "000031",
+        "address_1": "#20th and 'B' Street, Central Operations",
+        "address_2": 0.0,
+        "zip": 0.0,
+        "community_area": "Greater Golden Hill",
+        "council_district": 3.0,
+        "latitude": 32.718642,
+        "longitude": -117.145778
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.145778,
+          32.718642
+        ]
+      }
+    }
+  ]
+}

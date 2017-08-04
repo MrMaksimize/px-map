@@ -4,23 +4,23 @@
 <link rel="import" href="../../px-demo/px-demo-collection.html" />
 
 <!-- Import peer demo pages -->
-<link rel="import" href="px-map-demo.html" />
-<link rel="import" href="px-map-layer-geojson-demo.html" />
-<link rel="import" href="px-map-tile-layer-demo.html" />
+<link rel="import" href="px-map-gl-demo.html" />
+<link rel="import" href="px-map-gl-geojson-demo.html" />
+<!--<link rel="import" href="px-map-tile-layer-demo.html" />
 <link rel="import" href="px-map-tile-layer-bing-demo.html" />
 <link rel="import" href="px-map-marker-static-demo.html" />
 <link rel="import" href="px-map-marker-symbol-demo.html" />
-<link rel="import" href="px-map-marker-locate-demo.html" />
+<link rel="import" href="px-map-marker-locate-demo.html" />-->
 <!-- <link rel="import" href="px-map-marker-direction-demo.html" /> -->
-<link rel="import" href="px-map-marker-group-demo.html" />
+<!--<link rel="import" href="px-map-marker-group-demo.html" />
 <link rel="import" href="px-map-layer-group-demo.html" />
 <link rel="import" href="px-map-popup-info-demo.html" />
 <link rel="import" href="px-map-popup-data-demo.html" />
 <link rel="import" href="px-map-control-zoom-demo.html" />
-<link rel="import" href="px-map-control-scale-demo.html" />
+<link rel="import" href="px-map-control-scale-demo.html" />-->
 <!-- <link rel="import" href="px-map-control-info-demo.html" /> -->
-<link rel="import" href="px-map-control-locate-demo.html" />
-<link rel="import" href="../../px-demo/px-demo-code-editor.html" />
+<!--<link rel="import" href="px-map-control-locate-demo.html" />
+<link rel="import" href="../../px-demo/px-demo-code-editor.html" />-->
 
 <!-- Demo DOM module -->
 <dom-module id="local-element-demo">
@@ -61,38 +61,9 @@
         type: Array,
         value: function(){
           return [
-            { name: "px-map",
-              tagName: "px-map-demo" },
-            { name: "px-map-tile-layer",
-              tagName: "px-map-tile-layer-demo" },
-            { name: "px-map-layer-geojson",
-              tagName: "px-map-layer-geojson-demo" },
-            { name: "px-map-tile-layer-bing",
-              tagName: "px-map-tile-layer-bing-demo" },
-            // { name: "px-map-control-info",
-            //   tagName: "px-map-control-info-demo" },
-            { name: "px-map-control-locate",
-              tagName: "px-map-control-locate-demo" },
-            { name: "px-map-control-scale",
-              tagName: "px-map-control-scale-demo" },
-            { name: "px-map-control-zoom",
-              tagName: "px-map-control-zoom-demo" },
-            // { name: "px-map-marker-direction",
-            //   tagName: "px-map-marker-direction-demo" },
-            { name: "px-map-marker-locate",
-              tagName: "px-map-marker-locate-demo" },
-            { name: "px-map-marker-static",
-              tagName: "px-map-marker-static-demo" },
-            { name: "px-map-marker-symbol",
-              tagName: "px-map-marker-symbol-demo" },
-            { name: "px-map-marker-group",
-              tagName: "px-map-marker-group-demo" },
-            { name: "px-map-layer-group",
-              tagName: "px-map-layer-group-demo" },
-            { name: "px-map-popup-info",
-              tagName: "px-map-popup-info-demo" },
-            { name: "px-map-popup-data",
-              tagName: "px-map-popup-data-demo" }
+            { name: "px-map-gl-geojson",
+              tagName: "px-map-gl-geojson-demo"
+            }
           ]
         }
       },

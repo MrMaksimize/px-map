@@ -1,0 +1,252 @@
+<!-- Common imports -->
+<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../iron-ajax/iron-ajax.html" />
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html" />
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html" />
+<link rel="import" href="../../px-demo/px-demo-footer.html" />
+<link rel="import" href="../../px-demo/px-demo-configs.html" />
+<link rel="import" href="../../px-demo/px-demo-props.html" />
+<link rel="import" href="../../px-demo/px-demo-interactive.html" />
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html" />
+<link rel="import" href="../../px-demo/css/px-demo-styles.html" />
+
+<!-- Imports for this component -->
+<link rel="import" href="../px-map-gl.html" />
+<link rel="import" href="../px-map-gl-source-geojson.html" />
+<link rel="import" href="../px-map-gl-layer-symbol.html" />
+<link rel="import" href="../px-map-gl-control-nav.html" />
+<link rel="import" href="../px-map-gl-control-fullscreen.html" />
+
+<!-- Demo DOM module -->
+<dom-module id="px-map-gl-geojson-demo">
+  <template>
+  <style include="px-demo-styles" is="custom-style"></style>
+
+  <!-- Header -->
+  <px-demo-header
+      module-name="px-map-gl-geojson"
+      parent-name="px-map-gl"
+      description="The px-map-gl-geojson subcomponent draws GeoJSON data as vectors on the map.">
+  </px-demo-header>
+
+  <!-- Interactive -->
+  <px-demo-interactive>
+    <!-- Configs -->
+    <px-demo-configs configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+    <!-- Props -->
+    <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+    <!-- Load GeoJSON from file -->
+    <iron-ajax url="px-map-gl-geojson-data.json" last-response="{{props.data.value}}" auto></iron-ajax>
+
+    <!-- Component ---------------------------------------------------------->
+    <px-demo-component>
+      <div style="height:600px;width:850px;display:flex">
+          <px-map-gl zoom="{{ props.zoom.value}}"
+                bearing="{{ props.bearing.value }}"
+                pitch="{{ props.pitch.value }}"
+                flex-to-size="{{props.flexToSize.value}}"
+                disable-interaction="{{props.disableInteraction.value}}"
+                style="{{ props.style.value }}"
+                mgl-token="{{ props.mglToken.value }}"
+                lat="{{ props.lat.value }}"
+                lng="{{ props.lng.value }}">
+            <px-map-gl-control-nav
+                position="top-left">
+            </px-map-gl-control-nav>
+
+            <px-map-gl-control-fullscreen
+                position="top-right">
+            </px-map-gl-control-fullscreen>
+
+
+            <px-map-gl-source-geojson
+              id="gjsource"
+              data="{{props.data.value}}">
+            </px-map-gl-source-geojson>
+            <px-map-gl-layer-symbol
+              id="gj-symbol-layer-one"
+              icon-image="music-15"
+              icon-size="2"
+              active-feature="{{ activeFeature }}"
+              source="gjsource">
+                <!--<px-map-gl-popup-template>
+                    <h1>{{ data.title }}</h1>
+                </px-map-gl-popup-template>-->
+            </px-map-gl-layer-symbol>
+        </px-map-gl>
+      </div>
+    </px-demo-component>
+    <!-- END Component ------------------------------------------------------>
+
+    <px-demo-component-snippet
+        element-properties="{{props}}"
+        element-name="px-map-gl"
+        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html","px-map-gl/px-map-gl-layer-symbol.html"]'>
+    </px-demo-component-snippet>
+  </px-demo-interactive>
+
+  <!-- API Viewer -->
+  <px-demo-api-viewer
+    source="px-map-gl-source-geojson"
+    mark-private="[[apiMarkPrivate]]">
+  </px-demo-api-viewer>
+  <px-demo-api-viewer
+    source="px-map-gl-layer-symbol"
+    mark-private="[[apiMarkPrivate]]">
+  </px-demo-api-viewer>
+
+  <!-- Footer -->
+  <px-demo-footer></px-demo-footer>
+</template>
+</dom-module>
+
+  <script>
+    Polymer({
+      is: 'px-map-gl-geojson-demo',
+
+      properties: {
+
+        /**
+         * Note: The actual data/values for `props` are placed in `this.demoProps`
+         * to create a static reference that Polymer shouldn't overwrite.
+         *
+         * @property props
+         * @type {Object}
+         */
+        props: {
+          type: Object,
+          value: function(){ return this.demoProps; }
+        },
+
+        /**
+         * An array of pre-configured `props` that can be used to provide the user
+         * with a set of common examples. These configs will be made available
+         * as a set of tabs the user can click that will automatically change
+         * the `props` to specific values.
+         *
+         * @property configs
+         * @type {Array}
+         */
+        configs: {
+          type: Array,
+          value: function(){
+            return [
+              { configName: "Basic",
+                configReset: true }
+              ]
+          }
+        },
+
+        apiMarkPrivate: {
+          type: Array,
+          value: function() {
+            return [
+              "notifyInstReady",
+              "canAddInst",
+              "shouldAddInst",
+              "addInst",
+              "shouldRemoveInst",
+              "removeInst",
+              "shouldUpdateInst",
+              "updateInst",
+              "createInst",
+              "getStyle",
+              "getInstOptions",
+              "bindEvents",
+              "unbindAllEvents",
+              "addProperties",
+              "extendObj",
+              "getShadyScope",
+              "isShadyScoped"
+            ]
+          }
+        }
+      },
+
+
+      /**
+       * A reference for `this.props`. Read the documentation there.
+       *
+       * @property demoProps
+       * @type {Object}
+       */
+      demoProps: {
+        data: {
+          type: Object,
+          defaultValue: {},
+          inputType: 'code:JSON'
+        },
+        style: {
+          inputLabel: 'Map Style',
+          type: String,
+          defaultValue: "mapbox://styles/mapbox/dark-v9",
+          inputType: 'dropdown',
+          inputChoices: [
+              'mapbox://styles/mapbox/light-v9',
+              'mapbox://styles/mapbox/dark-v9',
+              'mapbox://styles/mapbox/streets-v9',
+              'mapbox://styles/mapbox/outdoors-v9',
+              'mapbox://styles/mapbox/satellite-v9',
+              'mapbox://styles/mapbox/satellite-streets-v9',
+              'mapbox://styles/mapbox/basic-v9',
+              'mapbox://styles/mapbox/bright-v9',
+              'mapbox://styles/mapbox/empty-v9'
+          ]
+        },
+
+        lat: {
+          inputLabel: 'Latitude',
+          type: Number,
+          defaultValue: '32.7157',
+          inputType: 'number'
+        },
+        lng: {
+          inputLabel: 'Longitude',
+          type: Number,
+          defaultValue: '-117.1611',
+          inputType: 'number'
+        },
+        zoom: {
+          type: Number,
+          defaultValue: 12,
+          inputType: 'number'
+        },
+        bearing: {
+          type: Number,
+          defaultValue: 0,
+          inputType: 'number'
+        },
+        pitch: {
+          type: Number,
+          defaultValue: 0,
+          inputType: 'number'
+        },
+        mglToken: {
+          type: String,
+          defaultValue: "pk.eyJ1IjoiYXZlZHkiLCJhIjoiY2l2NDQ1bG9oMDA0aDJ0cWx4ZW50aTJkbiJ9.WPiw3lvIkzQcABAfJj2MBQ",
+          inputType: 'text'
+        },
+
+        disableInteraction: {
+          type: Boolean,
+          defaultValue: false,
+          inputType: 'toggle'
+        },
+
+        flexToSize: {
+          type: Boolean,
+          defaultValue: true,
+          inputType: 'toggle',
+          inputDisabled: true
+        },
+
+        parentComponent: {
+            value: ['<div style="height:600px;width:850px;display:flex"><px-map-gl class="style-scope px-map-gl-geojson-demo x-scope px-map-gl-0" lng="-117.1611" lat="32.7157" flex-to-size="" pitch="0" bearing="0" zoom="8">','</px-map-gl></div>']
+        }
+      }
+    });
+  </script>
