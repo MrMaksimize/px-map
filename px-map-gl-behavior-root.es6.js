@@ -24,6 +24,7 @@
        */
       crs: {
         type: Object
+        // TODO - project events
       },
 
       /**
@@ -301,6 +302,7 @@
         this.scopeSubtree(this.$.map, false);
       }
     },
+
 
     getInstOptions() {
       const options = {};

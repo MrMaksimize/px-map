@@ -98,13 +98,18 @@
 
       // Bind Events.
       // TODO - use the normal binding pattern to bind events.
-      parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
+      this.bindEvents({
+        // Switch Pointer To Hand
+        'mouseenter': this._switchPointer.bind(this),
+        'mouseleave': this._switchPointer.bind(this)
+      }, parent.elementInst, this.id)
+      /*parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._broadcastActiveFeature.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._switchPointer.bind(this));
 
       parent.elementInst.on('mouseleave', this.id, this._broadcastEvent.bind(this));
       parent.elementInst.on('mouseleave', this.id, this._broadcastActiveFeature.bind(this));
-      parent.elementInst.on('mouseleave', this.id, this._switchPointer.bind(this));
+      parent.elementInst.on('mouseleave', this.id, this._switchPointer.bind(this));*/
     },
 
     removeInst(parent) {
