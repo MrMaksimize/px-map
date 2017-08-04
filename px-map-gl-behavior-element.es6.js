@@ -52,7 +52,7 @@
       if (!this.elementInst) {
         const options = this.__initialOptions = this.getInstOptions();
         this.elementInst = this.createInst(options);
-        this.fire('px-map-gl-gl-element-instance-created');
+        this.fire('px-map-gl-element-instance-created');
       }
 
       this.__instEvents = (this.__instEvents || []);
