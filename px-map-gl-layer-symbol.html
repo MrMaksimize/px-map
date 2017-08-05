@@ -47,7 +47,10 @@ about each feature.
   <style>
     :host { display: none }
   </style>
-  <template></template>
+  <template>
+      <!-- This makes sure that anything I pass into root is distributed out -->
+    <content select="*"></content>
+  </template>
 </dom-module>
 <script>
   Polymer({

@@ -50,6 +50,7 @@
     shouldAddInst() {
       // Create the instance, if it doesn't already exist
       if (!this.elementInst) {
+        console.log('add instance');
         const options = this.__initialOptions = this.getInstOptions();
         this.elementInst = this.createInst(options);
         this.fire('px-map-gl-element-instance-created');

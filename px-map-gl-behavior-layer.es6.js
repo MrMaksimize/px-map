@@ -96,16 +96,27 @@
 
     addInst(parent) {
       console.log('addInst on layer');
-      console.log(this.elementInst);
       parent.elementInst.addLayer(this.elementInst);
+
+      // Bind Events
+      /* We're going to bind events here necessary for any layer.
+       * When an event is triggered, it's going to be broadast out to the children
+       * or popups.  It's also going to be broadcast up to any listeners
+       */
+      this.bindEvents({
+        'click': this._broadcastEvent.bind(this),
+        'dblclick': this._broadcastEvent.bind(this),
+        'mouseenter': this._broadcastEvent.bind(this),
+        'mouseleave': this._broadcastEvent.bind(this)
+      }, parent.elementInst, this.id);
 
       // Bind Events.
       // TODO - use the normal binding pattern to bind events.
-      this.bindEvents({
+      /*this.bindEvents({
         // Switch Pointer To Hand
         'mouseenter': this._switchPointer.bind(this),
         'mouseleave': this._switchPointer.bind(this)
-      }, parent.elementInst, this.id)
+      }, parent.elementInst, this.id)*/
       /*parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._broadcastActiveFeature.bind(this));
       parent.elementInst.on('mouseenter', this.id, this._switchPointer.bind(this));
@@ -120,17 +131,6 @@
       this.elementInst.remove();
     },
 
-    _broadcastActiveFeature(e) {
-      if (e.type === 'mouseenter') {
-        // TODO - needs to be more specific
-        this._setActiveFeature(e.features[0]);
-      }
-      else {
-        this._setActiveFeature({});
-      }
-    },
-
-
     _broadcastEvent(e) {
       // TODO make this a param?
       const detail = {
@@ -138,8 +138,10 @@
         emitter: this, // TBD - may not be neededed because.feature has layer.
         event: e
       };
+      const eventName = 'px-map-gl-layer-' + e.type;
+      console.log(eventName);
       console.log(detail);
-      this.fire('px-map-gl-gl-layer-' + e.type, detail);
+      this.fire(eventName, detail);
     },
 
     _switchPointer(e) {
