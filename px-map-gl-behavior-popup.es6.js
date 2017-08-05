@@ -61,9 +61,10 @@
     },
 
     addInst(eventDetail) {
-      console.log(eventDetail);
+      this.activeFeature = eventDetail.event.features[0].properties['building_name'];
+      const node = Polymer.dom(this.root).querySelector('h1');
       this.elementInst.setLngLat(eventDetail.event.lngLat);
-      this.elementInst.setText(eventDetail.event.features[0].properties['building_name']);
+      this.elementInst.setDOMContent(node);
       this.elementInst.addTo(eventDetail.event.target);
     },
 

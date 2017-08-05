@@ -34,11 +34,13 @@ information about the selected marker.
   <style>
     :host { display: none }
   </style>
-  <template></template>
+  <template>
+      <h1>{{ activeFeature }}</h1>
+  </template>
 </dom-module>
 <script>
   Polymer({
     is: 'px-map-gl-popup-info',
-    behaviors: [PxMapGlBehavior.InfoPopup]
+    behaviors: [PxMapGlBehavior.Popup]
   });
 </script>
