@@ -31,6 +31,14 @@
       showEvent: {
         type: String,
         value: 'click'
+      },
+      popupData: {
+        type: Object,
+        value: function() {
+          return {};
+        },
+        readOnly: true,
+        reflectToAttribute: true
       }
     },
     attached() {
@@ -48,24 +56,47 @@
         throw new Error('Invalid showEvent provided')
     },
 
+    // Say we want to programmatically trigger a popup.  The way that will be done
+    // is by setting an active feature on the layer, then dispatching the event with the
+    // parent to the popup.
+
 
     shouldAddInst(evt) {
-      const map = evt.detail.event.target;
       if (this.elementInst) {
         this.removeInst();
       }
-      PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, map);
+      PxMapGlBehavior.ElementImpl.shouldAddInst.call(this);
       if (this.elementInst) {
         this.addInst(evt.detail);
       };
     },
 
     addInst(eventDetail) {
-      this.activeFeature = eventDetail.event.features[0].properties['building_name'];
-      const node = Polymer.dom(this.root).querySelector('h1');
+      console.log('addinst popup');
+      const popupData = {
+        lngLat: eventDetail.event.lngLat,
+        type: eventDetail.event.type,
+        features: eventDetail.event.features || [],
+      };
+      if (popupData.features[0].properties) {
+        popupData.activeFeatureProperties = this._toArray(popupData.features[0].properties);
+      }
+      this._setPopupData(popupData);
+      console.log(this.popupData);
+      const node = Polymer.dom(this.root).querySelector('#popup-template');
+      console.log(node);
       this.elementInst.setLngLat(eventDetail.event.lngLat);
       this.elementInst.setDOMContent(node);
       this.elementInst.addTo(eventDetail.event.target);
+    },
+
+    _toArray(obj) {
+      return Object.keys(obj).map(function(key) {
+        return {
+          name: key,
+          value: obj[key]
+        };
+      });
     },
 
     removeInst() {

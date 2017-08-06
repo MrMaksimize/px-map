@@ -30,17 +30,28 @@ information about the selected marker.
 -->
 
 
-<dom-module id="px-map-gl-popup-info">
+<dom-module id="px-map-gl-popup-data">
   <style>
     :host { display: none }
   </style>
   <template>
-      <h1>{{ activeFeature }}</h1>
+    <div id="popup-template">
+      <table>
+        <tbody>
+          <template is="dom-repeat" items="{{ popupData.activeFeatureProperties }}">
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>{{ item.value }}</td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
   </template>
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-popup-info',
+    is: 'px-map-gl-popup-data',
     behaviors: [PxMapGlBehavior.Popup]
   });
 </script>
