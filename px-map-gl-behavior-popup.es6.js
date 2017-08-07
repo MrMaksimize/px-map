@@ -35,7 +35,6 @@
       popupData: {
         type: Object,
         value: function() {
-          return {};
         },
         readOnly: true,
         reflectToAttribute: true
@@ -72,7 +71,6 @@
     },
 
     addInst(eventDetail) {
-      console.log('addinst popup');
       const popupData = {
         lngLat: eventDetail.event.lngLat,
         type: eventDetail.event.type,
@@ -82,9 +80,7 @@
         popupData.activeFeatureProperties = this._toArray(popupData.features[0].properties);
       }
       this._setPopupData(popupData);
-      console.log(this.popupData);
       const node = Polymer.dom(this.root).querySelector('#popup-template');
-      console.log(node);
       this.elementInst.setLngLat(eventDetail.event.lngLat);
       this.elementInst.setDOMContent(node);
       this.elementInst.addTo(eventDetail.event.target);
