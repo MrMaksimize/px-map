@@ -501,6 +501,8 @@
         const latLng = this.elementInst.getCenter();
         const zoom = this.elementInst.getZoom();
         const bounds = this.elementInst.getBounds();
+        const pitch = this.elementInst.getPitch();
+        const bearing = this.elementInst.getBearing();
 
         if (this.lat !== latLng.lat || this.lng !== latLng.lng) {
           this.set('lat', latLng.lat);
@@ -508,6 +510,12 @@
         }
         if (this.zoom !== zoom) {
           this.set('zoom', zoom);
+        }
+        if (this.bearing !== bearing) {
+          this.set('bearing', bearing);
+        }
+        if (this.pitch !== pitch) {
+          this.set('pitch', pitch);
         }
 
         this.fire('px-map-gl-moved', {
