@@ -20,6 +20,7 @@
 <link rel="import" href="../px-map-gl-control-fullscreen.html" />
 <link rel="import" href="../px-map-gl-control-scale.html" />
 <link rel="import" href="../px-map-gl-control-geolocate.html" />
+<link rel="import" href="../px-map-gl-popup-debug.html" />
 
 <!-- Demo DOM module -->
 <dom-module id="px-map-gl-geojson-demo">
@@ -56,6 +57,7 @@
                 mgl-token="{{ props.mglToken.value }}"
                 lat="{{ props.lat.value }}"
                 lng="{{ props.lng.value }}">
+
             <px-map-gl-control-nav
                 position="top-left">
             </px-map-gl-control-nav>
@@ -73,22 +75,26 @@
                 position="bottom-left">
             </px-map-gl-control-geolocate>
 
-
-
             <px-map-gl-source-geojson
               id="gjsource"
               data="{{props.data.value}}">
             </px-map-gl-source-geojson>
+
             <px-map-gl-layer-symbol
               id="gj-symbol-layer-one"
               icon-image="music-15"
               icon-size="2"
               active-feature="{{ activeFeature }}"
               source="gjsource">
-                <!--<px-map-gl-popup-template>
-                    <h1>{{ data.title }}</h1>
-                </px-map-gl-popup-template>-->
+
+              <px-map-gl-popup-debug
+                show-event="click"
+                title="popupData.activeFeatureProperties elements"
+                description="See full popupData in Console">
+              </px-map-gl-popup-debug>
             </px-map-gl-layer-symbol>
+
+
         </px-map-gl>
       </div>
     </px-demo-component>
