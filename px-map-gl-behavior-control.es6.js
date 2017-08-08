@@ -57,6 +57,7 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
+      console.log(parent);
       parent.elementInst.addControl(this.elementInst, this.position);
     },
 
@@ -91,5 +92,125 @@
     PxMapGlBehavior.ControlImpl
   ];
 
-  // if bring parentlayerimpl stuff back, pull from layer.
+
+  /**
+   * @polymerBehavior PxMapGlBehavior.Layer
+   */
+  PxMapGlBehavior.NavControlImpl = {
+    createInst(options) {
+      return new mapboxgl.NavigationControl();
+    },
+    getInstOptions() {
+      return {
+        position: this.position
+      }
+    }
+  }
+
+  PxMapGlBehavior.NavControl = [
+    PxMapGlBehavior.Control,
+    PxMapGlBehavior.NavControlImpl
+  ];
+
+
+  /**
+   * @polymerBehavior PxMapGlBehavior.Layer
+   */
+  PxMapGlBehavior.FullScreenControlImpl = {
+    createInst(options) {
+      return new mapboxgl.FullscreenControl();
+    },
+    getInstOptions() {
+      return {
+        position: this.position
+      }
+    }
+  }
+
+  PxMapGlBehavior.FullScreenControl = [
+    PxMapGlBehavior.Control,
+    PxMapGlBehavior.FullScreenControlImpl
+  ];
+
+
+
+  /**
+   * @polymerBehavior PxMapGlBehavior.Layer
+   */
+  PxMapGlBehavior.GeolocateControlImpl = {
+    properties: {
+      highAccuracy: {
+        type: Boolean,
+        default: false
+      },
+      timeout: {
+        type: Number,
+        default: 6000
+      },
+      // TODO -- these should be reactive.  But later.
+      disableTrackUserLoc: {
+        type: Boolean,
+        default: false
+      },
+      disableShowUserLoc: {
+        type: Boolean,
+        default: false
+      }
+
+    },
+    createInst(options) {
+      return new mapboxgl.GeolocateControl(options);
+    },
+
+    getInstOptions() {
+      return {
+        position: this.position,
+        positionOptions: {
+            enableHighAccuracy: this.enableHighAccuracy,
+            timeout: this.timeout
+        },
+        trackUserLocation: !this.disableTrackUserLoc,
+        showUserLocation: !this.disableShowUserLoc
+      }
+    }
+  }
+
+  PxMapGlBehavior.GeolocateControl = [
+    PxMapGlBehavior.Control,
+    PxMapGlBehavior.GeolocateControlImpl
+  ];
+
+
+  /**
+   * @polymerBehavior PxMapGlBehavior.Layer
+   */
+  PxMapGlBehavior.ScaleControlImpl = {
+    properties: {
+        maxWidth: {
+          type: String,
+          default: '150'
+        },
+        unit: {
+          type: String,
+          default: 'metric'
+        }
+    },
+    createInst(options) {
+      return new mapboxgl.ScaleControl(options);
+    },
+    getInstOptions() {
+      return {
+        position: this.position,
+        maxWidth: this.maxWidth,
+        unit: this.unit
+      }
+    }
+  }
+
+  PxMapGlBehavior.ScaleControl = [
+    PxMapGlBehavior.Control,
+    PxMapGlBehavior.ScaleControlImpl
+  ];
+
+
 })();
