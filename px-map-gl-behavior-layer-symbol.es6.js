@@ -22,7 +22,6 @@
       // Layout
       iconImage: {
         type: String,
-        value: 'music-15',
         observer: 'shouldUpdateInst'
       },
       iconAllowOverlap: {
@@ -35,6 +34,15 @@
         value: 1,
         observer: 'shouldUpdateInst'
       }
+      /*iconProperty {
+        type: String,
+        value: 'icon'
+      }*/
+      /*iconPropertySpriteMap {
+        type: Object,
+        value: function() {
+            return {}
+        }*/
     },
 
     /**
@@ -112,9 +120,17 @@
       options.type = 'symbol';
 
       // Layout
-      options.layout['icon-image'] = this.iconImage
       options.layout['icon-allow-overlap'] = this.iconAllowOverlap;
       options.layout['icon-size'] = this.iconSize;
+
+      //if (this.iconImage)
+        options.layout['icon-image'] = this.iconImage
+
+      // For mapping icons.
+      /*else {
+        options.layout['icon-image'] = this.
+      }*/
+
       return options;
     }
   };

@@ -21,6 +21,7 @@
 <link rel="import" href="../px-map-gl-control-scale.html" />
 <link rel="import" href="../px-map-gl-control-geolocate.html" />
 <link rel="import" href="../px-map-gl-control-geocoder.html" />
+<link rel="import" href="../px-map-gl-control-directions.html" />
 <link rel="import" href="../px-map-gl-popup-debug.html" />
 
 <!-- Demo DOM module -->
@@ -76,10 +77,16 @@
                 position="bottom-left">
             </px-map-gl-control-geolocate>
 
-            <px-map-gl-control-geocoder
+            <!--<px-map-gl-control-geocoder
                 position="top-right"
                 mgl-token="{{ props.mglToken.value }}">
-            </px-map-gl-control-geocoder>
+            </px-map-gl-control-geocoder>-->
+
+
+            <px-map-gl-control-directions
+                position="top-right"
+                mgl-token="{{ props.mglToken.value }}">
+            </px-map-gl-control-directions>
 
             <px-map-gl-source-geojson
               id="gjsource"

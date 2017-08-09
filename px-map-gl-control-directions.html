@@ -3,10 +3,14 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../../polymer/polymer.html"/>
+<link rel="import" href="../polymer/polymer.html"/>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.css' type='text/css' />
+
 
 <!-- Load required PxMapGlBehaviors -->
-<link rel="import" href="px-map-gl-behavior-control.html">
+<link rel="import" href="px-map-gl-behavior-control-directions.html">
 
 <!--
 This subcomponent draws GeoJSON features as vectors on the map. Use it to draw
@@ -43,7 +47,7 @@ about each feature.
 @demo index.html
 -->
 
-<dom-module id="px-map-gl-control-scale">
+<dom-module id="px-map-gl-control-directions">
   <style>
     :host { display: none }
   </style>
@@ -51,7 +55,7 @@ about each feature.
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-control-scale',
-    behaviors: [PxMapGlBehavior.ScaleControl]
+    is: 'px-map-gl-control-directions',
+    behaviors: [PxMapGlBehavior.DirectionsControl]
   });
 </script>
