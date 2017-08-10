@@ -34,15 +34,6 @@
         value: 1,
         observer: 'shouldUpdateInst'
       }
-      /*iconProperty {
-        type: String,
-        value: 'icon'
-      }*/
-      /*iconPropertySpriteMap {
-        type: Object,
-        value: function() {
-            return {}
-        }*/
     },
 
     /**
@@ -122,14 +113,7 @@
       // Layout
       options.layout['icon-allow-overlap'] = this.iconAllowOverlap;
       options.layout['icon-size'] = this.iconSize;
-
-      //if (this.iconImage)
-        options.layout['icon-image'] = this.iconImage
-
-      // For mapping icons.
-      /*else {
-        options.layout['icon-image'] = this.
-      }*/
+      options.layout['icon-image'] = this.iconImage
 
       return options;
     }
