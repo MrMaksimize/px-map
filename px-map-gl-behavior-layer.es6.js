@@ -45,15 +45,6 @@
       filter: {
         type: Array,
         observer: 'shouldUpdateInst'
-      },
-      activeFeature: {
-        type: Object,
-        notify: true,
-        readOnly: true,
-        reflectToAttribute: true,
-        value: function() {
-            return {}
-        }
       }
     },
     attached() {
@@ -74,6 +65,7 @@
     // instance to its parent
 
     shouldAddInst(evt) {
+      // TODO - do we need this evt anymore since _getMapElement would just work?
       const parent = evt.detail;
       console.log('shouldAddInst on layer');
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
@@ -131,6 +123,32 @@
       this.elementInst.remove();
     },
 
+
+    updateInst(lastOptions, nextOptions) {
+      console.log(lastOptions);
+      console.log(nextOptions);
+      nextOptions.layout.visibility = "hello";
+      console.log(this._getMapElement());
+      const mapEl = this._getMapElement()
+      //if (lastOptions.maxZoom !== nextOptions.maxZoom && !isNaN(nextOptions.maxZoom)) {
+      // map.setFilter('layer', null);
+      if (!_.isEqual(lastOptions.filter, nextOptions.filter)) {
+        mapEl.elementInst.setFilter(this.id, nextOptions.filter);
+      }
+      // TODO still need way to remove a filter
+
+    },
+
+    // TODO - should each sub-element have this method?
+    // Think about how to better structure this, since layer and source need it.  Maybe extra behavior for sub-map-els?
+    _getMapElement() {
+      const mapEl = this.parentNode;
+      if (mapEl.is !== 'px-map-gl')
+        throw new Error('Layer elements need to have px-map-gl parent.')
+      else
+        return mapEl;
+    },
+
     _broadcastEvent(e) {
       // TODO make this a param?
       const detail = {
@@ -183,7 +201,7 @@
         layout: {
           visibility: this.hidden === true ? 'none' : 'visible'
         },
-        paint: {}
+        paint: {},
       };
 
       if (this.sourceLayer)
