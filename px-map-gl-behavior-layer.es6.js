@@ -32,12 +32,12 @@
         type: Boolean,
         value: false
       },
-      minZoom: {
+      minZoomVisible: {
         type: Number,
         value: 0,
         observer: 'shouldUpdateInst'
       },
-      maxZoom: {
+      maxZoomVisible: {
         type: Number,
         value: 22,
         observer: 'shouldUpdateInst'
@@ -125,18 +125,34 @@
 
 
     updateInst(lastOptions, nextOptions) {
-      console.log(lastOptions);
-      console.log(nextOptions);
-      nextOptions.layout.visibility = "hello";
-      console.log(this._getMapElement());
       const mapEl = this._getMapElement()
-      //if (lastOptions.maxZoom !== nextOptions.maxZoom && !isNaN(nextOptions.maxZoom)) {
       // map.setFilter('layer', null);
+      // Filters are arrays, so we need an easy way to diff them.
       if (!_.isEqual(lastOptions.filter, nextOptions.filter)) {
         mapEl.elementInst.setFilter(this.id, nextOptions.filter);
       }
-      // TODO still need way to remove a filter
 
+      if (!_.isEqual(lastOptions.maxzoom, nextOptions.maxzoom) ||
+          !_.isEqual(lastOptions.minzoom, nextOptions.maxzoom)) {
+        mapEl.elementInst.setLayerZoomRange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
+      }
+
+      // Update Layout Properties.
+      const layoutKeys = _.uniq(Object.keys(lastOptions.layout).concat(Object.keys(nextOptions.layout)));
+      layoutKeys.forEach((key) => {
+        if (!_.isEqual(lastOptions.layout[key], nextOptions.layout[key])) {
+          mapEl.elementInst.setLayoutProperty(this.id, key, nextOptions.layout[key]);
+        }
+      });
+
+
+      // Update Paint Properties.
+      const paintKeys = _.uniq(Object.keys(lastOptions.paint).concat(Object.keys(nextOptions.paint)));
+      paintKeys.forEach((key) => {
+        if (!_.isEqual(lastOptions.paint[key], nextOptions.paint[key])) {
+          mapEl.elementInst.setPaintProperty(this.id, key, nextOptions.paint[key]);
+        }
+      });
     },
 
     // TODO - should each sub-element have this method?
@@ -196,8 +212,8 @@
       const options = {
         id: this.id,
         source: this.source,
-        minzoom: this.minZoom,
-        maxzoom: this.maxZoom,
+        minzoom: this.minZoomVisible,
+        maxzoom: this.maxZoomVisible,
         layout: {
           visibility: this.hidden === true ? 'none' : 'visible'
         },
