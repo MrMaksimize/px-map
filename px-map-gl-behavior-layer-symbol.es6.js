@@ -20,20 +20,68 @@
        */
       // Properties defined here are only for this layer type.
       // Layout
-      iconImage: {
-        type: String,
-        observer: 'shouldUpdateInst'
-      },
+      symbolPlacement: { type: String, observer: 'shouldUpdateInst'},
+      symbolSpacing: { type: Number, observer: 'shouldUpdateInst' },
+      symbolAvoidEdges: { type: Boolean, observer: 'shouldUpdateInst' },
       iconAllowOverlap: {
         type: Boolean,
         value: false,
         observer: 'shouldUpdateInst'
       },
+      iconIgnorePlacement: { type: Boolean, observer: 'shouldUpdateInst' },
+      iconOptional: { type: Boolean, observer: 'shouldUpdateInst' },
+      iconRotationAlignment: { type: String, observer: 'shouldUpdateInst' },
       iconSize: {
         type: Number,
         value: 1,
         observer: 'shouldUpdateInst'
-      }
+      },
+      iconTextFit: { type: String, observer: 'shouldUpdateInst' },
+      iconTextFitPadding: { type: Array, observer: 'shouldUpdateInst' },
+      iconImage: {
+        type: String,
+        observer: 'shouldUpdateInst'
+      },
+      iconRotate: { type: Number, observer: 'shouldUpdateInst' },
+      iconPadding: { type: Number, observer: 'shouldUpdateInst' },
+      iconKeepUpright: { type: Boolean, observer: 'shouldUpdateInst' },
+      iconOffset: { type: Array, observer: 'shouldUpdateInst' },
+      iconPitchAlignment: { type: String, observer: 'shouldUpdateInst' },
+      textPitchAlignment: { type: String, observer: 'shouldUpdateInst' },
+      textRotationAlignment: { type: String, observer: 'shouldUpdateInst' },
+      textField: { type: String, observer: 'shouldUpdateInst' },
+      textFont: { type: Array, observer: 'shouldUpdateInst' },
+      textSize: { type: Number, observer: 'shouldUpdateInst' },
+      textMaxWidth: { type: Number, observer: 'shouldUpdateInst' },
+      textLineHeight: { type: Number, observer: 'shouldUpdateInst' },
+      textLetterSpacing: { type: Number, observer: 'shouldUpdateInst' },
+      textJustify: { type: String, observer: 'shouldUpdateInst' },
+      textAnchor: { type: String, observer: 'shouldUpdateInst' },
+      textMaxAngle: { type: Number, observer: 'shouldUpdateInst' },
+      textRotate: { type: Number, observer: 'shouldUpdateInst' },
+      textPadding: { type: Number, observer: 'shouldUpdateInst' },
+      textKeepUpright: { type: Boolean, observer: 'shouldUpdateInst' },
+      textTransform: { type: String, observer: 'shouldUpdateInst' },
+      textOffset: { type: Array, observer: 'shouldUpdateInst' },
+      textAllowOverlap: { type: Boolean, observer: 'shouldUpdateInst' },
+      textIgnorePlacement: { type: Boolean, observer: 'shouldUpdateInst' },
+      textOptional: { type: Boolean, observer: 'shouldUpdateInst' },
+
+      // Paint
+      iconOpacity: { type: Number, observer: 'shouldUpdateInst' },
+      iconColor: { type: String, observer: 'shouldUpdateInst' },
+      iconHaloColor: { type: String, observer: 'shouldUpdateInst' },
+      iconHaloWidth: { type: Number, observer: 'shouldUpdateInst' },
+      iconHaloBlur: { type: Number, observer: 'shouldUpdateInst' },
+      iconTranslate: { type: Array, observer: 'shouldUpdateInst' },
+      iconTranslateAnchor: { type: String, observer: 'shouldUpdateInst' },
+      textOpacity: { type: Number, observer: 'shouldUpdateInst' },
+      textColor: { type: String, observer: 'shouldUpdateInst' },
+      textHaloColor: { type: String, observer: 'shouldUpdateInst' },
+      textHaloWidth: { type: Number, observer: 'shouldUpdateInst' },
+      textHaloBlur: { type: Number, observer: 'shouldUpdateInst' },
+      textTranslate: { type: Array, observer: 'shouldUpdateInst' },
+      textTranslateAnchor: { type: String, observer: 'shouldUpdateInst' }
     },
 
     /**
@@ -75,15 +123,6 @@
       return symbolLayerInst;
     },
 
-    /*
-     * Update the instance if the new data is not the same as the old OR if the
-     * new style is not the same as the old. (Stringifying is needed here to be
-     * able to do a deep equality check).
-     */
-    updateInst(lastOptions, nextOptions) {
-      // Call parent's updates.
-      PxMapGlBehavior.LayerImpl.updateInst.call(this, lastOptions, nextOptions);
-    },
 
     getInstOptions() {
       const options = PxMapGlBehavior.LayerImpl.getInstOptions.call(this);
