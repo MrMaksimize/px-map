@@ -19,29 +19,20 @@
        * @type {Object}
        */
       // Properties defined here are only for this layer type.
+
       // Layout
-      symbolPlacement: { type: String, observer: 'shouldUpdateInst'},
+      // Now, these get taken care of in the parent.
+      /*symbolPlacement: { type: String, observer: 'shouldUpdateInst'},
       symbolSpacing: { type: Number, observer: 'shouldUpdateInst' },
       symbolAvoidEdges: { type: Boolean, observer: 'shouldUpdateInst' },
-      iconAllowOverlap: {
-        type: Boolean,
-        value: false,
-        observer: 'shouldUpdateInst'
-      },
+      iconAllowOverlap: { type: Boolean, value: false, observer: 'shouldUpdateInst'},
       iconIgnorePlacement: { type: Boolean, observer: 'shouldUpdateInst' },
       iconOptional: { type: Boolean, observer: 'shouldUpdateInst' },
       iconRotationAlignment: { type: String, observer: 'shouldUpdateInst' },
-      iconSize: {
-        type: Number,
-        value: 1,
-        observer: 'shouldUpdateInst'
-      },
+      iconSize: { type: Number, value: 1, observer: 'shouldUpdateInst'},
       iconTextFit: { type: String, observer: 'shouldUpdateInst' },
       iconTextFitPadding: { type: Array, observer: 'shouldUpdateInst' },
-      iconImage: {
-        type: String,
-        observer: 'shouldUpdateInst'
-      },
+      iconImage: { type: String, observer: 'shouldUpdateInst'},
       iconRotate: { type: Number, observer: 'shouldUpdateInst' },
       iconPadding: { type: Number, observer: 'shouldUpdateInst' },
       iconKeepUpright: { type: Boolean, observer: 'shouldUpdateInst' },
@@ -81,26 +72,9 @@
       textHaloWidth: { type: Number, observer: 'shouldUpdateInst' },
       textHaloBlur: { type: Number, observer: 'shouldUpdateInst' },
       textTranslate: { type: Array, observer: 'shouldUpdateInst' },
-      textTranslateAnchor: { type: String, observer: 'shouldUpdateInst' }
+      textTranslateAnchor: { type: String, observer: 'shouldUpdateInst' }*/
     },
 
-    /**
-     * Forces the GeoJSON layer to deeply check the `data` attribute for differences
-     * in the data from the last draw, and make any necessary updates. Call this
-     * method if you are passing an object by reference to `data` and making deep
-     * updates that don't trigger property observers.
-     *
-     * @return {undef}
-     */
-    update() {
-      if (!this.elementInst) return;
-
-      this.shouldUpdateInst();
-    },
-
-    canAddInst() {
-      return this.data && typeof this.data === 'object' && Object.keys(this.data).length;
-    },
 
     // extends the layer `addInst` method to harvest and fire events
     addInst(parent) {
@@ -129,9 +103,9 @@
       options.type = 'symbol';
 
       // Layout
-      options.layout['icon-allow-overlap'] = this.iconAllowOverlap;
-      options.layout['icon-size'] = this.iconSize;
-      options.layout['icon-image'] = this.iconImage
+      //options.layout['icon-allow-overlap'] = this.iconAllowOverlap;
+      //options.layout['icon-size'] = this.iconSize;
+      //options.layout['icon-image'] = this.iconImage
 
       return options;
     }

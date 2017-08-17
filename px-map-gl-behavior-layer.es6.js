@@ -32,6 +32,16 @@
         type: Boolean,
         value: false
       },
+      layout: {
+        type: Object,
+        value: function() { return {} },
+        observer: 'shouldUpdateInst'
+      },
+      paint: {
+        type: Object,
+        value: function() { return {} },
+        observer: 'shouldUpdateInst'
+      },
       minZoomVisible: {
         type: Number,
         value: 0,
@@ -101,21 +111,6 @@
         'mouseenter': this._broadcastEvent.bind(this),
         'mouseleave': this._broadcastEvent.bind(this)
       }, parent.elementInst, this.id);
-
-      // Bind Events.
-      // TODO - use the normal binding pattern to bind events.
-      /*this.bindEvents({
-        // Switch Pointer To Hand
-        'mouseenter': this._switchPointer.bind(this),
-        'mouseleave': this._switchPointer.bind(this)
-      }, parent.elementInst, this.id)*/
-      /*parent.elementInst.on('mouseenter', this.id, this._broadcastEvent.bind(this));
-      parent.elementInst.on('mouseenter', this.id, this._broadcastActiveFeature.bind(this));
-      parent.elementInst.on('mouseenter', this.id, this._switchPointer.bind(this));
-
-      parent.elementInst.on('mouseleave', this.id, this._broadcastEvent.bind(this));
-      parent.elementInst.on('mouseleave', this.id, this._broadcastActiveFeature.bind(this));
-      parent.elementInst.on('mouseleave', this.id, this._switchPointer.bind(this));*/
     },
 
     removeInst(parent) {
@@ -214,11 +209,11 @@
         source: this.source,
         minzoom: this.minZoomVisible,
         maxzoom: this.maxZoomVisible,
-        layout: {
-          visibility: this.hidden === true ? 'none' : 'visible'
-        },
-        paint: {},
+        layout: this.layout,
+        paint: this.paint
       };
+
+      options.layout.visibility = this.hidden === true ? 'none': 'visible';
 
       if (this.sourceLayer)
         options['source-layer'] = this.sourceLayer
