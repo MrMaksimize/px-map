@@ -1,5 +1,5 @@
 {
-  "name": "px-map",
+  "name": "px-map-gl",
   "version": "2.0.0",
   "description": "A lightweight framework for building interactive maps with web components",
   "main": [
@@ -28,10 +28,6 @@
   "dependencies": {
     "app-localize-behavior": "^2.0.0",
     "polymer": "^1.9.0",
-    "px-d3-imports": "^2.0.0",
-    "leaflet": "^1.0.3",
-    "leaflet.markercluster": "^1.0.3",
-    "leaflet-bing-tiles": "^1.0.0",
     "px-icon-set": "^2.0.0",
     "px-data-table": "^4.0.3",
     "lodash": "^4.17.4"
