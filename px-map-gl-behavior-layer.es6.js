@@ -123,7 +123,9 @@
       const mapEl = this._getMapElement()
       // map.setFilter('layer', null);
       // Filters are arrays, so we need an easy way to diff them.
-      if (!_.isEqual(lastOptions.filter, nextOptions.filter)) {
+      if (Array.isArray(nextOptions.filter) && !_.isEqual(lastOptions.filter, nextOptions.filter)) {
+        console.log('filter change.');
+        console.log(nextOptions.filter);
         mapEl.elementInst.setFilter(this.id, nextOptions.filter);
       }
 
@@ -218,7 +220,7 @@
       if (this.sourceLayer)
         options['source-layer'] = this.sourceLayer
 
-      if (this.filter)
+      if (this.filter && Array.isArray(this.filter))
         options['filter'] = this.filter
 
       return options;

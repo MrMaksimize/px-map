@@ -425,12 +425,7 @@
             this.zoom !== zoom ||
             this.bearing !== bearing ||
             this.pitch !== pitch) {
-          console.log(this.lng);
-          console.log(this.lat);
-          console.log(this.zoom);
-          console.log(this.bearing);
-          console.log(this.pitch);
-          this.elementInst.flyTo({
+         this.elementInst.flyTo({
             center: [this.lng, this.lat],
             zoom: this.zoom,
             pitch: this.pitch,
