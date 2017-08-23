@@ -58,13 +58,14 @@
 
     addInst(parent) {
       console.log('addInst on source');
-      console.log(parent);
       const sourceInfo = {'type': this.elementInst.type}
       if (this.elementInst.data)
         sourceInfo.data = this.elementInst.data;
 
       // TODO - timing issue here with style loading.
       parent.elementInst.addSource(this.elementInst.id, sourceInfo);
+      // TODO follow this pattern for layers.
+      this.elementInst = parent.elementInst.getSource(this.elementInst.id);
     },
 
     removeInst(parent) {

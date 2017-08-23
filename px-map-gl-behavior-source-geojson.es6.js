@@ -61,38 +61,15 @@
 
     // extends the layer `addInst` method to harvest and fire events
     addInst(parent) {
-      console.log('gl-gj-addInst');
       PxMapGlBehavior.SourceImpl.addInst.call(this, parent);
-
-
-      // Bind custom events. Events will be unbound automatically.
-      /*const addedFn = this._handleFeatureAdded.bind(this);
-      const removedFn = this._handleFeatureRemoved.bind(this);
-      this.bindEvents({
-        'layeradd' : addedFn,
-        'layerremove' : removedFn
-      });*/
-
-      // If any layers already added before events bound, manually fire layer
-      // added events to attach listeners/notify the world the layer is added
-      /*if (this.elementInst.getLayers().length !== 0) {
-        this.elementInst.eachLayer((layer) => {
-          this.elementInst.fire('layeradd', { layer: layer });
-        });
-      }*/
-
-      // Now call layer's add
-      //PxMapGlBehavior.LayerImpl.addInst.call(this, parent);
-    },
+   },
 
     createInst(options) {
-
-      const geoJsonSourceInst = {
+      return {
         data: options.data,
         id: options.id,
         type: options.type
       };
-      return geoJsonSourceInst;
     },
 
     /*
@@ -101,36 +78,32 @@
      * able to do a deep equality check).
      */
     updateInst(lastOptions, nextOptions) {
-      // TODO - this needs rework, but leaving it till I have active layers.
-      console.log('gl-gj-source-update-instance');
-      if (!Object.keys(nextOptions.data).length) {
-        this.elementInst.clearLayers();
-      }
-      else if (Object.keys(nextOptions.data).length && (lastOptions.dataHash !== nextOptions.dataHash || lastOptions.featureStyleHash !== nextOptions.featureStyleHash)) {
-        const styleAttributeProperties = this.getInstOptions().featureStyle;
-
-        this.elementInst.clearLayers();
-        this.elementInst.options.style = (feature) => {
-          const featureProperties = feature.properties.style || {};
-          return this._getStyle(featureProperties, styleAttributeProperties);
-        };
-
-        this.elementInst.addData(nextOptions.data);
-        if (nextOptions.showFeatureProperties) {
-          this._bindFeaturePopups();
-        }
-      }
-      else if (lastOptions.showFeatureProperties !== nextOptions.showFeatureProperties) {
-        if (nextOptions.showFeatureProperties) this._bindFeaturePopups();
-        if (!nextOptions.showFeatureProperties) this._unbindFeaturePopups();
-      }
+      // Run Get Options to account for empty object and inject nullIsland:
+      console.log(this.elementInst);
+      const options = this.getInstOptions();
+      this.elementInst.setData(options.data);
     },
 
     getInstOptions() {
+      var srcData = {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [0, 0]
+            },
+            "properties": {
+                "name": "null island"
+            }
+        }]
+      };
+      if (this.data && this.data !== {})
+        srcData = this.data;
+
       return {
-        data: this.data || {},
+        data: srcData,
         id: this.id || '',
-        dataHash: JSON.stringify(this.data || {}),
         type: 'geojson'
       };
     },
