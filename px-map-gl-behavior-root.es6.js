@@ -220,6 +220,15 @@
         observer: 'shouldUpdateInst'
       },
 
+      /**
+       * Attribution control.  TODO - rethink if this is how all controls should work.
+       * @type {Boolean}
+       */
+      disableAttributionControl: {
+        type: Boolean,
+        value: false
+      },
+
 
       /**
        * Uses flexbox to set the size of the map. Set the parent container
@@ -321,6 +330,8 @@
       options.minZoom = this.minZoom || 0;
       options.maxZoom = this.maxZoom || 18;
       //options.maxBounds = this.maxBounds || undefined;
+
+      options.attributionControl = !this.disableAttributionControl;
 
       options.interactive = !this.disableInteraction;
       options.dragPan = !this.disableDragging;

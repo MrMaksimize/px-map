@@ -213,4 +213,31 @@
   ];
 
 
+  /**
+   * @polymerBehavior PxMapGlBehavior.Layer
+   */
+  PxMapGlBehavior.AttributionControlImpl = {
+    properties: {
+        compact: {
+          type: Boolean,
+        }
+    },
+    createInst(options) {
+      return new mapboxgl.AttributionControl(options);
+    },
+    getInstOptions() {
+      return {
+        position: this.position,
+        compact: this.compact
+      }
+    }
+  }
+
+  PxMapGlBehavior.AttributionControl = [
+    PxMapGlBehavior.Control,
+    PxMapGlBehavior.AttributionControlImpl
+  ];
+
+
+
 })();
