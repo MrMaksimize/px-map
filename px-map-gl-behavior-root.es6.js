@@ -272,6 +272,7 @@
       mapboxgl.accessToken = this.mglToken;
       // Set the container to an element.
       options.container = Polymer.dom(this.root).querySelector(options.container);
+
       const mapInst = new mapboxgl.Map(options);
 
 
