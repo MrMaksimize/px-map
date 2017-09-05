@@ -229,6 +229,11 @@
         value: false
       },
 
+      disableMapHash: {
+        type: Boolean,
+        value: false
+      },
+
 
       /**
        * Uses flexbox to set the size of the map. Set the parent container
@@ -338,6 +343,7 @@
       options.dragPan = !this.disableDragging;
       options.scrollZoom = !this.disableScrollZoom;
       options.touchZoomRotate = !this.disableTouchZoom;
+      options.hash = !this.disableMapHash;
 
       return options;
     },
