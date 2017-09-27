@@ -59,8 +59,16 @@
     addInst(parent) {
       console.log('addInst on source');
       const sourceInfo = {'type': this.elementInst.type}
+      console.log(this.elementInst);
+      // TODO fix this.
       if (this.elementInst.data)
         sourceInfo.data = this.elementInst.data;
+
+      if (this.elementInst.tiles)
+        sourceInfo.tiles = this.elementInst.tiles;
+
+      if (this.elementInst.url)
+        sourceInfo.url = this.elementInst.url;
 
       // TODO - timing issue here with style loading.
       parent.elementInst.addSource(this.elementInst.id, sourceInfo);
