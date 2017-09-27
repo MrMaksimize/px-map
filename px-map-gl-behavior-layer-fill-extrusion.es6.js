@@ -12,68 +12,7 @@
    * @polymerBehavior PxMapGlBehavior.GeoJSONLayer
    */
   PxMapGlBehavior.FillExtrusionLayerImpl = {
-    properties: {
-      // Properties defined here are only for this layer type.
-      // Paint
-      fillExtrusionOpacity: {
-        type: Number,
-        value: 1,
-        observer: 'shouldUpdateInst'
-      },
-      /* can be set in one of two ways
-       * if number is passed, set directly.
-       * if {type: 'identity', 'property': 'height'} then
-       * set using data driven styling
-       */
-      fillExtrusionColor: {
-        type: Object,
-        value: function() {
-            return '#000000'
-        },
-        observer: 'shouldUpdateInst'
-      },
-      fillExtrusionTranslate: {
-        type: Array,
-        value: function() {
-            return [0,0]
-        }
-      },
-      fillExtrusionTranslateAnchor: {
-        type: String,
-        value: 'map'
-      },
-      // Purposely exclude pattern.
-      //fillExtrusionPattern: {
-
-      /* can be set in one of two ways
-       * if number is passed, set directly.
-       * if {type: 'identity', 'property': 'height'} then
-       * set using data driven styling
-       */
-      //https://www.mapbox.com/help/how-map-design-works/#data-driven-styles
-      fillExtrusionHeight: {
-        type: Object,
-        value: function() {
-            return 0;
-        },
-        observer: 'shouldUpdateInst'
-      },
-
-      /* can be set in one of two ways
-       * if Number is passed, set directly.
-       * if {type: 'identity', 'property': 'min_height'} then
-       * set using data driven styling
-       */
-      fillExtrusionBase: {
-        type: Object,
-        value: function() {
-            return 0;
-        },
-        observer: 'shouldUpdateInst'
-      }
-    },
-
-    /**
+   /**
      * Forces the GeoJSON layer to deeply check the `data` attribute for differences
      * in the data from the last draw, and make any necessary updates. Call this
      * method if you are passing an object by reference to `data` and making deep

@@ -26,11 +26,12 @@
         type: String
       },
       sourceLayer: {
-        type: String
+        type: String,
+        observer: 'shouldUpdateInst'
       },
-      hidden: {
-        type: Boolean,
-        value: false
+      visibility: {
+        type: String,
+        value: 'visible'
       },
       layout: {
         type: Object,
@@ -97,7 +98,7 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      console.log('addInst on layer');
+      console.log('addInst on layer --> ' + this.elementInst.id);
       parent.elementInst.addLayer(this.elementInst);
 
       // Bind Events
@@ -206,6 +207,8 @@
     },
 
     getInstOptions() {
+        console.log(this.id);
+        console.log(this);
       const options = {
         id: this.id,
         source: this.source,
@@ -215,7 +218,7 @@
         paint: this.paint
       };
 
-      options.layout.visibility = this.hidden === true ? 'none': 'visible';
+      options.layout.visibility = this.visibility;
 
       if (this.sourceLayer)
         options['source-layer'] = this.sourceLayer
