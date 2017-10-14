@@ -31,7 +31,8 @@
       },
       visibility: {
         type: String,
-        value: 'visible'
+        value: 'visible',
+        observer: 'shouldUpdateInst'
       },
       layout: {
         type: Object,
@@ -120,47 +121,24 @@
     },
 
 
-    updateInst(lastOptions, nextOptions) {
-      const mapEl = this._getMapElement()
-      // map.setFilter('layer', null);
-      // Filters are arrays, so we need an easy way to diff them.
-      if (Array.isArray(nextOptions.filter) && !_.isEqual(lastOptions.filter, nextOptions.filter)) {
-        console.log('filter change.');
-        console.log(nextOptions.filter);
-        mapEl.elementInst.setFilter(this.id, nextOptions.filter);
+    updateInst(lastOptions, nextOptions, parent) {
+      console.log(parent);
+      console.log(lastOptions);
+      console.log(nextOptions);
+
+      // Set Layout Props.
+      for (var lpKey in nextOptions.layout) {
+          parent.elementInst.setLayoutProperty(this.id, lpKey, nextOptions.layout[lpKey]);
       }
 
-      if (!_.isEqual(lastOptions.maxzoom, nextOptions.maxzoom) ||
-          !_.isEqual(lastOptions.minzoom, nextOptions.maxzoom)) {
-        mapEl.elementInst.setLayerZoomRange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
+      // Set Paint Props.
+      for (var pKey in nextOptions.paint) {
+          parent.elementInst.setPaintProperty(this.id, pKey, nextOptions.paint[pKey]);
       }
 
-      // Update Layout Properties.
-      const layoutKeys = _.uniq(Object.keys(lastOptions.layout).concat(Object.keys(nextOptions.layout)));
-      layoutKeys.forEach((key) => {
-        if (!_.isEqual(lastOptions.layout[key], nextOptions.layout[key])) {
-          mapEl.elementInst.setLayoutProperty(this.id, key, nextOptions.layout[key]);
-        }
-      });
+      // Set Zoom Range.
+      parent.elementInst.setLayerZoomrange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
 
-
-      // Update Paint Properties.
-      const paintKeys = _.uniq(Object.keys(lastOptions.paint).concat(Object.keys(nextOptions.paint)));
-      paintKeys.forEach((key) => {
-        if (!_.isEqual(lastOptions.paint[key], nextOptions.paint[key])) {
-          mapEl.elementInst.setPaintProperty(this.id, key, nextOptions.paint[key]);
-        }
-      });
-    },
-
-    // TODO - should each sub-element have this method?
-    // Think about how to better structure this, since layer and source need it.  Maybe extra behavior for sub-map-els?
-    _getMapElement() {
-      const mapEl = this.parentNode;
-      if (mapEl.is !== 'px-map-gl')
-        throw new Error('Layer elements need to have px-map-gl parent.')
-      else
-        return mapEl;
     },
 
     _broadcastEvent(e) {
@@ -207,8 +185,6 @@
     },
 
     getInstOptions() {
-        console.log(this.id);
-        console.log(this);
       const options = {
         id: this.id,
         source: this.source,

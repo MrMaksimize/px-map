@@ -75,10 +75,20 @@
       }
       if (!this.elementInst) return;
 
+
+
+
+
       const lastOptions = this.__lastOptions || this.__initialOptions;
       const nextOptions = this.getInstOptions();
 
-      this.updateInst(lastOptions, nextOptions);
+      // Only root element doesn't pass parent
+      if (this.is !== 'px-map-gl') {
+        this.updateInst(lastOptions, nextOptions, this.parentNode);
+      }
+      else {
+        this.updateInst(lastOptions, nextOptions);
+      }
 
       // Set `lastOptions` to `nextOptions` so the next time this method is called
       // it will have access to the last options
