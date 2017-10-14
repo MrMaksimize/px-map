@@ -137,7 +137,7 @@
       }
 
       // Set Zoom Range.
-      parent.elementInst.setLayerZoomrange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
+      parent.elementInst.setLayerZoomRange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
 
     },
 
