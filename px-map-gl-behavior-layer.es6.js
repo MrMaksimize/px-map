@@ -56,6 +56,7 @@
       },
       filter: {
         type: Array,
+        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       }
     },
@@ -79,11 +80,9 @@
     shouldAddInst(evt) {
       // TODO - do we need this evt anymore since _getMapElement would just work?
       const parent = evt.detail;
-      console.log('shouldAddInst on layer');
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent && parent.elementInst.getLayer(this.id) == undefined) {
-        console.log('shouldaddinst layer true');
         this.addInst(parent);
       };
     },
@@ -99,7 +98,6 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      console.log('addInst on layer --> ' + this.elementInst.id);
       parent.elementInst.addLayer(this.elementInst);
 
       // Bind Events
@@ -122,9 +120,6 @@
 
 
     updateInst(lastOptions, nextOptions, parent) {
-      console.log(parent);
-      console.log(lastOptions);
-      console.log(nextOptions);
 
       // Set Layout Props.
       for (var lpKey in nextOptions.layout) {
@@ -149,8 +144,6 @@
         event: e
       };
       const eventName = 'px-map-gl-layer-' + e.type;
-      console.log(eventName);
-      console.log(detail);
       this.fire(eventName, detail);
     },
 

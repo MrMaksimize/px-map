@@ -37,11 +37,9 @@
 
     shouldAddInst(evt) {
       const parent = evt.detail;
-      console.log('shouldAddInst on source');
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent && parent.elementInst.getSource(this.id) == undefined) {
-        console.log('shouldaddinst true');
         this.addInst(parent);
       };
     },
@@ -57,9 +55,7 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      console.log('addInst on source');
       const sourceInfo = {'type': this.elementInst.type}
-      console.log(this.elementInst);
       // TODO fix this.
       if (this.elementInst.data)
         sourceInfo.data = this.elementInst.data;
