@@ -121,6 +121,7 @@
 
     updateInst(lastOptions, nextOptions, parent) {
 
+      console.log(nextOptions);
       // Set Layout Props.
       for (var lpKey in nextOptions.layout) {
           parent.elementInst.setLayoutProperty(this.id, lpKey, nextOptions.layout[lpKey]);
@@ -133,6 +134,9 @@
 
       // Set Zoom Range.
       parent.elementInst.setLayerZoomRange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
+
+      // Set Filters
+      parent.elementInst.setFilter(this.id, nextOptions.filter);
 
     },
 
