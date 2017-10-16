@@ -75,9 +75,6 @@
       if (!this.elementInst) return;
 
 
-
-
-
       const lastOptions = this.__lastOptions || this.__initialOptions;
       const nextOptions = this.getInstOptions();
 

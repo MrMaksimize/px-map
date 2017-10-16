@@ -360,6 +360,7 @@
           lastOptions.zoom !== nextOptions.zoom ||
           lastOptions.bearing !== nextOptions.bearing ||
           lastOptions.pitch !== nextOptions.pitch)) {
+        console.log('updateMapView');
         this._updateMapView();
       }
 

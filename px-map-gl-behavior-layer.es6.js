@@ -60,6 +60,10 @@
         observer: 'shouldUpdateInst'
       }
     },
+    // Observer to catch sub-property changes on paint and layout.
+    observers: [
+      'shouldUpdateInstComplex(paint.*, layout.*)'
+    ],
     attached() {
       this.notifyInstReady(this.canAddInst());
       // http://sdgo.io/2vczACj
@@ -76,6 +80,12 @@
 
     // Extends the `Element` behavior lifecycle methods to include adding the
     // instance to its parent
+
+    shouldUpdateInstComplex(paint, layout) {
+      this.debounce('shouldUpdateInstDebounce', function() {
+        PxMapGlBehavior.ElementImpl.shouldUpdateInst.call(this, parent);
+      }, 250);
+    },
 
     shouldAddInst(evt) {
       // TODO - do we need this evt anymore since _getMapElement would just work?
