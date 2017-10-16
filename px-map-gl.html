@@ -173,6 +173,10 @@ You can also use the px-map-gl-tile-layer-bing component to load map tiles from 
         width: 100%;
         height: 100%;
       }
+      /** TODO -- this may be a bug **/
+      :host #map .mapboxgl-missing-css {
+          display: none;
+      }
       /* Use flex to resize */
       :host([flex-to-size]) {
         display: flex;
