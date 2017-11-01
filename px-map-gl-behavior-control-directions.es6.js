@@ -9,7 +9,7 @@
   window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.DirectionsControl
    */
   PxMapGlBehavior.DirectionsControlImpl = {
     // TODO - properties.
@@ -32,7 +32,7 @@
     }
   }
 
-  PxMapGlBehavior.DirectionsControl= [
+  PxMapGlBehavior.DirectionsControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.DirectionsControlImpl
   ];

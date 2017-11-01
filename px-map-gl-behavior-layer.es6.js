@@ -139,7 +139,6 @@
 
     updateInst(lastOptions, nextOptions, parent) {
 
-      console.log(nextOptions);
       // Set Layout Props.
       for (var lpKey in nextOptions.layout) {
           parent.elementInst.setLayoutProperty(this.id, lpKey, nextOptions.layout[lpKey]);

@@ -9,7 +9,7 @@
   window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.GeocoderControl
    */
   PxMapGlBehavior.GeocoderControlImpl = {
     // TODO - properties.
@@ -32,7 +32,7 @@
     }
   }
 
-  PxMapGlBehavior.GeocoderControl= [
+  PxMapGlBehavior.GeocoderControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.GeocoderControlImpl
   ];
