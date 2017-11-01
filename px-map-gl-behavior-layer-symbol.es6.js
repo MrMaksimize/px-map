@@ -77,7 +77,7 @@
 
 
     // extends the layer `addInst` method to harvest and fire events
-    addInst(parent) {
+/*    addInst(parent) {
       this.bindEvents({
         // Switch Pointer To Hand
         'mouseenter': this._switchPointer.bind(this),
@@ -86,7 +86,7 @@
 
       // Now call layer's add
       PxMapGlBehavior.LayerImpl.addInst.call(this, parent);
-    },
+    },*/
 
 
 

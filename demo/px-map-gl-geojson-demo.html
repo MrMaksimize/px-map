@@ -15,7 +15,8 @@
 <!-- Imports for this component -->
 <link rel="import" href="../px-map-gl.html" />
 <link rel="import" href="../px-map-gl-source-geojson.html" />
-<link rel="import" href="../px-map-gl-layer-symbol.html" />
+<!--<link rel="import" href="../px-map-gl-layer-symbol.html" />-->
+<link rel="import" href="../px-map-gl-layer.html" />
 <link rel="import" href="../px-map-gl-control-nav.html" />
 <link rel="import" href="../px-map-gl-control-fullscreen.html" />
 <link rel="import" href="../px-map-gl-control-scale.html" />
@@ -60,7 +61,7 @@
                 lat="{{ props.lat.value }}"
                 lng="{{ props.lng.value }}">
 
-            <px-map-gl-control-nav
+            <!--<px-map-gl-control-nav
                 position="top-left">
             </px-map-gl-control-nav>
 
@@ -77,27 +78,25 @@
                 position="bottom-left">
             </px-map-gl-control-geolocate>
 
-            <!--<px-map-gl-control-geocoder
+            <px-map-gl-control-geocoder
                 position="top-right"
                 mgl-token="{{ props.mglToken.value }}">
-            </px-map-gl-control-geocoder>-->
+            </px-map-gl-control-geocoder>
 
 
             <px-map-gl-control-directions
                 position="top-right"
                 mgl-token="{{ props.mglToken.value }}">
-            </px-map-gl-control-directions>
+            </px-map-gl-control-directions>-->
 
             <px-map-gl-source-geojson
               id="gjsource"
               data="{{props.data.value}}">
             </px-map-gl-source-geojson>
 
-            <px-map-gl-layer-symbol
+            <px-map-gl-layer
               id="gj-symbol-layer-one"
-              icon-image="music-15"
-              icon-size="2"
-              active-feature="{{ activeFeature }}"
+              layer-type="circle"
               source="gjsource">
 
               <px-map-gl-popup-debug
@@ -105,7 +104,7 @@
                 title="popupData.activeFeatureProperties elements"
                 description="See full popupData in Console">
               </px-map-gl-popup-debug>
-            </px-map-gl-layer-symbol>
+            </px-map-gl-layer>
 
 
         </px-map-gl>

@@ -14,7 +14,7 @@
 <!-- Imports for this component -->
 <link rel="import" href="../px-map-gl.html" />
 <link rel="import" href="../px-map-gl-source-geojson.html" />
-<link rel="import" href="../px-map-gl-layer-fill-extrusion.html" />
+<link rel="import" href="../px-map-gl-layer.html" />
 <link rel="import" href="../px-map-gl-control-nav.html" />
 <link rel="import" href="../px-map-gl-control-fullscreen.html" />
 <link rel="import" href="../px-map-gl-control-scale.html" />
@@ -70,20 +70,29 @@
                 position="bottom-left">
             </px-map-gl-control-geolocate>
 
-            <px-map-gl-layer-fill-extrusion
+            <px-map-gl-layer
               id="buildings-3d"
+              layer-type="fill-extrusion"
               source="composite"
               source-layer="building"
               filter='["==", "extrude", "true"]'
-              fill-extrusion-color="#aaa"
-              fill-extrusion-height='{"type": "identity", "property": "height"}'
-              fill-extrusion-base='{"type": "identity", "property": "min_height"}'
-              fill-extrusion-opacity="0.6"
-              active-feature="{{ activeFeature }}">
+              paint='{
+                "fill-extrusion-color": "#aaa",
+                "fill-extrusion-height": {
+                    "type": "identity",
+                    "property": "height"
+                },
+                "fill-extrusion-base": {
+                    "type": "identity",
+                    "property": "min_height"
+                },
+                "fill-extrusion-opacity": 0.6
+              }'>
+
                 <!--<px-map-gl-popup-template>
                     <h1>{{ data.title }}</h1>
                 </px-map-gl-popup-template>-->
-            </px-map-gl-layer-symbol>
+            </px-map-gl-layer>
         </px-map-gl>
       </div>
     </px-demo-component>
