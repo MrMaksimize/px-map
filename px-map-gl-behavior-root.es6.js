@@ -239,7 +239,8 @@
        */
       flexToSize: {
         type: Boolean,
-        value: false
+        value: false,
+        reflectToAttribute: true
       }
     },
 

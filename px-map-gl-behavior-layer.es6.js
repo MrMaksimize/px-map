@@ -115,6 +115,7 @@
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
+      console.log(this.elementInst);
       parent.elementInst.addLayer(this.elementInst);
 
       // Bind Events
@@ -208,7 +209,6 @@
         paint: this.paint
       };
 
-      console.log(options);
 
       options.layout.visibility = this.visibility;
 
