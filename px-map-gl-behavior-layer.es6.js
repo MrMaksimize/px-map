@@ -22,6 +22,9 @@
       id: {
         type: String
       },
+      layerType: {
+        type: String
+      },
       source: {
         type: String
       },
@@ -37,12 +40,10 @@
       layout: {
         type: Object,
         value: function() { return {} },
-        observer: 'shouldUpdateInst'
       },
       paint: {
         type: Object,
         value: function() { return {} },
-        observer: 'shouldUpdateInst'
       },
       minZoomVisible: {
         type: Number,
@@ -105,6 +106,13 @@
       };
     },
 
+
+    createInst(options) {
+      const layerInst = options;
+      return layerInst;
+    },
+
+
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
@@ -131,7 +139,6 @@
 
     updateInst(lastOptions, nextOptions, parent) {
 
-      console.log(nextOptions);
       // Set Layout Props.
       for (var lpKey in nextOptions.layout) {
           parent.elementInst.setLayoutProperty(this.id, lpKey, nextOptions.layout[lpKey]);
@@ -194,12 +201,15 @@
     getInstOptions() {
       const options = {
         id: this.id,
+        type: this.layerType,
         source: this.source,
         minzoom: this.minZoomVisible,
         maxzoom: this.maxZoomVisible,
         layout: this.layout,
         paint: this.paint
       };
+
+      console.log(options);
 
       options.layout.visibility = this.visibility;
 

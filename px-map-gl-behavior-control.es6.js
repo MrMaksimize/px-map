@@ -9,7 +9,7 @@
   window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
 
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.Control
    */
   PxMapGlBehavior.ControlImpl = {
 
@@ -55,9 +55,7 @@
     },
 
     // Methods to bind to/unbind from parent
-
     addInst(parent) {
-      console.log(parent);
       parent.elementInst.addControl(this.elementInst, this.position);
     },
 
@@ -94,7 +92,7 @@
 
 
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.NavControl
    */
   PxMapGlBehavior.NavControlImpl = {
     createInst(options) {
