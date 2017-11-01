@@ -57,7 +57,6 @@
       },
       filter: {
         type: Array,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       }
     },

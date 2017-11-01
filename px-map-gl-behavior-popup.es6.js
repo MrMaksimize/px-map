@@ -36,8 +36,7 @@
         type: Object,
         value: function() {
         },
-        readOnly: true,
-        reflectToAttribute: true
+        readOnly: true
       }
     },
     attached() {

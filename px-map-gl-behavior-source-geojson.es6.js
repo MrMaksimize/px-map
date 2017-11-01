@@ -33,8 +33,7 @@
       data: {
         type: Object,
         observer: 'shouldUpdateInst',
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       id: {
         type: String,

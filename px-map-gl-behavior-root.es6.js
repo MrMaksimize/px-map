@@ -64,7 +64,6 @@
         type: Number,
         value: 37.7672375,
         notify: true,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -79,7 +78,6 @@
         type: Number,
         value: -121.9584131,
         notify: true,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -94,7 +92,6 @@
         type: Number,
         value: 10,
         notify: true,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -109,7 +106,6 @@
         type: Number,
         value: 0,
         notify: true,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -124,7 +120,6 @@
         type: Number,
         value: 0,
         notify: true,
-        reflectToAttribute: true,
         observer: 'shouldUpdateInst'
       },
 
@@ -244,7 +239,6 @@
        */
       flexToSize: {
         type: Boolean,
-        reflectToAttribute: true,
         value: false
       }
     },
