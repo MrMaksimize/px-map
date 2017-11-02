@@ -69,12 +69,11 @@
     },
 
     getInstOptions() {
-      return {
-        url: this.url,
-        tiles: this.tiles,
-        id: this.id || '',
-        type: 'vector'
-      };
+      const options = PxMapGlBehavior.SourceImpl.getInstOptions.call(this);
+      options.url = this.url;
+      options.tiles = this.tiles;
+      options.type = 'vector';
+      return options;
     }
   };
   /* Bind GeoJSONSource behavior */

@@ -15,19 +15,6 @@
   PxMapGlBehavior.MglRootImpl= {
     properties: {
       /**
-       * The coordinate reference system to use when projecting geographic points
-       * into pixel coordinates. Can only be set once before the map is first
-       * initialized. If you don't know what this is, do not set it and the map
-       * will revert to the most common web mapping projection (EPSG3857).
-       *
-       * @type {L.CRS}
-       */
-      crs: {
-        type: Object
-        // TODO - project events
-      },
-
-      /**
        * Style
        *
        * @type {String}
@@ -322,7 +309,6 @@
       options.container = '#map';
 
       // Dynamic options
-      //options.crs = this.crs || L.CRS.EPSG3857;
       options.center = [this.lng, this.lat];
       options.style = this.style;
       options.zoom = this.zoom;

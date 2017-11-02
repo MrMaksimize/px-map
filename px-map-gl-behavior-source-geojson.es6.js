@@ -34,9 +34,6 @@
         type: Object,
         observer: 'shouldUpdateInst',
         notify: true
-      },
-      id: {
-        type: String,
       }
     },
 
@@ -100,11 +97,10 @@
       if (this.data && this.data !== {})
         srcData = this.data;
 
-      return {
-        data: srcData,
-        id: this.id || '',
-        type: 'geojson'
-      };
+      const options = PxMapGlBehavior.SourceImpl.getInstOptions.call(this);
+      options.data = srcData;
+      options.type = 'geojson';
+      return options;
     },
 
     _handleFeatureAdded(evt) {

@@ -14,6 +14,12 @@
    * @polymerBehavior PxMapGlBehavior.Layer
    */
   PxMapGlBehavior.SourceImpl = {
+    properties: {
+      id: {
+        type: String
+      }
+    },
+
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
@@ -52,6 +58,11 @@
       };
     },
 
+    getInstOptions() {
+        return {
+          id: this.id
+        }
+    },
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
