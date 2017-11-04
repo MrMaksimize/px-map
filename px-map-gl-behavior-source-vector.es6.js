@@ -31,16 +31,8 @@
        */
       tiles: {
         type: Array
-      },
-
-      /**
-       * Unique id of this source.
-       *
-       * @type {String}
-       */
-      id: {
-        type: String
       }
+
       // Bounds, minzoom, maxzoom @todo
     },
 
