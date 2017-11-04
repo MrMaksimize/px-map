@@ -8,10 +8,6 @@
 <!-- Load required PxMapGlBehaviors -->
 <link rel="import" href="px-map-gl-behavior-root.html">
 
-<!-- Import style modules -->
-<!--<link rel="import" href="../css/px-map-gl-leaflet-styles.html">-->
-<!--<link rel="import" href="../css/px-map-gl-styles.html">-->
-
 <!--
 `px-map-gl` is a lightweight framework for building interactive maps with web
 components and Polymer. The framework includes a base mapping component
@@ -25,10 +21,6 @@ common mapping UI problems, like plotting geographic data.
 Below is a simple example with little configuration that will display a map
 centered on Tokyo, Japan:
 
-    <px-map-gl lat="35.6895" lng="139.6917" zoom="12" style="width: 500px; height: 300px;">
-      <px-map-gl-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-gl-tile-layer>
-      <px-map-gl-control-zoom position="bottomright"></px-map-gl-control-zoom>
-    </px-map-gl>
 
 This example uses the `<px-map-gl>` base component to draw a map and center it on
 a specific location when it first loads.
@@ -49,19 +41,8 @@ Plotting geospatial data on the map is easy — just choose the right subcompone
 to show the information you have. For example, we can plot two points-of-interest
 in Tokyo using static markers:
 
-    <px-map-gl fit-to-markers style="width: 500px; height: 300px;">
-      <px-map-gl-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></px-map-gl-tile-layer>
-      <px-map-gl-control-zoom position="bottomright"></px-map-gl-control-zoom>
 
-      <px-map-gl-layer-group name="Landmarks">
-        <px-map-gl-marker-static lat="35.6763976" lng="35.6763976">
-          <px-map-gl-popup-info title="Meiji Jingu" description="Shinto shrine dedicated to the Emperor Meiji and Empress Shoken."></px-map-gl-popup-info>
-        </px-map-gl-marker-static>
-        <px-map-gl-marker-static lat="35.6654861" lng="139.7706668">
-          <px-map-gl-popup-info title="Tsukiji Market" description="Sprawling wholesale fish market with an array of seafood & viewing areas for a popular tuna auction."></px-map-gl-popup-info>
-        </px-map-gl-marker-static>
-      </px-map-gl-layer-group>
-    </px-map-gl>
+
 
 This example sets up a `<px-map-gl>` base component that will automatically set its
 location and zoom level to fit the markers we added. It adds a basic tile layer
