@@ -13,6 +13,11 @@
    */
   PxMapGlBehavior.ControlImpl = {
     properties: {
+      /**
+       * position on the map to which the control will be added.
+       * Valid values are 'top-left' ,  'top-right' ,
+       * 'bottom-left' , and  'bottom-right' . Defaults to  'top-right'
+       */
       position: {
         type: String,
         value: "top-right"
@@ -129,25 +134,61 @@
    */
   PxMapGlBehavior.GeolocateControlImpl = {
     properties: {
+      /**
+       * Is a Boolean that indicates the application would like to receive the best
+       * possible results. If true and if the device is able to provide a
+       * more accurate position, it will do so. Note that this can result in
+       * slower response times or increased power consumption
+       * (with a GPS chip on a mobile device for example).
+       * On the other hand, if false, the device can
+       * take the liberty to save resources by responding more
+       * quickly and/or using less power.
+       *
+       * @type {Boolean}
+       */
       highAccuracy: {
         type: Boolean,
         default: false
       },
+      /**
+       *  Is a positive long value representing the maximum length of
+       *  time (in milliseconds) the device is allowed to take in
+       *  order to return a position. The default value is
+       *  Infinity, meaning that getCurrentPosition()
+       *  won't return until the position is available.
+       *
+       *  @type {Number}
+       */
       timeout: {
         type: Number,
         default: 6000
       },
 
       // TODO -- these should be reactive
+      /**
+	* If  true the Geolocate Control becomes a toggle button
+        * and when active the map will receive updates to the user's
+        *location as it changes.
+        *
+        * @type {Boolean}
+        */
       disableTrackUserLoc: {
         type: Boolean,
         default: false
       },
+
+      /**
+	* By default a dot will be shown on the map at the user's location.
+        * Set to  false to disable.
+        *
+        * @type {Boolean}
+        */
       disableShowUserLoc: {
         type: Boolean,
         default: false
       }
     },
+
     createInst(options) {
       return new mapboxgl.GeolocateControl(options);
     },
@@ -175,10 +216,21 @@
    */
   PxMapGlBehavior.ScaleControlImpl = {
     properties: {
+      /**
+       * The maximum length of the scale control in pixels.
+       *
+       * @type {String}
+       */
       maxWidth: {
         type: String,
         default: "150"
       },
+
+      /**
+       * Unit of the distance ( 'imperial' ,  'metric' or  'nautical' ).
+       *
+       * @type {String}
+       */
       unit: {
         type: String,
         default: "metric"
@@ -206,6 +258,15 @@
    */
   PxMapGlBehavior.AttributionControlImpl = {
     properties: {
+      /**
+       * If  true force a compact attribution that shows the full attribution on
+       * mouse hover, or if  false force the
+       * full attribution control. The default is a
+       * responsive attribution that collapses when the map is less than 640
+       * pixels wide.
+       *
+       * @type {Boolean}
+       */
       compact: {
         type: Boolean
       }

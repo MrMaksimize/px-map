@@ -1,12 +1,12 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    *
@@ -15,27 +15,29 @@
   PxMapGlBehavior.VectorSourceImpl = {
     properties: {
       /**
-       * An object formatted as a GeoJSON FeatureCollection with one or many Features.
-       * Each feature can be formatted as any valid GeoJSON geometry type: Point,
-       * LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon,
-       * or GeometryCollection. See the [GeoJSON spec](http://geojson.org/geojson-spec.html)
-       * for guidance on generating valid GeoJSON.
+       * A URL to a TileJSON resource.
+       * Supported protocols are http:, https:, and mapbox://<mapid>.
        *
-       * Each feature should contain a `properties` object that can hold metadata
-       * about the feature. Optionally, the feature's `properties.style` can be
-       * set to an object that will be used to style the feature when it is drawn.
-       * Styles set in a feature's `properties.style` will override the styles
-       * set in the `featureStyle` attribute. See the `featureStyle` attribute
-       * documentation for a list of available style options.
-       *
-       * @type {Object}
+       * @type {String}
        */
       url: {
         type: String
       },
+
+      /**
+       * An array of one or more tile source URLs, as in the TileJSON spec.
+       *
+       * @type {Array}
+       */
       tiles: {
         type: Array
       },
+
+      /**
+       * Unique id of this source.
+       *
+       * @type {String}
+       */
       id: {
         type: String
       }
@@ -45,7 +47,7 @@
     // extends the layer `addInst` method to harvest and fire events
     addInst(parent) {
       PxMapGlBehavior.SourceImpl.addInst.call(this, parent);
-   },
+    },
 
     createInst(options) {
       return {
@@ -72,7 +74,7 @@
       const options = PxMapGlBehavior.SourceImpl.getInstOptions.call(this);
       options.url = this.url;
       options.tiles = this.tiles;
-      options.type = 'vector';
+      options.type = "vector";
       return options;
     }
   };

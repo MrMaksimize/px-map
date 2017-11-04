@@ -1,12 +1,12 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    *
@@ -41,22 +41,23 @@
      * @param {Boolean} isReady - If `true` instance parent will be notified
      * @return {Boolean} - If `true` the parent was notified
      */
-    notifyInstReady(isReady=true) {
+    notifyInstReady(isReady = true) {
       if (!isReady) return false;
-      this.fire('px-map-gl-gl-element-ready-to-add');
+      this.fire("px-map-gl-gl-element-ready-to-add");
       return true;
     },
 
     shouldAddInst() {
       // Create the instance, if it doesn't already exist
       if (!this.elementInst) {
-        const options = this.__initialOptions = this.getInstOptions();
+        const options = (this.__initialOptions = this.getInstOptions());
         this.elementInst = this.createInst(options);
-        this.fire('px-map-gl-element-instance-created');
+        this.fire("px-map-gl-element-instance-created");
       }
 
-      this.__instEvents = (this.__instEvents || []);
-      this.__instEventsElementsMap = (this.__instEventsElementsMap || new WeakMap());
+      this.__instEvents = this.__instEvents || [];
+      this.__instEventsElementsMap =
+        this.__instEventsElementsMap || new WeakMap();
     },
 
     shouldRemoveInst() {
@@ -67,22 +68,19 @@
 
     // Simple observer trigger for dynamic properties that should be synced
     // to the instance
-
     shouldUpdateInst() {
       if (!this.elementInst && this.__elAttached && this.canAddInst()) {
         this.notifyInstReady(this.canAddInst());
       }
       if (!this.elementInst) return;
 
-
       const lastOptions = this.__lastOptions || this.__initialOptions;
       const nextOptions = this.getInstOptions();
 
       // Only root element doesn't pass parent
-      if (this.is !== 'px-map-gl') {
+      if (this.is !== "px-map-gl") {
         this.updateInst(lastOptions, nextOptions, this.parentNode);
-      }
-      else {
+      } else {
         this.updateInst(lastOptions, nextOptions);
       }
 
@@ -94,29 +92,32 @@
     // Should be implemented by behaviors/components that extend...
 
     createInst() {
-      throw new Error('The `createInst` method must be implemented.')
+      throw new Error("The `createInst` method must be implemented.");
     },
 
     updateInst() {
-      throw new Error('The `updateInst` method must be implemented.')
+      throw new Error("The `updateInst` method must be implemented.");
     },
 
     getInstOptions() {
-      throw new Error('The `getInstOptions` method must be implemented.')
+      throw new Error("The `getInstOptions` method must be implemented.");
     },
 
     addInst() {
-      throw new Error('The `bindInst` method must be implemented.')
+      throw new Error("The `bindInst` method must be implemented.");
     },
 
     removeInst() {
-      throw new Error('The `unbindInst` method must be implemented.')
+      throw new Error("The `unbindInst` method must be implemented.");
     },
 
     // Helper methods
 
     extendObj(obj, ...properties) {
-      if (!obj || !(obj instanceof Object)) throw new Error('The first parameter of `extendObj` must be an object to be mutated.');
+      if (!obj || !(obj instanceof Object))
+        throw new Error(
+          "The first parameter of `extendObj` must be an object to be mutated."
+        );
       if (properties.length) {
         Object.assign(obj, ...properties);
       }
@@ -126,14 +127,14 @@
     addProperties(...properties) {
       this.properties = this.properties || {};
       if (properties.length) {
-        this.extend(this.properties, ...properties)
+        this.extend(this.properties, ...properties);
       }
       return this.properties;
     },
 
     // TODO - rethink this.
     bindEvents(evts, target, target_layer) {
-      if ((typeof evts !== 'object') || !Object.keys(evts).length) return;
+      if (typeof evts !== "object" || !Object.keys(evts).length) return;
 
       const el = target || this.elementInst;
       const layer = target_layer || undefined;
@@ -143,11 +144,9 @@
       const boundEvtEls = this.__instEventsElementsMap;
 
       for (let evtName in evts) {
-        let evtReference = {name: evtName, fn: evts[evtName]};
-        if (layer === undefined)
-          el.on(evtReference.name, evtReference.fn);
-        else
-          el.on(evtReference.name, layer, evtReference.fn);
+        let evtReference = { name: evtName, fn: evts[evtName] };
+        if (layer === undefined) el.on(evtReference.name, evtReference.fn);
+        else el.on(evtReference.name, layer, evtReference.fn);
 
         boundEvts.push(evtReference);
         boundEvtEls.set(evtReference, el);
@@ -162,7 +161,7 @@
         let el = boundEvtEls.get(evt);
         if (!el || !el.off) continue;
 
-        let {name, fn} = evt;
+        let { name, fn } = evt;
         el.off(name, fn);
 
         boundEvtEls.delete(evt);
@@ -189,7 +188,7 @@
      * @return {String} A list of CSS classes separated by spaces
      */
     getShadyScope() {
-      return 'style-scope px-map-gl-gl';
+      return "style-scope px-map-gl-gl";
     }
   };
   /* Bind Element behavior */
