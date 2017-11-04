@@ -1,49 +1,45 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    * @polymerBehavior PxMapGlBehavior.Control
    */
   PxMapGlBehavior.ControlImpl = {
-
     properties: {
       position: {
         type: String,
-        value: 'top-right',
+        value: "top-right"
       }
     },
-
 
     attached() {
       this.notifyInstReady(this.canAddInst());
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-gl-root-load', 'shouldAddInst');
+      this.listen(this.parentNode, "px-map-gl-root-load", "shouldAddInst");
     },
 
     // When this element is detached from the DOM, its elementInst should be
     // removed from the parent
-
     detached() {
       this.shouldRemoveInst();
     },
 
     // Extends the `Element` behavior lifecycle methods to include adding the
     // instance to its parent
-
     shouldAddInst(evt) {
       const parent = evt.detail;
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
       if (this.elementInst && parent) {
         this.addInst(parent);
-      };
+      }
     },
 
     shouldRemoveInst(parent) {
@@ -51,7 +47,7 @@
 
       if (this.elementInst) {
         this.removeInst(parent ? parent : undefined);
-      };
+      }
     },
 
     // Methods to bind to/unbind from parent
@@ -90,7 +86,6 @@
     PxMapGlBehavior.ControlImpl
   ];
 
-
   /**
    * @polymerBehavior PxMapGlBehavior.NavControl
    */
@@ -101,18 +96,17 @@
     getInstOptions() {
       return {
         position: this.position
-      }
+      };
     }
-  }
+  };
 
   PxMapGlBehavior.NavControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.NavControlImpl
   ];
 
-
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.FullScreenControl
    */
   PxMapGlBehavior.FullScreenControlImpl = {
     createInst(options) {
@@ -121,19 +115,17 @@
     getInstOptions() {
       return {
         position: this.position
-      }
+      };
     }
-  }
+  };
 
   PxMapGlBehavior.FullScreenControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.FullScreenControlImpl
   ];
 
-
-
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.GeolocateControl
    */
   PxMapGlBehavior.GeolocateControlImpl = {
     properties: {
@@ -145,7 +137,8 @@
         type: Number,
         default: 6000
       },
-      // TODO -- these should be reactive.  But later.
+
+      // TODO -- these should be reactive
       disableTrackUserLoc: {
         type: Boolean,
         default: false
@@ -154,7 +147,6 @@
         type: Boolean,
         default: false
       }
-
     },
     createInst(options) {
       return new mapboxgl.GeolocateControl(options);
@@ -164,34 +156,33 @@
       return {
         position: this.position,
         positionOptions: {
-            enableHighAccuracy: this.enableHighAccuracy,
-            timeout: this.timeout
+          enableHighAccuracy: this.enableHighAccuracy,
+          timeout: this.timeout
         },
         trackUserLocation: !this.disableTrackUserLoc,
         showUserLocation: !this.disableShowUserLoc
-      }
+      };
     }
-  }
+  };
 
   PxMapGlBehavior.GeolocateControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.GeolocateControlImpl
   ];
 
-
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.ScaleControl
    */
   PxMapGlBehavior.ScaleControlImpl = {
     properties: {
-        maxWidth: {
-          type: String,
-          default: '150'
-        },
-        unit: {
-          type: String,
-          default: 'metric'
-        }
+      maxWidth: {
+        type: String,
+        default: "150"
+      },
+      unit: {
+        type: String,
+        default: "metric"
+      }
     },
     createInst(options) {
       return new mapboxgl.ScaleControl(options);
@@ -201,24 +192,23 @@
         position: this.position,
         maxWidth: this.maxWidth,
         unit: this.unit
-      }
+      };
     }
-  }
+  };
 
   PxMapGlBehavior.ScaleControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.ScaleControlImpl
   ];
 
-
   /**
-   * @polymerBehavior PxMapGlBehavior.Layer
+   * @polymerBehavior PxMapGlBehavior.AttributionControl
    */
   PxMapGlBehavior.AttributionControlImpl = {
     properties: {
-        compact: {
-          type: Boolean,
-        }
+      compact: {
+        type: Boolean
+      }
     },
     createInst(options) {
       return new mapboxgl.AttributionControl(options);
@@ -227,15 +217,12 @@
       return {
         position: this.position,
         compact: this.compact
-      }
+      };
     }
-  }
+  };
 
   PxMapGlBehavior.AttributionControl = [
     PxMapGlBehavior.Control,
     PxMapGlBehavior.AttributionControlImpl
   ];
-
-
-
 })();
