@@ -1,12 +1,12 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    *
@@ -19,56 +19,141 @@
 
     // Properties defined here are shared across all layer types
     properties: {
+      /**
+       * Unique id of this layer
+       *
+       * @type {String}
+       */
       id: {
         type: String
       },
+
+      /**
+       * Type of layer
+       * One of "fill", "line", "symbol", "circle",
+       * "heatmap", "fill-extrusion", "raster", "background".
+       * "fill": A filled polygon with an optional stroked border.
+       *
+       * "line": A stroked line.
+       *
+       * "symbol": An icon or a text label.
+       *
+       * "circle": A filled circle.
+       *
+       * "heatmap": A heatmap.
+       *
+       * "fill-extrusion": An extruded (3D) polygon.
+       *
+       * "raster": Raster map textures such as satellite imagery.
+       *
+       * "background": The background color or pattern of the map.
+       *
+       * @type {String}
+       */
+      layerType: {
+        type: String
+      },
+
+      /**
+       * Name of a source description to be used for this layer.
+       * Required for all layer types except background.
+       *
+       * @type {String}
+       */
       source: {
         type: String
       },
+
+      /**
+       * Layer to use from a vector tile source.
+       * Required for vector tile sources; prohibited for all other source types,
+       * including GeoJSON sources.
+       *
+       * @type {String}
+       */
       sourceLayer: {
         type: String,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
+
+      /**
+       * Whether the layer is visible or not.
+       * One of "visible" or "none"
+       *
+       * @type {String}
+       */
       visibility: {
         type: String,
-        value: 'visible',
-        observer: 'shouldUpdateInst'
+        value: "visible",
+        observer: "shouldUpdateInst"
       },
+
+      /**
+       * Layout properties for the layer
+       *
+       * @type {Object}
+       */
       layout: {
         type: Object,
-        value: function() { return {} },
-        observer: 'shouldUpdateInst'
+        value: function() {
+          return {};
+        }
       },
+
+      /**
+       * Paint properties for the layer
+       *
+       * @type {Object}
+       */
       paint: {
         type: Object,
-        value: function() { return {} },
-        observer: 'shouldUpdateInst'
+        value: function() {
+          return {};
+        }
       },
+
+      /**
+       * The minimum zoom level on which the layer gets parsed and appears on.
+       *
+       * @type {Number}
+       */
       minZoomVisible: {
         type: Number,
         value: 0,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
+
+      /**
+       * The maximum zoom level on which the layer gets parsed and appears on.
+       *
+       * @type {Number}
+       */
       maxZoomVisible: {
         type: Number,
         value: 22,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
+
+      /**
+       * Paint properties for the layer
+       * A expression specifying conditions on source features.
+       * Only features that match the filter are displayed.
+       * https://www.mapbox.com/mapbox-gl-js/style-spec/#other-filter
+       *
+       * @type {Array}
+       */
       filter: {
         type: Array,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       }
     },
     // Observer to catch sub-property changes on paint and layout.
-    observers: [
-      'shouldUpdateInstComplex(paint.*, layout.*)'
-    ],
+    observers: ["shouldUpdateInstComplex(paint.*, layout.*)"],
     attached() {
       this.notifyInstReady(this.canAddInst());
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-gl-root-load', 'shouldAddInst');
-      this.listen(this.parentNode, 'px-map-gl-root-styledata', 'shouldAddInst');
+      this.listen(this.parentNode, "px-map-gl-root-load", "shouldAddInst");
+      this.listen(this.parentNode, "px-map-gl-root-styledata", "shouldAddInst");
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -82,9 +167,13 @@
     // instance to its parent
 
     shouldUpdateInstComplex(paint, layout) {
-      this.debounce('shouldUpdateInstDebounce', function() {
-        PxMapGlBehavior.ElementImpl.shouldUpdateInst.call(this, parent);
-      }, 250);
+      this.debounce(
+        "shouldUpdateInstDebounce",
+        function() {
+          PxMapGlBehavior.ElementImpl.shouldUpdateInst.call(this, parent);
+        },
+        250
+      );
     },
 
     shouldAddInst(evt) {
@@ -92,9 +181,13 @@
       const parent = evt.detail;
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent && parent.elementInst.getLayer(this.id) == undefined) {
+      if (
+        this.elementInst &&
+        parent &&
+        parent.elementInst.getLayer(this.id) == undefined
+      ) {
         this.addInst(parent);
-      };
+      }
     },
 
     shouldRemoveInst(parent) {
@@ -102,12 +195,18 @@
 
       if (this.elementInst) {
         this.removeInst(parent ? parent : undefined);
-      };
+      }
+    },
+
+    createInst(options) {
+      const layerInst = options;
+      return layerInst;
     },
 
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
+      console.log(this.elementInst);
       parent.elementInst.addLayer(this.elementInst);
 
       // Bind Events
@@ -115,12 +214,16 @@
        * When an event is triggered, it's going to be broadast out to the children
        * or popups.  It's also going to be broadcast up to any listeners
        */
-      this.bindEvents({
-        'click': this._broadcastEvent.bind(this),
-        'dblclick': this._broadcastEvent.bind(this),
-        'mouseenter': this._broadcastEvent.bind(this),
-        'mouseleave': this._broadcastEvent.bind(this)
-      }, parent.elementInst, this.id);
+      this.bindEvents(
+        {
+          click: this._broadcastEvent.bind(this),
+          dblclick: this._broadcastEvent.bind(this),
+          mouseenter: this._broadcastEvent.bind(this),
+          mouseleave: this._broadcastEvent.bind(this)
+        },
+        parent.elementInst,
+        this.id
+      );
     },
 
     removeInst(parent) {
@@ -128,26 +231,34 @@
       this.elementInst.remove();
     },
 
-
     updateInst(lastOptions, nextOptions, parent) {
-
-      console.log(nextOptions);
       // Set Layout Props.
       for (var lpKey in nextOptions.layout) {
-          parent.elementInst.setLayoutProperty(this.id, lpKey, nextOptions.layout[lpKey]);
+        parent.elementInst.setLayoutProperty(
+          this.id,
+          lpKey,
+          nextOptions.layout[lpKey]
+        );
       }
 
       // Set Paint Props.
       for (var pKey in nextOptions.paint) {
-          parent.elementInst.setPaintProperty(this.id, pKey, nextOptions.paint[pKey]);
+        parent.elementInst.setPaintProperty(
+          this.id,
+          pKey,
+          nextOptions.paint[pKey]
+        );
       }
 
       // Set Zoom Range.
-      parent.elementInst.setLayerZoomRange(this.id, nextOptions.minzoom, nextOptions.maxzoom);
+      parent.elementInst.setLayerZoomRange(
+        this.id,
+        nextOptions.minzoom,
+        nextOptions.maxzoom
+      );
 
       // Set Filters
       parent.elementInst.setFilter(this.id, nextOptions.filter);
-
     },
 
     _broadcastEvent(e) {
@@ -157,19 +268,18 @@
         emitter: this, // TBD - may not be neededed because.feature has layer.
         event: e
       };
-      const eventName = 'px-map-gl-layer-' + e.type;
+      const eventName = "px-map-gl-layer-" + e.type;
+      console.log(eventName);
       this.fire(eventName, detail);
     },
 
     _switchPointer(e) {
-      if (e.type === 'mouseenter') {
-        e.target.getCanvas().style.cursor = 'pointer';
-      }
-      else {
-        e.target.getCanvas().style.cursor = '';
+      if (e.type === "mouseenter") {
+        e.target.getCanvas().style.cursor = "pointer";
+      } else {
+        e.target.getCanvas().style.cursor = "";
       }
     },
-
 
     /**
      * Some element instances may require a minimum number of defined options
@@ -194,6 +304,7 @@
     getInstOptions() {
       const options = {
         id: this.id,
+        type: this.layerType,
         source: this.source,
         minzoom: this.minZoomVisible,
         maxzoom: this.maxZoomVisible,
@@ -203,20 +314,15 @@
 
       options.layout.visibility = this.visibility;
 
-      if (this.sourceLayer)
-        options['source-layer'] = this.sourceLayer
+      if (this.sourceLayer) options["source-layer"] = this.sourceLayer;
 
       if (this.filter && Array.isArray(this.filter))
-        options['filter'] = this.filter
+        options["filter"] = this.filter;
 
       return options;
     }
   };
   /* Bind Layer behavior */
   /** @polymerBehavior */
-  PxMapGlBehavior.Layer = [
-    PxMapGlBehavior.Element,
-    PxMapGlBehavior.LayerImpl
-  ];
-
+  PxMapGlBehavior.Layer = [PxMapGlBehavior.Element, PxMapGlBehavior.LayerImpl];
 })();

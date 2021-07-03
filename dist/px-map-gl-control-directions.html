@@ -3,24 +3,30 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../../polymer/polymer.html"/>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.css' type='text/css' />
+
 
 <!-- Load required PxMapGlBehaviors -->
-<link rel="import" href="px-map-gl-behavior-control.html">
+<link rel="import" href="px-map-gl-behavior-control-directions.html">
 
 <!--
+
 ### Description
 ### Usage
 #### Styling features
 #### Displaying feature properties
 
-@element px-map-gl-control-geolocate
-@blurb Adds Geolocate Control.
+@element px-map-gl-control-directions
+@blurb Adds Directions Control.
 @homepage index.html
 @demo index.html
+
 -->
 
-<dom-module id="px-map-gl-control-geolocate">
+<dom-module id="px-map-gl-control-directions">
   <style>
     :host { display: none }
   </style>
@@ -28,7 +34,7 @@
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-control-geolocate',
-    behaviors: [PxMapGlBehavior.GeolocateControl]
+    is: 'px-map-gl-control-directions',
+    behaviors: [PxMapGlBehavior.DirectionsControl]
   });
 </script>

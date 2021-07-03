@@ -14,7 +14,7 @@
 <!-- Imports for this component -->
 <link rel="import" href="../px-map-gl.html" />
 <link rel="import" href="../px-map-gl-source-geojson.html" />
-<link rel="import" href="../px-map-gl-layer-fill-extrusion.html" />
+<link rel="import" href="../px-map-gl-layer.html" />
 <link rel="import" href="../px-map-gl-control-nav.html" />
 <link rel="import" href="../px-map-gl-control-fullscreen.html" />
 <link rel="import" href="../px-map-gl-control-scale.html" />
@@ -46,6 +46,7 @@
       <div style="height:600px;width:850px;display:flex">
           <px-map-gl zoom="{{ props.zoom.value}}"
                 bearing="{{ props.bearing.value }}"
+                disable-map-hash
                 pitch="{{ props.pitch.value }}"
                 flex-to-size="{{props.flexToSize.value}}"
                 disable-interaction="{{props.disableInteraction.value}}"
@@ -70,20 +71,29 @@
                 position="bottom-left">
             </px-map-gl-control-geolocate>
 
-            <px-map-gl-layer-fill-extrusion
+            <px-map-gl-layer
               id="buildings-3d"
+              layer-type="fill-extrusion"
               source="composite"
               source-layer="building"
               filter='["==", "extrude", "true"]'
-              fill-extrusion-color="#aaa"
-              fill-extrusion-height='{"type": "identity", "property": "height"}'
-              fill-extrusion-base='{"type": "identity", "property": "min_height"}'
-              fill-extrusion-opacity="0.6"
-              active-feature="{{ activeFeature }}">
+              paint='{
+                "fill-extrusion-color": "#aaa",
+                "fill-extrusion-height": {
+                    "type": "identity",
+                    "property": "height"
+                },
+                "fill-extrusion-base": {
+                    "type": "identity",
+                    "property": "min_height"
+                },
+                "fill-extrusion-opacity": 0.6
+              }'>
+
                 <!--<px-map-gl-popup-template>
                     <h1>{{ data.title }}</h1>
                 </px-map-gl-popup-template>-->
-            </px-map-gl-layer-symbol>
+            </px-map-gl-layer>
         </px-map-gl>
       </div>
     </px-demo-component>
@@ -92,7 +102,7 @@
     <px-demo-component-snippet
         element-properties="{{props}}"
         element-name="px-map-gl"
-        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html","px-map-gl/px-map-gl-layer-symbol.html"]'>
+        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html","px-map-gl/px-map-gl-layer.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
@@ -102,7 +112,7 @@
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
   <px-demo-api-viewer
-    source="px-map-gl-layer-symbol"
+    source="px-map-gl-layer"
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
 

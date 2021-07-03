@@ -3,10 +3,10 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../../polymer/polymer.html"/>
 
 <!-- Load required PxMapGlBehaviors -->
-<link rel="import" href="px-map-gl-behavior-source-vector.html">
+<link rel="import" href="px-map-gl-behavior-control.html">
 
 <!--
 ### Description
@@ -14,22 +14,21 @@
 #### Styling features
 #### Displaying feature properties
 
-@element px-map-gl-source-vector
-@blurb Adds Vector source
+@element px-map-gl-control-attribution
+@blurb Adds Attribution Control.
 @homepage index.html
 @demo index.html
 -->
 
-<dom-module id="px-map-gl-source-vector">
-  <template>
-    <style>
-        :host { display: none }
-    </style>
-  </template>
+<dom-module id="px-map-gl-control-attribution">
+  <style>
+    :host { display: none }
+  </style>
+  <template></template>
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-source-vector',
-    behaviors: [PxMapGlBehavior.VectorSource]
+    is: 'px-map-gl-control-attribution',
+    behaviors: [PxMapGlBehavior.AttributionControl]
   });
 </script>

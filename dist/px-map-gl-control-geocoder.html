@@ -3,12 +3,25 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../../polymer/polymer.html"/>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css' rel='stylesheet' />
 
 <!-- Load required PxMapGlBehaviors -->
-<link rel="import" href="px-map-gl-behavior-layer-fill-extrusion.html">
+<link rel="import" href="px-map-gl-behavior-control-geocoder.html">
 
 <!--
+### Description
+### Usage
+#### Styling features
+#### Displaying feature properties
+
+@element px-map-gl-control-geocoder
+@blurb Adds Geocoder Control.
+@homepage index.html
+@demo index.html
+
 This subcomponent draws GeoJSON features as vectors on the map. Use it to draw
 common shapes like points, lines, polygons, circles, and rectangles (see the
 `data` attribute documentation for more info on what can be drawn).
@@ -43,7 +56,7 @@ about each feature.
 @demo index.html
 -->
 
-<dom-module id="px-map-gl-layer-fill-extrusion">
+<dom-module id="px-map-gl-control-geocoder.html">
   <style>
     :host { display: none }
   </style>
@@ -51,7 +64,7 @@ about each feature.
 </dom-module>
 <script>
   Polymer({
-    is: 'px-map-gl-layer-fill-extrusion',
-    behaviors: [PxMapGlBehavior.FillExtrusionLayer]
+    is: 'px-map-gl-control-geocoder',
+    behaviors: [PxMapGlBehavior.GeocoderControl]
   });
 </script>

@@ -1,32 +1,19 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    *
-   * @polymerBehavior PxMapGlBehavior.LeafletRoot
+   * @polymerBehavior PxMapGlBehavior.MglRoot
    */
-  PxMapGlBehavior.MglRootImpl= {
+  PxMapGlBehavior.MglRootImpl = {
     properties: {
-      /**
-       * The coordinate reference system to use when projecting geographic points
-       * into pixel coordinates. Can only be set once before the map is first
-       * initialized. If you don't know what this is, do not set it and the map
-       * will revert to the most common web mapping projection (EPSG3857).
-       *
-       * @type {L.CRS}
-       */
-      crs: {
-        type: Object
-        // TODO - project events
-      },
-
       /**
        * Style
        *
@@ -34,9 +21,9 @@
        */
       style: {
         type: String,
-        value: 'mapbox://styles/mapbox/dark-v9',
+        value: "mapbox://styles/mapbox/dark-v9",
         notify: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -49,9 +36,8 @@
        */
       mglToken: {
         type: String,
-        value: ''
+        value: ""
       },
-
 
       /**
        * The latitude of the active map center. Can be used to set or update
@@ -64,8 +50,7 @@
         type: Number,
         value: 37.7672375,
         notify: true,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -79,8 +64,7 @@
         type: Number,
         value: -121.9584131,
         notify: true,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -94,14 +78,13 @@
         type: Number,
         value: 10,
         notify: true,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
-       * The zoom level of the active map. Can be used to set or update
-       * the zoom level of the map, or read from after the user changes the
-       * map zoom level to an updated value.
+       * The bearing (rotation) of the map, measured in degrees counter-clockwise from north.
+       * Can be used to set or update the bearing of the map, or read from after the user changes the
+       * map bearing to an updated value.
        *
        * @type {Number}
        */
@@ -109,14 +92,15 @@
         type: Number,
         value: 0,
         notify: true,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
-       * The zoom level of the active map. Can be used to set or update
-       * the zoom level of the map, or read from after the user changes the
-       * map zoom level to an updated value.
+       * The initial pitch (tilt) of the map, measured in
+       * degrees away from the plane of the screen (0-60).
+       * Can be used to set or update
+       * the pitch of the map, or read from after the user changes the
+       * map pitch to an updated value.
        *
        * @type {Number}
        */
@@ -124,27 +108,25 @@
         type: Number,
         value: 0,
         notify: true,
-        reflectToAttribute: true,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
-
       /**
-       * The maximum zoom level for the active map (the furthest the user can
+       * The maximum zoom level of the map (0-22) (the furthest the user can
        * zoom in). Setting it at the map level will take precedence over the
        * max zoom of all other layers, including tile layers. If you need to
        * set different zoom bounds based on the visible tile layer, set the
-       * max zoom directly on your tile layer.
+       * max zoom directly on layer.
        *
        * @type {Number}
        */
       maxZoom: {
         type: Number,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
-      * The minimum zoom level for the active map (the furthest the user can
+      * The minimum zoom level for the active map (0-22) (the furthest the user can
       * zoom out). Setting it at the map level will take precedence over the
       * min zoom of all other layers, including tile layers. If you need to
       * set different zoom bounds based on the visible tile layer, set the
@@ -154,7 +136,7 @@
        */
       minZoom: {
         type: Number,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -174,13 +156,20 @@
        */
       maxBounds: {
         type: Array,
-        observer: 'shouldUpdateInst'
+        value: function() {
+          return null;
+        },
+        observer: "shouldUpdateInst"
       },
 
+      /**
+       * If true, no mouse, touch, or keyboard listeners will
+       * be attached to the map, so it will not respond to interaction.
+       */
       disableInteraction: {
         type: Boolean,
         value: false,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
       /**
        * Set to disable dragging of the map with the mouse or by touch. Use to
@@ -193,7 +182,7 @@
       disableDragging: {
         type: Boolean,
         value: false,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -206,7 +195,7 @@
       disableScrollZoom: {
         type: Boolean,
         value: false,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
@@ -217,11 +206,12 @@
       disableTouchZoom: {
         type: Boolean,
         value: false,
-        observer: 'shouldUpdateInst'
+        observer: "shouldUpdateInst"
       },
 
       /**
-       * Attribution control.  TODO - rethink if this is how all controls should work.
+       * Set to disable Attribution control
+       *
        * @type {Boolean}
        */
       disableAttributionControl: {
@@ -229,11 +219,16 @@
         value: false
       },
 
+      /**
+       * Set to disable map hash
+       *
+       * @type {Boolean}
+       */
+
       disableMapHash: {
         type: Boolean,
         value: false
       },
-
 
       /**
        * Uses flexbox to set the size of the map. Set the parent container
@@ -244,20 +239,20 @@
        */
       flexToSize: {
         type: Boolean,
-        reflectToAttribute: true,
-        value: false
+        value: false,
+        reflectToAttribute: true
       }
     },
 
     attached() {
-      this.listen(this, 'px-map-gl-element-ready-to-add', 'shouldAddInst');
+      this.listen(this, "px-map-gl-element-ready-to-add", "shouldAddInst");
       if (this.canAddInst()) {
-        this.fire('px-map-gl-element-ready-to-add');
+        this.fire("px-map-gl-element-ready-to-add");
       }
     },
 
     detached() {
-      this.unlisten(this, 'px-map-gl-element-ready-to-add', 'shouldAddInst');
+      this.unlisten(this, "px-map-gl-element-ready-to-add", "shouldAddInst");
       this.shouldRemoveInst();
       this.removeInst();
     },
@@ -275,11 +270,11 @@
 
     createInst(options) {
       mapboxgl.accessToken = this.mglToken;
-      // Set the container to an element.
-      options.container = Polymer.dom(this.root).querySelector(options.container);
+      options.container = Polymer.dom(this.root).querySelector(
+        options.container
+      );
 
       const mapInst = new mapboxgl.Map(options);
-
 
       if (this.isShadyScoped()) {
         mapInst.__addShadyScope = this.scopeSubtree.bind(this);
@@ -303,11 +298,11 @@
       const zoomEndFn = this._handleZoomEnd.bind(this);
       const mapLoadedFn = this._handleMapLoaded.bind(this);
       this.bindEvents({
-        'moveend' : mapMoveFn,
-        'zoomstart' : zoomStartFn,
-        'zoomend' : zoomEndFn,
-        'load': mapLoadedFn,
-        'styledata': mapLoadedFn
+        moveend: mapMoveFn,
+        zoomstart: zoomStartFn,
+        zoomend: zoomEndFn,
+        load: mapLoadedFn,
+        styledata: mapLoadedFn
       });
     },
 
@@ -318,16 +313,13 @@
       }
     },
 
-
     getInstOptions() {
       const options = {};
 
       // Static options
-      //options.zoomControl = false;
-      options.container = '#map';
+      options.container = "#map";
 
       // Dynamic options
-      //options.crs = this.crs || L.CRS.EPSG3857;
       options.center = [this.lng, this.lat];
       options.style = this.style;
       options.zoom = this.zoom;
@@ -335,7 +327,7 @@
       options.pitch = this.pitch;
       options.minZoom = this.minZoom || 0;
       options.maxZoom = this.maxZoom || 18;
-      //options.maxBounds = this.maxBounds || undefined;
+      options.maxBounds = this.maxBounds || undefined;
 
       options.attributionControl = !this.disableAttributionControl;
 
@@ -349,36 +341,42 @@
     },
 
     updateInst(lastOptions, nextOptions) {
-      console.log('Update Inst');
-      console.log('lastOptions');
+      console.log("Update Inst");
+      console.log("lastOptions");
       console.log(lastOptions);
-      console.log('nextOptions');
+      console.log("nextOptions");
       console.log(nextOptions);
-      if ((this.latLngIsValid(nextOptions.center[0], nextOptions.center[1])) &&
-          (lastOptions.center[0] !== nextOptions.center[0] ||
+      if (
+        this.latLngIsValid(nextOptions.center[0], nextOptions.center[1]) &&
+        (lastOptions.center[0] !== nextOptions.center[0] ||
           lastOptions.center[1] !== nextOptions.center[1] ||
           lastOptions.zoom !== nextOptions.zoom ||
           lastOptions.bearing !== nextOptions.bearing ||
-          lastOptions.pitch !== nextOptions.pitch)) {
-        console.log('updateMapView');
+          lastOptions.pitch !== nextOptions.pitch)
+      ) {
         this._updateMapView();
       }
 
-
-      if (nextOptions.style != '' && lastOptions.style !== nextOptions.style) {
-        //const layer = this.elementInst.getLayer('gj-symbol-layer-one');
-        //console.log(layer);
+      if (nextOptions.style != "" && lastOptions.style !== nextOptions.style) {
         this.elementInst.setStyle(nextOptions.style);
-        //this.elementInst.addLayer(layer);
       }
 
-      if (lastOptions.maxZoom !== nextOptions.maxZoom && !isNaN(nextOptions.maxZoom)) {
+      if (
+        lastOptions.maxZoom !== nextOptions.maxZoom &&
+        !isNaN(nextOptions.maxZoom)
+      ) {
         this.elementInst.setMaxZoom(nextOptions.maxZoom);
       }
-      if (lastOptions.minZoom !== nextOptions.minZoom && !isNaN(nextOptions.minZoom)) {
+      if (
+        lastOptions.minZoom !== nextOptions.minZoom &&
+        !isNaN(nextOptions.minZoom)
+      ) {
         this.elementInst.setMinZoom(nextOptions.minZoom);
       }
-      if (lastOptions.maxBounds !== nextOptions.maxBounds && !isNaN(nextOptions.maxBounds)) {
+      if (
+        lastOptions.maxBounds !== nextOptions.maxBounds &&
+        !isNaN(nextOptions.maxBounds)
+      ) {
         this.setMaxBounds(nextOptions.maxBounds);
       }
 
@@ -433,24 +431,26 @@
     _updateMapView() {
       if (!this.elementInst) return;
 
-      this.debounce('update-map-view', function() {
-        const {lng, lat} = this.elementInst.getCenter();
+      this.debounce("update-map-view", function() {
+        const { lng, lat } = this.elementInst.getCenter();
         const zoom = this.elementInst.getZoom();
         const bearing = this.elementInst.getBearing();
         const pitch = this.elementInst.getPitch();
 
-        if (this.lat !== lat ||
-            this.lng !== lng ||
-            this.zoom !== zoom ||
-            this.bearing !== bearing ||
-            this.pitch !== pitch) {
-         this.elementInst.flyTo({
+        if (
+          this.lat !== lat ||
+          this.lng !== lng ||
+          this.zoom !== zoom ||
+          this.bearing !== bearing ||
+          this.pitch !== pitch
+        ) {
+          this.elementInst.flyTo({
             center: [this.lng, this.lat],
             zoom: this.zoom,
             pitch: this.pitch,
             bearing: this.bearing,
             speed: 1.2,
-            curve: 1.42,
+            curve: 1.42
           });
         }
       });
@@ -463,7 +463,7 @@
      * @return {Boolean}
      */
     _canBeNum(val) {
-      return (!isNaN(val) && val !== "");
+      return !isNaN(val) && val !== "";
     },
 
     /**
@@ -475,26 +475,24 @@
      * @return {Boolean}
      */
     latLngIsValid(lat, lng) {
-      var isValid = (typeof lat !== 'undefined' && this._canBeNum(lat)) && (typeof lng !== 'undefined' && this._canBeNum(lng));
+      var isValid =
+        typeof lat !== "undefined" &&
+        this._canBeNum(lat) &&
+        (typeof lng !== "undefined" && this._canBeNum(lng));
       if (isValid) return true;
       console.log(`px-map-gl CONFIGURATION ERROR:
-        You entered an invalid \`lat\` or \`lng\` attribute for ${this.is}. You must pass a valid number.`);
+        You entered an invalid \`lat\` or \`lng\` attribute for ${this
+          .is}. You must pass a valid number.`);
       return false;
     },
 
     _handleMapLoaded(e) {
       if (this.canAddInst()) {
-        this.debounce('fire-load-events', function() {
-            const ev_name = 'px-map-gl-root-' + e.type;
-            console.log('fire ' + ev_name);
-            this.fire(ev_name, this);
-        }, 1000);
-        // http://sdgo.io/2vczACj
-        // Opt 1 - notify children here
-        /*const children = this.getEffectiveChildren();
-        for (let child of children) {
-            child.fire('px-map-gl-element-loaded', this);
-        }*/
+        this.debounce("fire-load-events", function() {
+          const ev_name = "px-map-gl-root-" + e.type;
+          console.log("fire " + ev_name);
+          this.fire(ev_name, this);
+        });
       }
     },
 
@@ -511,49 +509,41 @@
         return;
       }
 
-      this.debounce('handle-map-move', function() {
-        const latLng = this.elementInst.getCenter();
-        const zoom = this.elementInst.getZoom();
-        const bounds = this.elementInst.getBounds();
-        const pitch = this.elementInst.getPitch();
-        const bearing = this.elementInst.getBearing();
+      this.debounce(
+        "handle-map-move",
+        function() {
+          const latLng = this.elementInst.getCenter();
+          const zoom = this.elementInst.getZoom();
+          const bounds = this.elementInst.getBounds();
+          const pitch = this.elementInst.getPitch();
+          const bearing = this.elementInst.getBearing();
 
-        if (this.lat !== latLng.lat || this.lng !== latLng.lng) {
-          this.set('lat', latLng.lat);
-          this.set('lng', latLng.lng);
-        }
-        if (this.zoom !== zoom) {
-          this.set('zoom', zoom);
-        }
-        if (this.bearing !== bearing) {
-          this.set('bearing', bearing);
-        }
-        if (this.pitch !== pitch) {
-          this.set('pitch', pitch);
-        }
+          if (this.lat !== latLng.lat || this.lng !== latLng.lng) {
+            this.set("lat", latLng.lat);
+            this.set("lng", latLng.lng);
+          }
+          if (this.zoom !== zoom) {
+            this.set("zoom", zoom);
+          }
+          if (this.bearing !== bearing) {
+            this.set("bearing", bearing);
+          }
+          if (this.pitch !== pitch) {
+            this.set("pitch", pitch);
+          }
 
-        this.fire('px-map-gl-moved', {
-          lat: latLng.lat,
-          lng: latLng.lng,
-          zoom: zoom,
-          bounds: bounds
-        });
-      });
+          this.fire("px-map-gl-moved", {
+            lat: latLng.lat,
+            lng: latLng.lng,
+            zoom: zoom,
+            bounds: bounds
+          });
+        },
+        1000
+      );
     },
-    /**
-     * Fired when the map's centerpoint (lat/lng) or zoom is changed by the user
-     * or programatically.
-     *
-     *   * {Object} detail - Contains the event details
-     *   * {Number} detail.lat - Latitude of the map centerpoint after moving
-     *   * {Number} detail.lng - Longitude of the map centerpoint after moving
-     *   * {Number} detail.zoom - Zoom level of the map after moving
-     *   * {L.LatLngBouds} detail.bounds - Custom Leaflet object describing the visible bounds of the map as a rectangle
-     *
-     * @event px-map-gl-moved
-     */
 
-     /**
+    /**
       * Sets an internal boolean that allows us to wait before handling any map
       * movements until the zoom animation is over.
       */
@@ -567,54 +557,10 @@
      */
     _handleZoomEnd() {
       this.__isZooming = false;
-      if (typeof this.__onZoomEnd === 'function') {
+      if (typeof this.__onZoomEnd === "function") {
         this.__onZoomEnd();
         this.__onZoomEnd = null;
       }
-    },
-
-    /**
-     * Iterates over all markers attached to the map and returns an array of markers
-     * that are within the visible bounds. Use to discover which markers the
-     * user can currently see and change/filter the state of your app.
-     *
-     * This is an expensive operation, particularly for maps with many markers
-     * (e.g. in a marker group). Only call it when necessary.
-     *
-     * To get continuous updates on which markers are visible, attach a
-     * `px-map-gl-moved` event listener to this element and call this method
-     * after each moved event.
-     *
-     * @return {Array}
-     */
-    getVisibleMarkers() {
-      const mapBounds = this.elementInst.getBounds();
-      let markers = [];
-
-      // Loop over the layers
-      this.elementInst.eachLayer((layer) => {
-        // Most markers should have an `isMarker` static property defined as `true`
-        // and a `getLatLng` method
-        if (layer.isMarker && layer.getLatLng) {
-          // Only push markers that are visible
-          if (mapBounds.contains(layer.getLatLng()) && markers.indexOf(layer) === -1) {
-            markers.push(layer);
-          }
-        }
-
-        // Marker clusters have a `_markerCluster` key
-        if (layer._markerCluster) {
-          layer.eachLayer((marker) => {
-            // Only push markers that are visible
-            let parentCluster = layer.getVisibleParent(marker);
-            if (parentCluster && mapBounds.contains(parentCluster.getLatLng()) && marker && markers.indexOf(marker) === -1) {
-              markers.push(marker);
-            }
-          })
-        }
-      });
-
-      return markers;
     }
   };
   /* Bind Popup behavior */

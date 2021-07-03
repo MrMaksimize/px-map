@@ -15,14 +15,13 @@
 <!-- Imports for this component -->
 <link rel="import" href="../px-map-gl.html" />
 <link rel="import" href="../px-map-gl-source-geojson.html" />
-<link rel="import" href="../px-map-gl-layer-symbol.html" />
+<link rel="import" href="../px-map-gl-layer.html" />
 <link rel="import" href="../px-map-gl-control-nav.html" />
 <link rel="import" href="../px-map-gl-control-fullscreen.html" />
 <link rel="import" href="../px-map-gl-control-scale.html" />
 <link rel="import" href="../px-map-gl-control-geolocate.html" />
 <link rel="import" href="../px-map-gl-control-geocoder.html" />
 <link rel="import" href="../px-map-gl-control-directions.html" />
-<link rel="import" href="../px-map-gl-popup-debug.html" />
 
 <!-- Demo DOM module -->
 <dom-module id="px-map-gl-geojson-demo">
@@ -52,6 +51,7 @@
       <div style="height:600px;width:850px;display:flex">
           <px-map-gl zoom="{{ props.zoom.value}}"
                 bearing="{{ props.bearing.value }}"
+                disable-map-hash
                 pitch="{{ props.pitch.value }}"
                 flex-to-size="{{props.flexToSize.value}}"
                 disable-interaction="{{props.disableInteraction.value}}"
@@ -60,44 +60,14 @@
                 lat="{{ props.lat.value }}"
                 lng="{{ props.lng.value }}">
 
-            <px-map-gl-control-nav
-                position="top-left">
-            </px-map-gl-control-nav>
-
-            <px-map-gl-control-fullscreen
-                position="top-right">
-            </px-map-gl-control-fullscreen>
-
-            <px-map-gl-control-scale
-                position="bottom-left">
-            </px-map-gl-control-scale>
-
-
-            <px-map-gl-control-geolocate
-                position="bottom-left">
-            </px-map-gl-control-geolocate>
-
-            <!--<px-map-gl-control-geocoder
-                position="top-right"
-                mgl-token="{{ props.mglToken.value }}">
-            </px-map-gl-control-geocoder>-->
-
-
-            <px-map-gl-control-directions
-                position="top-right"
-                mgl-token="{{ props.mglToken.value }}">
-            </px-map-gl-control-directions>
-
             <px-map-gl-source-geojson
               id="gjsource"
               data="{{props.data.value}}">
             </px-map-gl-source-geojson>
 
-            <px-map-gl-layer-symbol
+            <px-map-gl-layer
               id="gj-symbol-layer-one"
-              icon-image="music-15"
-              icon-size="2"
-              active-feature="{{ activeFeature }}"
+              layer-type="circle"
               source="gjsource">
 
               <px-map-gl-popup-debug
@@ -105,7 +75,7 @@
                 title="popupData.activeFeatureProperties elements"
                 description="See full popupData in Console">
               </px-map-gl-popup-debug>
-            </px-map-gl-layer-symbol>
+            </px-map-gl-layer>
 
 
         </px-map-gl>
@@ -116,7 +86,8 @@
     <px-demo-component-snippet
         element-properties="{{props}}"
         element-name="px-map-gl"
-        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html","px-map-gl/px-map-gl-layer-symbol.html"]'>
+        links-includes='["px-map-gl/px-map-gl.html","px-map-gl/px-map-gl-source-geojson.html", "px-map-gl/px-map-gl-layer.html",
+        "px-map-gl/px-map-gl-layer.html"]'>
     </px-demo-component-snippet>
   </px-demo-interactive>
 
@@ -126,7 +97,7 @@
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
   <px-demo-api-viewer
-    source="px-map-gl-layer-symbol"
+    source="px-map-gl-layer"
     mark-private="[[apiMarkPrivate]]">
   </px-demo-api-viewer>
 

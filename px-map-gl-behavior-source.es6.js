@@ -1,12 +1,12 @@
 (function() {
-  'use strict';
+  "use strict";
 
   /****************************************************************************
    * BEHAVIORS
    ****************************************************************************/
 
   /* Ensures the behavior namespace is created */
-  window.PxMapGlBehavior = (window.PxMapGlBehavior || {});
+  window.PxMapGlBehavior = window.PxMapGlBehavior || {};
 
   /**
    *
@@ -14,6 +14,17 @@
    * @polymerBehavior PxMapGlBehavior.Layer
    */
   PxMapGlBehavior.SourceImpl = {
+    properties: {
+      /**
+       * Unique id of this source.
+       *
+       * @type {String}
+       */
+      id: {
+        type: String
+      }
+    },
+
     // When this element is attached to the DOM, fire an event to notify
     // a parent that it is ready
 
@@ -21,8 +32,8 @@
       this.notifyInstReady(this.canAddInst());
       //this.listen(this, 'px-map-gl-element-loaded', 'shouldAddInst');
       // http://sdgo.io/2vczACj
-      this.listen(this.parentNode, 'px-map-gl-root-load', 'shouldAddInst');
-      this.listen(this.parentNode, 'px-map-gl-root-styledata', 'shouldAddInst');
+      this.listen(this.parentNode, "px-map-gl-root-load", "shouldAddInst");
+      this.listen(this.parentNode, "px-map-gl-root-styledata", "shouldAddInst");
     },
 
     // When this element is detached from the DOM, its elementInst should be
@@ -39,9 +50,13 @@
       const parent = evt.detail;
       PxMapGlBehavior.ElementImpl.shouldAddInst.call(this, parent);
 
-      if (this.elementInst && parent && parent.elementInst.getSource(this.id) == undefined) {
+      if (
+        this.elementInst &&
+        parent &&
+        parent.elementInst.getSource(this.id) == undefined
+      ) {
         this.addInst(parent);
-      };
+      }
     },
 
     shouldRemoveInst(parent) {
@@ -49,22 +64,24 @@
 
       if (this.elementInst) {
         this.removeInst(parent ? parent : undefined);
-      };
+      }
     },
 
+    getInstOptions() {
+      return {
+        id: this.id
+      };
+    },
     // Methods to bind to/unbind from parent
 
     addInst(parent) {
-      const sourceInfo = {'type': this.elementInst.type}
+      const sourceInfo = { type: this.elementInst.type };
       // TODO fix this.
-      if (this.elementInst.data)
-        sourceInfo.data = this.elementInst.data;
+      if (this.elementInst.data) sourceInfo.data = this.elementInst.data;
 
-      if (this.elementInst.tiles)
-        sourceInfo.tiles = this.elementInst.tiles;
+      if (this.elementInst.tiles) sourceInfo.tiles = this.elementInst.tiles;
 
-      if (this.elementInst.url)
-        sourceInfo.url = this.elementInst.url;
+      if (this.elementInst.url) sourceInfo.url = this.elementInst.url;
 
       // TODO - timing issue here with style loading.
       parent.elementInst.addSource(this.elementInst.id, sourceInfo);
